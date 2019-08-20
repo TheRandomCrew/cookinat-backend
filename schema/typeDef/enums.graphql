@@ -1,0 +1,44 @@
+enum PayMethod { 
+    CASH
+    CARD
+    BANK
+    APPLE_PAY
+    GOOGLE_PAY
+    OTHER
+}
+
+enum PayStatus {
+    CANCELLED
+    ISSUED
+    PROCESSING
+    PROCESSED
+    REVISION
+}
+
+enum ClaimStatus {
+    PENDING
+    OPEN
+    CLOSED
+}
+
+enum ReservationStatus {
+    CANCELLED
+    PROPOSED
+    POSTPONED
+    APPROVED
+    DECLINED
+    PENDING
+    COOK
+    READY
+    WAITING
+    CLOSED
+}
+
+enum Stars {
+    ZERO
+    ONE
+    TWO
+    THREE
+    FOUR
+    FIVE
+}

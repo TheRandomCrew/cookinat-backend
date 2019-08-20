@@ -1,0 +1,73 @@
+# Special kind of user that can cook and ussually yells to coworkers but act lavishly with diners
+type Cook implements User  {
+	user_id: ID
+	cook_id: ID
+    first_name: String
+    last_name: String
+	email: String
+    phone_number: String
+    last_payment_method: String
+    last_payoff_method: String
+	is_cook_locked: Boolean
+	ssn: String
+	certification_photo: String
+    # URL to profile
+	instagram: String
+    # Preformated string with markdown format
+	bio: String
+    # URL to youtube or vimeo video
+	video: String
+    monday: String
+    tuesday: String
+	wednesday: String
+    thursday: String
+    friday: String
+    saturday: String
+    sunday: String
+    work_holidays: Boolean
+    nickname: String
+    # URL to image
+    avatar: String
+    push: Boolean
+    email_notification: Boolean
+    sms_notification: Boolean
+    updates_notification: Boolean
+	created_at: String
+	updated_at: String
+}
+
+type Query {
+	cook(cook_id:ID!):Cook
+	cooks:[Cook]
+}
+
+type Mutation {
+	cookUpdate(input:CookUpdate!):Cook
+}
+
+input CookUpdate {
+	email: String
+	password: String
+	first_name: String
+    last_name: String
+    phone_number: String
+	ssn: String
+	certification_photo: String
+	instagram: String
+	bio: String
+	video: String
+    monday: String
+    tuesday: String
+	wednesday: String
+    thursday: String
+    friday: String
+    saturday: String
+    sunday: String
+    work_holidays: Boolean
+    nickname: String
+    avatar: String
+    push: Boolean
+    email_notification: Boolean
+    sms_notification: Boolean
+    updates_notification: Boolean
+}

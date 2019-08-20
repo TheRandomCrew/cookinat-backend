@@ -1,0 +1,44 @@
+# Special kind of user that always want the dish ASAP. Sometimes gives a tip.
+type Diner implements User  {
+    diner_id: ID
+	user_id: ID
+    first_name: String
+    last_name: String
+	email: String
+    phone_number: String
+    last_payment_method: String
+    is_diner_locked: Boolean
+    nickname: String
+    # URL to image
+    avatar: String
+    push: Boolean
+    email_notification: Boolean
+    sms_notification: Boolean
+    updates_notification: Boolean
+    promotionals_notification: Boolean
+	created_at: String
+	updated_at: String
+}
+
+type Query {
+	diner(diner_id:ID!):[Diner]
+	diners:[Diner]
+}
+
+type Mutation {
+	dinerUpdate(input:DinerUpdate!):[Diner]
+}
+input DinerUpdate {
+	email: String
+	password: String
+	first_name: String
+    last_name: String
+    phone_number: String
+    nickname: String
+    avatar: String
+    push: Boolean
+    email_notification: Boolean
+    sms_notification: Boolean
+    updates_notification: Boolean
+    promotionals_notification: Boolean
+}

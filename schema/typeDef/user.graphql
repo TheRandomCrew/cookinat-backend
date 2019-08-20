@@ -1,0 +1,33 @@
+"""
+Search results **must** always include a summary and a
+[URL](https://en.wikipedia.org/wiki/URL) for the resource.
+"""
+interface User {
+	user_id: ID
+    first_name: String
+    last_name: String
+	email: String
+    phone_number: String
+    nickname: String
+    avatar: String
+    push: Boolean
+    email_notification: Boolean
+    sms_notification: Boolean
+    updates_notification: Boolean
+	created_at: String
+	updated_at: String
+}
+
+type Query {
+	user(user_id:ID!): [ReturnUser]
+}
+
+type ReturnUser {
+	user_id: ID!
+    first_name: String!
+    last_name: String
+	email: String!
+    phone_number: String
+	created_at: String
+	updated_at: String
+}

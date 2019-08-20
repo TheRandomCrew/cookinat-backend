@@ -1,0 +1,16 @@
+type ClaimChat {
+    claim_chat_id: ID!
+    diner_id: ID!
+    cook_id: ID!
+    reservation_id: ID!
+    # Each message is a stringified json with sender, message and other meta
+    messages: [String]
+    created_at: String
+	updated_at: String
+}
+
+type Query {
+    claimChatsByDiner(diner_id: ID!): [ClaimChat]
+    claimChatsByCook(cook_id: ID!): [ClaimChat]
+    claimChatsByReservation(reservation_id: ID!):[ClaimChat]
+}

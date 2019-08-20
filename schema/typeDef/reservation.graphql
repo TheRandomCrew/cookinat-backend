@@ -1,0 +1,42 @@
+type Reservation {
+    reservation_id:  ID!
+    diner_id:  ID!
+    cook_id: ID!
+    # Array of names, emails or better, user_id's
+    guests: [String!]
+    when: String!
+    dishes: [ID]
+    client_order: String
+    cook_comment: String
+    priority: Int
+    place: String
+    status: ReservationStatus
+    createdAt: String
+    updated_at: String
+}
+
+type Query {
+    reservations: [Reservation]
+    reservation(reservation_id:  ID!): [Reservation]
+    reservationsByDiner(diner_id:ID!):[Reservation]
+    reservationsByCook(cook_id:ID!):[Reservation]
+    reservationsByStatus(status:ReservationStatus!):[Reservation]
+}
+
+type Mutation {
+    reservationIssue(input:ReservationInput): [Reservation]
+    reservationUpdate(input:ReservationInput): [Reservation]
+}
+
+input ReservationInput {
+    diner_id:  ID!
+    cook_id: ID!
+    guests_list: String
+    when: String!
+    dishes: [ID]
+    client_order: String
+    cook_comment: String
+    priority: Int
+    place: String
+    status: ReservationStatus
+}

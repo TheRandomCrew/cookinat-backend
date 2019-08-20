@@ -1,0 +1,28 @@
+type Payment {
+    payment_id: ID!
+    receiver: ID!
+    buyer: ID!
+    comment: String
+    concept: String!
+    pay_method: PayMethod!
+    pay_status: PayStatus
+	created_at: String
+	updated_at: String
+}
+
+type Query {
+    payment(payment_id: ID!): [Payment]
+    paymentsByStatus(pay_status:PayStatus): [Payment]
+}
+
+type Mutation {
+    paymentIssue(input:PaymentIssue):[Payment]
+}
+
+input PaymentIssue {
+    receiver: ID!
+    buyer: ID!
+    comment: String
+    concept: String!
+    pay_method: PayMethod!
+}

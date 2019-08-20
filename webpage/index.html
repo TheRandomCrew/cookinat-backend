@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="https://cdn.glitch.com/ed38e511-b719-4c3a-abfd-47bc110ddac1%2Ffavicon.ico?v=1562132223718" />
+  <title>Coming Soon - Cookin At App</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- Custom fonts for this template -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i"
+    rel="stylesheet">
+  <style>
+    /*!
+ * Start Bootstrap - Coming Soon v5.0.6 (https://startbootstrap.com/template-overviews/coming-soon)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-coming-soon/blob/master/LICENSE)
+ */
+
+    html {
+      height: 100%;
+    }
+
+    body {
+      height: 100%;
+      min-height: 35rem;
+      position: relative;
+      font-family: 'Source Sans Pro';
+      font-weight: 300;
+      background: rgb(255,50,70);
+      /*background: linear-gradient(45deg, rgba(255,50,70,1) 0%, rgba(255,95,95,1) 100%);*/
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'Merriweather';
+      font-weight: 700;
+    }
+
+    video {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      -webkit-transform: translateX(-50%) translateY(-50%);
+      transform: translateX(-50%) translateY(-50%);
+      z-index: 0;
+    }
+
+  /*  @media (pointer: coarse) and (hover: none) {
+      body {
+        background: url("https://raw.githubusercontent.com/cookinat/cookinat/master/public/img/bg-mobile-fallback.jpg") rgb(243, 30, 83) no-repeat center center scroll;
+        background-position: cover;
+      }
+
+      body video {
+        display: none;
+      }
+    }*/
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgb(236, 59, 103);
+      opacity: 0.7;
+      z-index: 1;
+    }
+
+    .masthead {
+      /*position: relative;
+      overflow: hidden;*/
+      padding-bottom: 3rem;
+      z-index: 2;
+    }
+
+    .masthead .masthead-bg {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      min-height: 35rem;
+      height: 100%;
+      background-color: rgba(0, 46, 102, 0.8);
+      -webkit-transform: skewY(4deg);
+      transform: skewY(4deg);
+      -webkit-transform-origin: bottom right;
+      transform-origin: bottom right;
+    }
+
+    .masthead .masthead-content h1 {
+      font-size: 2.5rem;
+    }
+
+    .masthead .masthead-content p {
+      font-size: 1.2rem;
+    }
+
+    .masthead .masthead-content p strong {
+      font-weight: 700;
+    }
+
+    .masthead .masthead-content .input-group-newsletter input {
+      height: auto;
+      font-size: 1rem;
+      padding: 1rem;
+    }
+
+    .masthead .masthead-content .input-group-newsletter button {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .masthead {
+        height: 100%;
+        min-height: 0;
+        /*width: 40.5rem;*/
+        padding-bottom: 0;
+      }
+
+      .masthead .masthead-bg {
+        min-height: 0;
+        -webkit-transform: skewX(-8deg);
+        transform: skewX(-8deg);
+        -webkit-transform-origin: top right;
+        transform-origin: top right;
+      }
+
+      .masthead .masthead-content h1 {
+        font-size: 3.5rem;
+      }
+
+      .masthead .masthead-content p {
+        font-size: 1.3rem;
+      }
+    }
+
+    .social-icons {
+      margin-bottom: 2rem;
+      width: 100%;
+      z-index: 2;
+    }
+
+    .social-icons ul {
+      margin-top: 2rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    .social-icons ul>li {
+      margin-left: 1rem;
+      margin-right: 1rem;
+      display: inline-block;
+    }
+
+    .social-icons ul>li>a {
+      display: block;
+      color: white;
+      border-radius: 100%;
+      font-size: 2rem;
+      line-height: 4rem;
+      height: 4rem;
+      width: 4rem;
+    }
+
+    @media (min-width: 768px) {
+      .social-icons {
+        margin: 0;
+        right: 2.5rem;
+        width: auto;
+      }
+
+      .social-icons ul {
+        margin-top: 0;
+        width: auto;
+      }
+
+      .social-icons ul>li {
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 2rem;
+      }
+
+      .social-icons ul>li:last-child {
+        margin-bottom: 0;
+      }
+
+      .social-icons ul>li>a {
+        -webkit-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+        font-size: 2rem;
+        line-height: 4rem;
+        height: 4rem;
+        width: 4rem;
+      }
+
+      .social-icons ul>li>a:hover {
+        background-color: #cd9557;
+      }
+    }
+
+    .btn-secondary {
+      background-color: #cd9557;
+      border-color: #cd9557;
+    }
+
+    .btn-secondary:active,
+    .btn-secondary:focus,
+    .btn-secondary:hover {
+      background-color: #ba7c37 !important;
+      border-color: #ba7c37 !important;
+    }
+
+    .input {
+      font-weight: 300 !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="masthead">
+
+    <div class="social-icons">
+      <ul class="list-unstyled text-center mb-0">
+        <li class="list-unstyled-item">
+          <a href="https://www.facebook.com/cookinat/">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/webicons/2.0.0/webicons/webicon-facebook.png" alt="facebook" class="img-fluid">
+          </a>
+        </li>
+        <li class="list-unstyled-item">
+          <a href="https://www.linkedin.com/company/cookinat">
+            <img src="https://cdnjs.cloudflare.com/ajax/libs/webicons/2.0.0/webicons/webicon-linkedin.png" alt="linkedin" class="img-fluid">
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="container h-100">
+      <div class="row h-100">
+        <div class="col-12 my-auto">
+          <div class="masthead-content text-white py-5 py-md-0">
+            <h3 class="text-center">Coming Soon!</h3>
+            <div class="text-center">
+              <img src='https://cdn.glitch.com/ed38e511-b719-4c3a-abfd-47bc110ddac1%2Flogo.png?v=1562132774681' height="450" width="450" class="img-fluid" />
+            </div>
+            <h3 class="mb-3 text-center">We're working hard to finish the development of Cookinat App</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+</body>
+
+</html>
