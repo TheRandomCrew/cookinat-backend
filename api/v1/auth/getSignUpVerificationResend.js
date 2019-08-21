@@ -31,7 +31,8 @@ module.exports = async (req, res) => {
             })
         }
 
-        let verificationCode = encrypt(process.env.SECRET_KEY, email);
+        let encripter = encrypt(process.env.SECRET_KEY);
+        const verificationCode = encripter(`${email},${Math.random()}`);
 
         const data = {
             from: process.env.FROM_WHO_EMAIL,

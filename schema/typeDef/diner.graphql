@@ -1,6 +1,5 @@
 # Special kind of user that always want the dish ASAP. Sometimes gives a tip.
 type Diner implements User  {
-    diner_id: ID
 	user_id: ID
     first_name: String
     last_name: String
@@ -21,7 +20,7 @@ type Diner implements User  {
 }
 
 type Query {
-	diner(diner_id:ID!):[Diner]
+	diner(user_id:ID!):[Diner]
 	diners:[Diner]
 }
 

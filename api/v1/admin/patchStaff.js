@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
             last_name,
             email,
             password,
-            role,
+            role, // TODO: Verify this, must be role_id
             phone_number,
             nickname,
             avatar,

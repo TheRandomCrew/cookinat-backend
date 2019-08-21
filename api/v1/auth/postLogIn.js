@@ -27,6 +27,8 @@ module.exports = async (req, res) => {
                 }]
             })
         }
+
+        // TODO: check if user exposes role_id to use in token
         let token = sign({ email })
         return res.status(200).json({
             ...responseMsgs[200],

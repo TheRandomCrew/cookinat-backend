@@ -33,7 +33,7 @@ const postSignUpDiner = async (req, res) => {
         const from_who = process.env.FROM_WHO_EMAIL;
 
         let encripter = encrypt(process.env.SECRET_KEY);
-        const verificationCode = encripter(email);
+        const verificationCode = encripter(`${email},${Math.random()}`);
 
         var data = {
             from: from_who,
@@ -53,34 +53,44 @@ const postSignUpDiner = async (req, res) => {
                         throw new Error('bcrypt genSalt', err);
                     }
                     bcrypt.hash(password, salt, async (err, hashedPassword) => {
-                        if (err) { throw new Error('bcrypt Hash', err); }
-                        let user = [];
-                        if (exists) {
-                            user = await update('email', email, {
-                                role: '6'
-                            })
-                        } else {
-                            user = await create({
-                                email: email.toLowerCase(),
-                                password: hashedPassword,
-                                first_name,
-                                last_name,
-                                nickname,
-                                avatar,
-                                phone_number
+                        try {
+                            if (err) { throw new Error('bcrypt Hash', err); }
+                            let userData = {}
+                            if (exists) { // TODO: check if diner is already created
+                                userData = {
+                                    first_name: userDB[0].first_name,
+                                    last_name: userDB[0].last_name,
+                                    email: userDB[0].email
+                                }
+
+                            } else {
+                                const user = await create({
+                                    email: email.toLowerCase(),
+                                    password: hashedPassword,
+                                    first_name,
+                                    last_name,
+                                    nickname,
+                                    avatar,
+                                    phone_number
+                                });
+
+                                if (Array.isArray(user) && user.length > 0 && user[0].error) {
+                                    throw new Error('Database had a problem creating the resource. ' + user[0].error);
+                                }
+                                userData = {
+                                    first_name: user[0].first_name,
+                                    last_name: user[0].last_name,
+                                    email: user[0].email,
+                                }
+                            }
+                            return res.status(201).json({ ...responseMsgs[201], data: [userData] });
+                        } catch (error) {
+                            console.error(error)
+                            return res.status(500).json({
+                                ...responseMsgs[500],
+                                errors: [{ error: error.message, trace: "v1/auth/postSignUpDiner mg.message bcrypt.hash callback" }]
                             });
                         }
-
-                        if (Array.isArray(user) && user.length > 0) {
-                            throw new Error('Database had a problem creating the resource.');
-                        }
-
-                        const userData = {
-                            first_name: user[0].first_name,
-                            last_name: user[0].last_name,
-                            email: user[0].email,
-                        }
-                        return res.status(201).json({ ...responseMsgs[201], data: [userData] });
                     });
                 })
 

@@ -4,9 +4,9 @@ const responseMsgs = require('../util/responseMessages');
 module.exports = async (req, res) => {
 
     try {
-        const { diner_id } = req.params;
-        const diner = await byParam('diner_id', diner_id);
-        if(!diner[0].diner_id){
+        const { user_id } = req.params;
+        const diner = await byParam('user_id', user_id);
+        if(!diner[0].user_id){
             return res.status(404).json({
                 ...responseMsgs[404],
                 errors: diner

@@ -5,7 +5,7 @@ module.exports = {
     return await all();
   },
   claimsByDiner: async (_parent, { diner_id }) => {
-    return await byParam('diner_id', diner_id);
+    return await byParam('user_id', diner_id);
   },
   claimsByStatus: async (_parent, { status }) => {
     return await byParam('status', status);

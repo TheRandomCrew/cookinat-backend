@@ -1,10 +1,19 @@
 const bcrypt = require('bcryptjs');
-const { encrypt } = require('salteen');
 const { validationResult } = require('express-validator/check');
 const sendEmail = require('../../../lib/MailGun/email.send');
 const responseMsgs = require('../util/responseMessages');
 
 const { findByEmail, update } = require('../../../database/postgREST/user');
+
+function makeOTP(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNPRSTUVWXYZabcdefghjkmpqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+ }
 
 module.exports = async (req, res) => {
     const errors = validationResult(req);
@@ -25,8 +34,7 @@ module.exports = async (req, res) => {
             return res.status(404).json(responseMsgs[404])
         }
 
-        const encrypter = encrypt(process.env.SECRET_KEY);
-        const OTP = encrypter(email);
+        const OTP = makeOTP(6);
         bcrypt.genSalt(10, function (err, salt) {
             if (err) { throw new Error('bcrypt genSalt', err); }
             bcrypt.hash(OTP, salt, async (err, hashedPassword) => {

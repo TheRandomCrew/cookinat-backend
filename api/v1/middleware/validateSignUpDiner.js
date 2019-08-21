@@ -2,9 +2,6 @@ const { body } = require('express-validator/check')
 
 const validateSignUpDiner = () => {
     return [ 
-        body('last_name')
-        .withMessage('Last Name field is required')
-        .isLength({min:3}),
         body('first_name')
         .withMessage('First Name field is required')
         .isLength({min:3})
@@ -18,9 +15,7 @@ const validateSignUpDiner = () => {
         .exists()
         .withMessage('password field is required')
         .isLength({min : 6})
-        .withMessage('password must be in between 8 to 12 characters long'),
-        body('nickname')
-        .isString(),
+        .withMessage('password must be in greater than 6'),
         body('phone_number')
         .isString()
        ] 

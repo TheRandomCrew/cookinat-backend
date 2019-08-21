@@ -1,7 +1,6 @@
 # Special kind of user that can cook and ussually yells to coworkers but act lavishly with diners
 type Cook implements User  {
 	user_id: ID
-	cook_id: ID
     first_name: String
     last_name: String
 	email: String
@@ -37,7 +36,7 @@ type Cook implements User  {
 }
 
 type Query {
-	cook(cook_id:ID!):Cook
+	cook(user_id:ID!):Cook
 	cooks:[Cook]
 }
 

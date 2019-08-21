@@ -9,7 +9,7 @@ module.exports = () => {
         body('password')
         .exists()
         .withMessage('password field is required')
-        .isLength({min : 6,max: 24})
-        .withMessage('password must be in between 6 to 24 characters long')
+        .isLength({min : 6})
+        .withMessage('password must be greater than 6')
        ] 
 };

@@ -4,9 +4,9 @@ const responseMsgs = require('../util/responseMessages');
 module.exports = async (req, res) => {
 
     try {
-        const { cook_id } = req.params;
-        const cook = await byParam('cook_id', cook_id);
-        if(!cook[0].cook_id){
+        const { user_id } = req.params;
+        const cook = await byParam('user_id', user_id);
+        if(!cook[0].user_id){ // TODO: change this way to check existence
             return res.status(404).json({
                 ...responseMsgs[404],
                 errors: cook

@@ -8,7 +8,7 @@ module.exports = async (req, res) => {
         } = req.body;
 
         const cook = await update('email', email, {
-            is_cook_locked
+            is_cook_locked: false
         });
         if (!cook) {
             return res.status(404).json(responseMsgs[404]);

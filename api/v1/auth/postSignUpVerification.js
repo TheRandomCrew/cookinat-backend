@@ -20,8 +20,7 @@ const postSignUpVerification = async (req, res) => {
     try {
         if (verificationCode) {
             const user = await findByEmail(email.toLowerCase());
-
-            if (!user) {
+            if (Array.isArray(user) && user.length == 0 ) {
                 return res.status(404).json({
                     ...responseMsgs[404],
                     errors: [{
@@ -29,7 +28,7 @@ const postSignUpVerification = async (req, res) => {
                     }]
                 })
             }
-            if ( !user[0].is_diner_locked) {
+            if (!user[0].is_diner_locked) {
                 return res.status(409).json({
                     ...responseMsgs[409],
                     errors: [{
@@ -41,20 +40,19 @@ const postSignUpVerification = async (req, res) => {
 
             const decoder = decrypt(process.env.SECRET_KEY);
             const code = decoder(verificationCode);
+            const verifyMe = code.split(',')
 
-            if (email.toLowerCase() === code) {
+            if (email.toLowerCase() === verifyMe[0]) {
 
-                temp = {
+                const updateUser = await update('email', email, {
                     is_diner_locked: false
-                };
-
-                const updateUser = await update('email', email, temp);
+                });
                 if (updateUser) {
                     const from_who = process.env.FROM_WHO_EMAIL;
                     const data = {
                         from: from_who,
                         to: email,
-                        subject: user[0].firstName + ' Your Account is Activated successfully!',
+                        subject: user[0].first_name + ' Your Account is Activated successfully!',
                         text: 'Now you can Enter in CookinAt App'
                     };
                     mg.messages().send(data, async function (error, _body) {

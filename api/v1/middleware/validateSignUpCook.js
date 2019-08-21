@@ -4,7 +4,8 @@ module.exports = () => (
     [
         body('last_name')
             .withMessage('Last Name field is required')
-            .isLength({ min: 3 }),
+            .isLength({ min: 3 })
+            .withMessage('surname must be greater than 3 letters'),
         body('first_name')
             .withMessage('First Name field is required')
             .isLength({ min: 3 })
@@ -18,7 +19,7 @@ module.exports = () => (
             .exists()
             .withMessage('password field is required')
             .isLength({ min: 6 })
-            .withMessage('password must be greater than 6 characters long'),
+            .withMessage('password must be greater than 6'),
         body('phone_number')
             .isString(),
         body('ssn')

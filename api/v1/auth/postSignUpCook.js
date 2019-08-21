@@ -97,43 +97,52 @@ module.exports = async (req, res) => {
                 if (error) {
                     throw Error('There was a problem sending verification code, please call on support for this one: \n' + error)
                 }
-
-                bcrypt.genSalt(10, function (err, salt) {
-                    if (err) {
-                        console.log(err)
-                        throw new Error('bcrypt genSalt', err);
+                if (exists) {
+                    const user = await update('email', email, {
+                        ssn,
+                        certification_photo,
+                        instagram,
+                        role_id: '5'
+                    })
+                    if (!user) {
+                        throw Error('There was a problem updating user on DB. Please try again or contact support.')
                     }
-                    bcrypt.hash(password, salt, async (err, hashedPassword) => {
-                        if (err) { throw new Error('bcrypt Hash', err.message); }
-                        let user = [];
-                        if (exists) {
-                            user = await update('email', email, {
-                                ssn,
-                                certification_photo,
-                                instagram,
-                                role: '5'
-                            })
-                        } else {
-                            user = await create({
-                                email: email.toLowerCase(),
-                                password: hashedPassword,
-                                first_name,
-                                last_name,
-                                nickname,
-                                avatar,
-                                phone_number,
-                                ssn,
-                                certification_photo,
-                                instagram
-                            });
+                } else {
+                    bcrypt.genSalt(10, function (err, salt) {
+                        if (err) {
+                            console.log(err)
+                            throw new Error('bcrypt genSalt', err);
                         }
+                        bcrypt.hash(password, salt, async (err, hashedPassword) => {
+                            try {
+                                if (err) { throw new Error('bcrypt Hash', err.message); }
 
-                        if (!user) {
-                            throw Error('There was a problem creating user on DB. Please try again or contact support.')
-                        }
-                    });
-                })
+                                const user = await create({
+                                    email: email.toLowerCase(),
+                                    password: hashedPassword,
+                                    first_name,
+                                    last_name,
+                                    nickname,
+                                    avatar,
+                                    phone_number,
+                                    ssn,
+                                    certification_photo,
+                                    instagram
+                                });
 
+                                if (Array.isArray(user) && user.length > 0 && user[0].error) {
+                                    throw Error('There was a problem creating user on DB. Please try again or contact support. ' + user[0].error)
+                                }
+                            } catch (error) {
+                                console.error(error)
+                                return res.status(500).json({
+                                    ...responseMsgs[500],
+                                    errors: [{ error: error.message, trace: "v1/auth/postSignUpCook bcrypt.hash callback" }]
+                                });
+                            }
+                        });
+                    })
+                }
                 return res.status(201).json({ ...responseMsgs[201], data: [userData] });
             } catch (error) {
                 console.error(error)

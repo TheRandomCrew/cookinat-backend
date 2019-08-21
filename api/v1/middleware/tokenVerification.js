@@ -32,7 +32,7 @@ const tokenVerification = async (req, res, next) => {
                     }]
                 });
             }
-            if (decoded.role === 'none') {
+            if (decoded.role_id === 'none') {
                 return res.status(401).json({
                     sucess: false,
                     msg: 'Your did not validated your account.',

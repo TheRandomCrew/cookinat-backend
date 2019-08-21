@@ -84,9 +84,7 @@ CREATE TABLE IF NOT EXISTS "users"
   "phone_number" varchar(64),
   "nickname" varchar(128),
   "avatar" varchar(512),
-  "diner_id" serial UNIQUE,
   "is_diner_locked" boolean DEFAULT true,
-  "cook_id" serial UNIQUE,
   "is_cook_locked" boolean DEFAULT true,
   "ssn" varchar(64),
   "certification_photo" varchar(512),
@@ -261,13 +259,13 @@ COMMENT ON TABLE users IS 'Users created by other admins';
 
   ALTER TABLE "staffs" ADD FOREIGN KEY ("role_id") REFERENCES "roles" ("role_id");
 
-  ALTER TABLE "reservations" ADD FOREIGN KEY ("cook_id") REFERENCES "users" ("cook_id");
+  ALTER TABLE "reservations" ADD FOREIGN KEY ("cook_id") REFERENCES "users" ("user_id");
 
   ALTER TABLE "reservations" ADD FOREIGN KEY ("staff_id") REFERENCES "staffs" ("staff_id");
 
-  ALTER TABLE "claim_chat" ADD FOREIGN KEY ("diner_id") REFERENCES "users" ("diner_id");
+  ALTER TABLE "claim_chat" ADD FOREIGN KEY ("diner_id") REFERENCES "users" ("user_id");
 
-  ALTER TABLE "claim_chat" ADD FOREIGN KEY ("cook_id") REFERENCES "users" ("cook_id");
+  ALTER TABLE "claim_chat" ADD FOREIGN KEY ("cook_id") REFERENCES "users" ("user_id");
 
   ALTER TABLE "claim_chat" ADD FOREIGN KEY ("reservation_id") REFERENCES "reservations" ("reservation_id");
 
@@ -279,7 +277,7 @@ COMMENT ON TABLE users IS 'Users created by other admins';
 
   ALTER TABLE "payments" ADD FOREIGN KEY ("register") REFERENCES "staffs" ("staff_id");
 
-  ALTER TABLE "dishes" ADD FOREIGN KEY ("cook_id") REFERENCES "users" ("cook_id");
+  ALTER TABLE "dishes" ADD FOREIGN KEY ("cook_id") REFERENCES "users" ("user_id");
 
   ALTER TABLE "reviews" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("user_id");
 
@@ -289,7 +287,7 @@ COMMENT ON TABLE users IS 'Users created by other admins';
 
   ALTER TABLE "admins" ADD FOREIGN KEY ("role_id") REFERENCES "roles" ("role_id");
 
-  ALTER TABLE "claims" ADD FOREIGN KEY ("diner_id") REFERENCES "users" ("diner_id");
+  ALTER TABLE "claims" ADD FOREIGN KEY ("diner_id") REFERENCES "users" ("user_id");
 
   ALTER TABLE "claims" ADD FOREIGN KEY ("reservation_id") REFERENCES "reservations" ("reservation_id");
 
@@ -311,7 +309,6 @@ COMMENT ON TABLE users IS 'Users created by other admins';
 CREATE VIEW diners AS
   SELECT
     user_id,
-    diner_id,
     first_name,
     last_name,
     email,
@@ -335,7 +332,6 @@ CREATE VIEW diners AS
 CREATE VIEW cooks AS
   SELECT
     user_id,
-    cook_id,
     first_name,
     last_name,
     email,
@@ -388,7 +384,7 @@ BEGIN
     updates_notification=new.updates_notification,
     promotionals_notification=new.promotionals_notification
   WHERE
-    diner_id=new.diner_id
+    user_id=new.user_id
   AND
 	role_id='6';
 RETURN new;
@@ -431,7 +427,7 @@ BEGIN
     sms_notification=new.sms_notification,
     updates_notification=new.updates_notification
   WHERE
-    cook_id=new.cook_id
+    user_id=new.user_id
   AND
 	role_id='5';
 RETURN new;
@@ -446,7 +442,6 @@ EXECUTE PROCEDURE cooks();
 CREATE VIEW auth_diner AS
   SELECT
     user_id,
-    diner_id,
     email,
     password,
     avatar,
@@ -479,7 +474,6 @@ EXECUTE PROCEDURE auth_diner();
 CREATE VIEW auth_cook AS
   SELECT
     user_id,
-    cook_id,
     email, 
     password,
     first_name,

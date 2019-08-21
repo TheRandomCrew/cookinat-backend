@@ -2,7 +2,7 @@
 openapi: 3.0.2
 info:
   title: 🤤🍽👨‍🍳 CookinAt v1
-  version: 1.1.4
+  version: 1.1.5
   description: >- 
     # 🤤🍽👨‍🍳 CookinAt
 
@@ -1954,9 +1954,7 @@ components:
                         phone_number: ''
                         nickname: ''
                         avatar: ''
-                        diner_id: 64646
                         is_diner_locked: true
-                        cook_id: 61313
                         is_cook_locked: true
                         ssn: ''
                         certification_photo: ''
@@ -2046,7 +2044,6 @@ components:
                 msg: Operation Succeded
                 data:
                     -
-                        diner_id: 9846416
                         user_id: 65131
                         first_name: ''
                         last_name: ''
@@ -2082,7 +2079,6 @@ components:
                 data:
                     -
                         user_id: 6131
-                        cook_id: 64641
                         first_name: ''
                         last_name: ''
                         email: ''
@@ -2238,6 +2234,7 @@ components:
                 - password
                 - certification_photo
                 - first_name
+                - last_name
             type: object
             properties:
                 first_name:
@@ -2464,13 +2461,8 @@ components:
                 avatar:
                     format: url
                     type: string
-                diner_id:
-                    format: uuid
-                    type: integer
                 is_diner_locked:
                     type: boolean
-                cook_id:
-                    type: integer
                 is_cook_locked:
                     type: boolean
                 ssn:
@@ -2528,9 +2520,7 @@ components:
                 phone_number: ''
                 nickname: ''
                 avatar: ''
-                diner_id: 64646
                 is_diner_locked: true
-                cook_id: 61313
                 is_cook_locked: true
                 ssn: ''
                 certification_photo: ''
@@ -2871,8 +2861,6 @@ components:
             description: ''
             type: object
             properties:
-                diner_id:
-                    type: integer
                 user_id:
                     type: integer
                 first_name:
@@ -2909,7 +2897,6 @@ components:
                     format: date-time
                     type: string
             example:
-                diner_id: 9846416
                 user_id: 65131
                 first_name: ''
                 last_name: ''
@@ -2931,9 +2918,6 @@ components:
             type: object
             properties:
                 user_id:
-                    format: uuid
-                    type: integer
-                cook_id:
                     format: uuid
                     type: integer
                 first_name:
@@ -2996,7 +2980,6 @@ components:
                     type: string
             example:
                 user_id: 6131
-                cook_id: 64641
                 first_name: ''
                 last_name: ''
                 email: ''
@@ -3184,6 +3167,8 @@ components:
                     type: string
                 email:
                     type: string
+                password:
+                    type: string
                 phone_number:
                     type: string
                 is_cook_locked:
@@ -3261,6 +3246,8 @@ components:
                     type: string
                 email:
                     type: string
+                password:
+                    type: string
                 phone_number:
                     type: string
                 is_diner_locked:
@@ -3283,6 +3270,7 @@ components:
                 first_name: ''
                 last_name: ''
                 email: ''
+                password: ''
                 phone_number: ''
                 is_diner_locked: false
                 nickname: ''
@@ -3372,7 +3360,6 @@ components:
                                 data:
                                     -
                                         user_id: 6131
-                                        cook_id: 64641
                                         first_name: ''
                                         last_name: ''
                                         email: ''
@@ -3411,7 +3398,6 @@ components:
                                 msg: Operation Succeded
                                 data:
                                     -
-                                        diner_id: 9846416
                                         user_id: 65131
                                         first_name: ''
                                         last_name: ''
