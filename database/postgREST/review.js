@@ -54,12 +54,38 @@ module.exports = {
   },
   update: (input) => {
     try {
-      return axios.patch(process.env.POSTGRES_URL + '/reviews', {
+      const {
+        user_id,
+        reservation_id,
+        food,
+        service,
+        presentation,
+        overall_experience,
+        comment,
+        attachment,
+        service_went_fully,
+        review_text,
+        other
+      } = input;
+      return axios({
+        method: 'PATCH',
+        url: process.env.POSTGRES_URL + '/reviews',
         headers: {
           Prefer: 'return=representation',
-          accept: '*/*'
         },
-        data: input
+        data: {
+          user_id,
+          reservation_id,
+          food,
+          service,
+          presentation,
+          overall_experience,
+          comment,
+          attachment,
+          service_went_fully,
+          review_text,
+          other
+        }
       })
         .then((res) => res.data)
         .catch((error) => [{
@@ -77,11 +103,36 @@ module.exports = {
   },
   create: (input) => {
     try {
-      return axios.post(process.env.POSTGRES_URL + '/reviews', {
+      const {
+        user_id,
+        reservation_id,
+        food,
+        service,
+        presentation,
+        overall_experience,
+        comment,
+        attachment,
+        service_went_fully,
+        review_text
+      } = input;
+      return axios({
+        method: 'POST',
+        url: process.env.POSTGRES_URL + '/reviews',
         headers: {
           Prefer: 'return=representation',
         },
-        data: input
+        data: {
+          user_id,
+          reservation_id,
+          food,
+          service,
+          presentation,
+          overall_experience,
+          comment,
+          attachment,
+          service_went_fully,
+          review_text
+        }
       })
         .then((res) => res.data)
         .catch((error) => [{

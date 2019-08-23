@@ -5,6 +5,7 @@ module.exports = async (req, res) => {
     try {
         const { dish_id } = req.params;
         const {
+            cook_id,
             title,
             description,
             style,
@@ -26,6 +27,7 @@ module.exports = async (req, res) => {
         } = req.body;
 
         const updatedDish = await update('dish_id', dish_id, {
+            cook_id,
             title,
             description,
             style,

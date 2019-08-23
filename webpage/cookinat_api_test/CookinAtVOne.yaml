@@ -1444,8 +1444,6 @@ components:
             description: ''
             type: object
             properties:
-                reservation_id:
-                    type: integer
                 diner_id:
                     type: integer
                 cook_id:
@@ -1485,12 +1483,7 @@ components:
                     type: string
                 staff_id:
                     type: integer
-                created_at:
-                    type: string
-                updated_at:
-                    type: string
             example:
-                reservation_id: 635416
                 diner_id: 96461
                 cook_id: 31313
                 guests:
@@ -1505,8 +1498,6 @@ components:
                 when: ''
                 status: PROPOSED
                 staff_id: 6611
-                created_at: ''
-                updated_at: ''
         claim_chat_request:
             title: Root Type for claim_chat_response
             description: ''

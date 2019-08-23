@@ -64,7 +64,6 @@ input DishCreate {
 }
 
 input DishUpdate {
-    dish_id: ID!
     cook_id: ID!
     title: String!
     description: String
@@ -81,6 +80,9 @@ input DishUpdate {
     price: Int
     minimum_cancel_time: String
     required_tools: [String]
+    disabled:  Boolean
+	reasons: String
+    review: Stars
 }
 
 input DishDisable {

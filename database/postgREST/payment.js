@@ -22,12 +22,32 @@ module.exports = {
   },
   update: (input) => {
     try {
-      return axios.patch(process.env.POSTGRES_URL + '/payments', {
+      const {
+        receiver,
+        buyer,
+        comment,
+        concept,
+        register,
+        pay_method,
+        pay_status,
+        other
+      } = input;
+      return axios({
+        method: 'PATCH',
+        url: process.env.POSTGRES_URL + '/payments',
         headers: {
           Prefer: 'return=representation',
-          accept: '*/*'
         },
-        data: input
+        data: {
+          receiver,
+          buyer,
+          comment,
+          concept,
+          register,
+          pay_method,
+          pay_status,
+          other
+        }
       })
         .then((res) => res.data)
         .catch((error) => [{
@@ -47,11 +67,34 @@ module.exports = {
   },
   create: (input) => {
     try {
-      return axios.post(process.env.POSTGRES_URL + '/payments', {
+      const {
+        payment_id,
+        receiver,
+        buyer,
+        comment,
+        concept,
+        register,
+        pay_method,
+        pay_status,
+        other
+      } = input;
+      return axios({
+        method: 'POST',
+        url: process.env.POSTGRES_URL + '/payments',
         headers: {
           Prefer: 'return=representation',
         },
-        data: input
+        data: {
+          payment_id,
+          receiver,
+          buyer,
+          comment,
+          concept,
+          register,
+          pay_method,
+          pay_status,
+          other
+        }
       })
         .then((res) => res.data)
         .catch((error) => [{

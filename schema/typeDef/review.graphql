@@ -1,6 +1,6 @@
 type Review {
     review_id: ID!
-    diner_id: ID!
+    user_id: ID!
     reservation_id: ID!
     food: Stars
     service: Stars
@@ -19,7 +19,7 @@ type Review {
 type Query {
     reviews:[Review]
     review(review_id:ID!): [Review]
-    reviewsByDiner(diner_id: ID!): [Review]
+    reviewsByDiner(user_id: ID!): [Review]
     reviewsByReservation(reservation_id: ID!): [Review]
 }
 
@@ -29,7 +29,7 @@ type Mutation {
 }
 
 input ReviewCreate {
-    diner_id: ID!
+    user_id: ID!
     reservation_id: ID!
     food: Stars
     service: Stars

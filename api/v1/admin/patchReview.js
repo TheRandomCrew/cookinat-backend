@@ -14,6 +14,7 @@ module.exports = async (req, res) => {
             attachment,
             service_went_fully,
             review_text,
+            other,
             disabled,
             reasons
         } = req.body;
@@ -28,6 +29,7 @@ module.exports = async (req, res) => {
             attachment,
             service_went_fully,
             review_text,
+            other,
             disabled,
             reasons
         });

@@ -4,21 +4,33 @@ const responseMsgs = require('../util/responseMessages');
 module.exports = async (req, res) => {
     try {
         const {
-            cook_id,
             diner_id,
-            guests_list_id,
-            when,
+            cook_id,
+            guests,
+            dishes,
+            client_order,
+            cook_comment,
+            priority,
             comment,
-            place
+            place,
+            when,
+            status,
+            staff_id
         } = req.body;
 
         const reservation = await create({
-            cook_id,
             diner_id,
-            guests_list_id,
-            when,
+            cook_id,
+            guests,
+            dishes,
+            client_order,
+            cook_comment,
+            priority,
             comment,
-            place
+            place,
+            when,
+            status,
+            staff_id
         })
         if (!reservation) {
             throw Error('There was a problem creating reservation on DB. Please try again or contact support.')

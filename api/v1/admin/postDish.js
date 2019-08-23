@@ -4,6 +4,7 @@ const responseMsgs = require('../util/responseMessages');
 module.exports = async (req, res) => {
     try {
         const {
+            cook_id,
             title,
             description,
             style,
@@ -18,13 +19,11 @@ module.exports = async (req, res) => {
             maximum_diners,
             price,
             minimum_cancel_time,
-            required_tools,
-            disabled,
-            reasons,
-            review
+            required_tools
         } = req.body;
 
         const dish = await create({
+            cook_id,
             title,
             description,
             style,
@@ -39,10 +38,7 @@ module.exports = async (req, res) => {
             maximum_diners,
             price,
             minimum_cancel_time,
-            required_tools,
-            disabled,
-            reasons,
-            review
+            required_tools
         });
         if (!dish) {
             return res.status(404).json(responseMsgs[404]);

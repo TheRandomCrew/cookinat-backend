@@ -42,12 +42,48 @@ module.exports = {
   },
   update: (input) => {
     try {
-      return axios.patch(process.env.POSTGRES_URL + '/dishes', {
+      const {
+        cook_id,
+        title,
+        description,
+        style,
+        glutten_allergy,
+        soy_allergy,
+        milk_allergy,
+        peanuts_allergy,
+        shrimp_allergy,
+        other_allergy,
+        attachment,
+        minimun_diners,
+        maximum_diners,
+        price,
+        minimum_cancel_time,
+        required_tools
+      } = input
+      return axios({
+        method: 'PATCH',
+        url: process.env.POSTGRES_URL + '/dishes',
         headers: {
           Prefer: 'return=representation',
-          accept: '*/*'
         },
-        data: input
+        data: {
+          cook_id,
+          title,
+          description,
+          style,
+          glutten_allergy,
+          soy_allergy,
+          milk_allergy,
+          peanuts_allergy,
+          shrimp_allergy,
+          other_allergy,
+          attachment,
+          minimun_diners,
+          maximum_diners,
+          price,
+          minimum_cancel_time,
+          required_tools
+        }
       })
         .then((res) => res.data)
         .catch((error) => [{
@@ -67,20 +103,77 @@ module.exports = {
   },
   create: (input) => {
     try {
-      return axios.post(process.env.POSTGRES_URL + '/dishes', {
+      const {
+        cook_id,
+        title,
+        description,
+        style,
+        glutten_allergy,
+        soy_allergy,
+        milk_allergy,
+        peanuts_allergy,
+        shrimp_allergy,
+        other_allergy,
+        attachment,
+        minimun_diners,
+        maximum_diners,
+        price,
+        minimum_cancel_time,
+        required_tools
+      } = input
+      console.log(
+        {
+          cook_id,
+          title,
+          description,
+          style,
+          glutten_allergy,
+          soy_allergy,
+          milk_allergy,
+          peanuts_allergy,
+          shrimp_allergy,
+          other_allergy,
+          attachment,
+          minimun_diners,
+          maximum_diners,
+          price,
+          minimum_cancel_time,
+          required_tools
+        } 
+      )
+      return axios({
+        method: 'POST',
+        url: process.env.POSTGRES_URL + '/dishes',
         headers: {
           Prefer: 'return=representation',
-          Accept: 'application/json'
+          "Content-Type": 'application/json'
         },
-        data: input
+        data: {
+          cook_id,
+          title,
+          description,
+          style,
+          glutten_allergy,
+          soy_allergy,
+          milk_allergy,
+          peanuts_allergy,
+          shrimp_allergy,
+          other_allergy,
+          attachment,
+          minimun_diners,
+          maximum_diners,
+          price,
+          minimum_cancel_time,
+          required_tools
+        }
       })
         .then((res) => {
-          console.info(res.data)
-          logger.info(res.data)
+          // console.info(res.data)
+          // logger.info(res.data)
           return res.data
         })
         .catch((error) => {
-          console.error(error)
+          console.error(error.message)
           return [{
             error: error.message,
             trace: error.stack,

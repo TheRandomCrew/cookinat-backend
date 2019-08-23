@@ -41,12 +41,40 @@ module.exports = {
   },
   update: (input) => {
     try {
-      return axios.patch(process.env.POSTGRES_URL + '/reservations', {
+      const {
+        diner_id,
+        cook_id,
+        guests,
+        dishes,
+        client_order,
+        cook_comment,
+        priority,
+        comment,
+        place,
+        when,
+        status,
+        staff_id
+      } = input;
+      return axios({
+        method: 'PATCH',
+        url: process.env.POSTGRES_URL + '/reservations',
         headers: {
           Prefer: 'return=representation',
-          accept: '*/*'
         },
-        data: input
+        data: {
+          diner_id,
+          cook_id,
+          guests,
+          dishes,
+          client_order,
+          cook_comment,
+          priority,
+          comment,
+          place,
+          when,
+          status,
+          staff_id
+        }
       })
         .then((res) => res.data)
         .catch((error) => [{
@@ -66,11 +94,40 @@ module.exports = {
   },
   create: (input) => {
     try {
-      return axios.post(process.env.POSTGRES_URL + '/reservations', {
+      const {
+        diner_id,
+        cook_id,
+        guests,
+        dishes,
+        client_order,
+        cook_comment,
+        priority,
+        comment,
+        place,
+        when,
+        status,
+        staff_id
+      } = input;
+      return axios({
+        method: 'POST',
+        url: process.env.POSTGRES_URL + '/reservations',
         headers: {
           Prefer: 'return=representation',
         },
-        data: input
+        data: {
+          diner_id,
+          cook_id,
+          guests,
+          dishes,
+          client_order,
+          cook_comment,
+          priority,
+          comment,
+          place,
+          when,
+          status,
+          staff_id
+        }
       })
         .then((res) => res.data)
         .catch((error) => [{

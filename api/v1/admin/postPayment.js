@@ -9,7 +9,10 @@ module.exports = async (req, res) => {
             buyer,
             comment,
             concept,
-            pay_method
+            register,
+            pay_method,
+            pay_status,
+            other
         } = req.body;
 
         const payment = await create({
@@ -17,7 +20,10 @@ module.exports = async (req, res) => {
             buyer,
             comment,
             concept,
-            pay_method
+            register,
+            pay_method,
+            pay_status,
+            other
         })
         if (!payment) {
             throw Error('There was a problem creating payment on DB. Please try again or contact support.')

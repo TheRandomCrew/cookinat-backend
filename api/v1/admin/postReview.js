@@ -5,6 +5,7 @@ module.exports = async (req, res) => {
 
     try {
         const {
+            user_id,
             reservation_id,
             food,
             service,
@@ -14,11 +15,11 @@ module.exports = async (req, res) => {
             attachment,
             service_went_fully,
             review_text,
-            disabled,
-            reasons
+            other
         } = req.body;
 
         const review = await create({
+            user_id,
             reservation_id,
             food,
             service,
@@ -28,8 +29,7 @@ module.exports = async (req, res) => {
             attachment,
             service_went_fully,
             review_text,
-            disabled,
-            reasons
+            other
         });
         if (!review) {
             throw Error('There was a problem creating review on DB. Please try again or contact support.')

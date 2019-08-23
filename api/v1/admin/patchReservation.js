@@ -7,18 +7,32 @@ module.exports = async (req, res) => {
         const { reservation_id } = req.params;
         const {
             diner_id,
-            when,
+            cook_id,
+            guests,
+            dishes,
+            client_order,
+            cook_comment,
+            priority,
             comment,
             place,
-            status
+            when,
+            status,
+            staff_id
         } = req.body;
 
         const updatedReservation = await update('reservation_id', reservation_id, {
             diner_id,
-            when,
+            cook_id,
+            guests,
+            dishes,
+            client_order,
+            cook_comment,
+            priority,
             comment,
             place,
-            status
+            when,
+            status,
+            staff_id
         });
         if (!updatedReservation[0].reservation_id) {
             return res.status(404).json({

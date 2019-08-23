@@ -41,12 +41,30 @@ module.exports = {
   },
   update: (input) => {
     try {
-      return axios.patch(process.env.POSTGRES_URL + '/claims', {
-        headers: {
-          Prefer: 'return=representation',
-          accept: '*/*'
-        },
-        data: input
+      const {
+        claim_id,
+        diner_id,
+        reservation_id,
+        subject,
+        issue,
+        attachment,
+        other
+    } = input;
+    return axios({
+      method: 'PATCH',
+      url: process.env.POSTGRES_URL + '/claims',
+      headers: {
+        Prefer: 'return=representation',
+      },
+      data: {
+        claim_id,
+        diner_id,
+        reservation_id,
+        subject,
+        issue,
+        attachment,
+        other
+      }
       })
         .then((res) => res.data)
         .catch((error) => [{
@@ -66,26 +84,45 @@ module.exports = {
   },
   create: (input) => {
     try {
-      return axios.post(process.env.POSTGRES_URL + '/claims', {
-        headers: {
-          Prefer: 'return=representation',
-        },
-        data: input
-      })
-        .then((res) => res.data)
-        .catch((error) => [{
-          error: error.message,
-          trace: error.stack,
-          method: error.config.method,
-          url: error.config.url,
-          msg: 'Error in query'
-        }]);
-    } catch (error) {
-      return [{
-        error: error.msg,
-        trace: error.trace,
-        msg: 'Error in execution'
-      }]
-    }
+      const {
+        claim_id,
+        diner_id,
+        reservation_id,
+        subject,
+        issue,
+        attachment,
+        other
+    } = input;
+    return axios({
+      method: 'POST',
+      url: process.env.POSTGRES_URL + '/claims',
+      headers: {
+        Prefer: 'return=representation',
+      },
+      data: {
+        claim_id,
+        diner_id,
+        reservation_id,
+        subject,
+        issue,
+        attachment,
+        other
+      }
+    })
+      .then((res) => res.data)
+      .catch((error) => [{
+        error: error.message,
+        trace: error.stack,
+        method: error.config.method,
+        url: error.config.url,
+        msg: 'Error in query'
+      }]);
+  } catch(error) {
+    return [{
+      error: error.msg,
+      trace: error.trace,
+      msg: 'Error in execution'
+    }]
   }
+}
 };

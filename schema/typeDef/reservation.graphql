@@ -9,6 +9,7 @@ type Reservation {
     client_order: String
     cook_comment: String
     priority: Int
+    comment: String
     place: String
     status: ReservationStatus
     createdAt: String
@@ -31,12 +32,13 @@ type Mutation {
 input ReservationInput {
     diner_id:  ID!
     cook_id: ID!
-    guests_list: String
+    guests: [String]
     when: String!
     dishes: [ID]
     client_order: String
     cook_comment: String
     priority: Int
+    comment: String
     place: String
     status: ReservationStatus
 }
