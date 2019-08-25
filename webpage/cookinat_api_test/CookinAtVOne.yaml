@@ -1,190 +1,181 @@
 ---
 openapi: 3.0.2
 info:
-  title: 🤤🍽👨‍🍳 CookinAt v1
-  version: 1.1.5
-  description: >- 
-    # 🤤🍽👨‍🍳 CookinAt Consumer API Services
+    title: 🤤🍽👨‍🍳 CookinAt v1
+    version: 1.1.5
+    description: >-
+        # 🤤🍽👨‍🍳 CookinAt Consumer API Services
 
-    Is a platform connecting diners with cooks.
-    Upcoming versions may also include similar services such as waiters, catering, cocktails, etc.
-
+        Is a platform connecting diners with cooks.
+        Upcoming versions may also include similar services such as waiters, catering, cocktails, etc.
 
 servers:
-- url: https://www.cookinat.com/api/v1
-- url: http://{host}/{prefix}
-  description: ""
-  variables:
-    host:
-      default: localhost:8080
-    prefix:
-      default: api/v1
+    - url: https://www.cookinat.com/api/v1
+    - url: http://{host}/{prefix}
+      description: ""
+      variables:
+          host:
+              default: localhost:8080
+          prefix:
+              default: api/v1
 paths:
+    /ping:
+        summary: Server heartbeat operation
+        description: |-
+            This operation shows current *status* of server.
+
+            If `200` then all ok, if `500` a problem is there.
+
+            __Dev Oriented Endpoint__
+        get:
+            servers:
+                - url: "https://www.cookinat.com"
+                  description: "Production"
+                - url: "http://localhost:8080"
+                  description: "Development"
+            tags:
+                - System64
+            responses:
+                "200":
+                    $ref: "#/components/responses/ping_response"
+            operationId: getPing
+            summary: Find if Server is Alive
     /consumer/cook/all:
         get:
             tags:
                 - Cook
             responses:
-                '200':
-                    $ref: '#/components/responses/cook_success'
-                '500':
-                    $ref: '#/components/responses/server_error'
+                "200":
+                    $ref: "#/components/responses/cook_success"
+                "500":
+                    $ref: "#/components/responses/server_error"
             operationId: getConsumerCookAll
             summary: Read all Cooks
-            description: 'Return a list with all cook not locked: {userId, firstName, lastName, avatar, innerReview}'
-    '/consumer/review/reservation/{reservation_id}':
+            description: "Return a list with all cook not locked: {userId, firstName, lastName, avatar, innerReview}"
+    "/consumer/review/reservation/{reservation_id}":
         get:
             tags:
                 - Review
                 - Reservation
             responses:
-                '200':
-                    $ref: '#/components/responses/review_success'
-                '400':
-                    $ref: '#/components/responses/user_error'
-                '500':
-                    $ref: '#/components/responses/server_error'
+                "200":
+                    $ref: "#/components/responses/review_success"
+                "400":
+                    $ref: "#/components/responses/user_error"
+                "500":
+                    $ref: "#/components/responses/server_error"
             operationId: getConsumerReviewReservation
             summary: Read Reviews by Reservation
             description: Return an array with all reviewes created by certain cook
         parameters:
-            -
-                name: reservation_id
-                schema:
-                    format: int32
-                    type: integer
-                in: path
-                required: true
+            - name: reservation_id
+              schema:
+                  format: int32
+                  type: integer
+              in: path
+              required: true
     /consumer/dish/all:
         get:
             tags:
                 - Dish
             responses:
-                '200':
-                    $ref: '#/components/responses/dish_success'
-                '500':
-                    $ref: '#/components/responses/server_error'
+                "200":
+                    $ref: "#/components/responses/dish_success"
+                "500":
+                    $ref: "#/components/responses/server_error"
             operationId: getConsumerDishAll
             summary: Read All Dishes
             description: User and Admin must be capable of get all dishes
-    '/consumer/claim/{claim_id}':
-        get:
-            tags:
-                - Claim
-            responses:
-                '200':
-                    $ref: '#/components/responses/claim_success'
-                '400':
-                    $ref: '#/components/responses/user_error'
-                '500':
-                    $ref: '#/components/responses/server_error'
-            operationId: getConsumerClaim
-            summary: Read a Claim by Id
-            description: Given the claimId obtain info needed
-        parameters:
-            -
-                name: claim_id
-                schema:
-                    format: int32
-                    type: integer
-                in: path
-                required: true
-            -
-
     /consumer/review/dish/{dish_id}:
         get:
             tags:
                 - Review
                 - Dish
             responses:
-                '200':
-                    $ref: '#/components/responses/review_success'
-                '400':
-                    $ref: '#/components/responses/user_error'
-                '500':
-                    $ref: '#/components/responses/server_error'
+                "200":
+                    $ref: "#/components/responses/review_success"
+                "400":
+                    $ref: "#/components/responses/user_error"
+                "500":
+                    $ref: "#/components/responses/server_error"
             operationId: getConsumerReviewDish
             summary: Read Reviews by Dish
         parameters:
-            -
-                name: dish_id
-                schema:
-                    format: int32
-                    type: integer
-                in: path
-                required: true
-    '/consumer/review/cook/{user_id}':
+            - name: dish_id
+              schema:
+                  format: int32
+                  type: integer
+              in: path
+              required: true
+    "/consumer/review/cook/{user_id}":
         get:
             tags:
                 - Review
                 - Cook
             responses:
-                '200':
-                    $ref: '#/components/responses/review_success'
-                '400':
-                    $ref: '#/components/responses/user_error'
-                '500':
-                    $ref: '#/components/responses/server_error'
+                "200":
+                    $ref: "#/components/responses/review_success"
+                "400":
+                    $ref: "#/components/responses/user_error"
+                "500":
+                    $ref: "#/components/responses/server_error"
             operationId: getConsumerReviewCook
             summary: Read Reviews by Cook
         parameters:
-            -
-                name: user_id
-                schema:
-                    format: int32
-                    type: integer
-                in: path
-                required: true
-    '/consumer/reservation/{reservation_id}':
+            - name: user_id
+              schema:
+                  format: int32
+                  type: integer
+              in: path
+              required: true
+    "/consumer/reservation/{reservation_id}":
         get:
             tags:
                 - Reservation
             responses:
-                '200':
-                    $ref: '#/components/responses/reservation_success'
-                '400':
-                    $ref: '#/components/responses/user_error'
-                '500':
-                    $ref: '#/components/responses/server_error'
+                "200":
+                    $ref: "#/components/responses/reservation_success"
+                "400":
+                    $ref: "#/components/responses/user_error"
+                "500":
+                    $ref: "#/components/responses/server_error"
             operationId: getConsumerReservation
             summary: Read Reservation by Id
             description: Given the reservationId obtain info needed
         parameters:
-            -
-                name: reservation_id
-                schema:
-                    format: int32
-                    type: integer
-                in: path
-                required: true
-    '/consumer/payment/{payment_id}':
+            - name: reservation_id
+              schema:
+                  format: int32
+                  type: integer
+              in: path
+              required: true
+    "/consumer/payment/{payment_id}":
         get:
             tags:
                 - Payment
             responses:
-                '200':
-                    $ref: '#/components/responses/payment_success'
-                '400':
-                    $ref: '#/components/responses/user_error'
-                '500':
-                    $ref: '#/components/responses/server_error'
+                "200":
+                    $ref: "#/components/responses/payment_success"
+                "400":
+                    $ref: "#/components/responses/user_error"
+                "500":
+                    $ref: "#/components/responses/server_error"
             operationId: getConsumerPayment
             summary: Read Payment by Id
             description: Given the paymentId obtain info needed
         parameters:
-            -
-                name: payment_id
-                schema:
-                    format: int32
-                    type: integer
-                in: path
-                required: true
-    
+            - name: payment_id
+              schema:
+                  format: int32
+                  type: integer
+              in: path
+              required: true
+
 components:
     schemas:
         credentials:
             title: Root Type for credentials
-            description: ''
+            description: ""
             required:
                 - email
                 - password
@@ -195,11 +186,11 @@ components:
                 password:
                     type: string
             example:
-                email: ''
-                password: ''
+                email: ""
+                password: ""
         user_request:
             title: Root Type for user_response
-            description: ''
+            description: ""
             required:
                 - email
                 - role
@@ -262,39 +253,39 @@ components:
                         - CONSUMER
                     type: string
                 password:
-                    description: ''
+                    description: ""
                     type: string
             example:
                 role: DINER
-                first_name: ''
-                last_name: ''
-                email: ''
-                password: ''
-                phone_number: ''
-                nickname: ''
-                avatar: ''
-                ssn: ''
-                certification_photo: ''
-                instagram: ''
-                bio: ''
-                video: ''
-                monday: ''
-                tuesday: ''
-                wednesday: ''
-                thursday: ''
-                friday: ''
-                saturday: ''
-                sunday: ''
+                first_name: ""
+                last_name: ""
+                email: ""
+                password: ""
+                phone_number: ""
+                nickname: ""
+                avatar: ""
+                ssn: ""
+                certification_photo: ""
+                instagram: ""
+                bio: ""
+                video: ""
+                monday: ""
+                tuesday: ""
+                wednesday: ""
+                thursday: ""
+                friday: ""
+                saturday: ""
+                sunday: ""
                 work_holidays: false
                 push: true
                 email_notification: true
                 sms_notification: true
                 updates_notification: true
                 promotionals_notification: true
-                other: ''
+                other: ""
         reservation_request:
             title: Root Type for reservation_response
-            description: ''
+            description: ""
             type: object
             properties:
                 diner_id:
@@ -340,41 +331,20 @@ components:
                 diner_id: 96461
                 cook_id: 31313
                 guests:
-                    - ''
+                    - ""
                 dishes:
                     - 14313
-                client_order: ''
-                cook_comment: ''
+                client_order: ""
+                cook_comment: ""
                 priority: 3
-                comment: ''
-                place: ''
-                when: ''
+                comment: ""
+                place: ""
+                when: ""
                 status: PROPOSED
                 staff_id: 6611
-        claim_chat_request:
-            title: Root Type for claim_chat_response
-            description: ''
-            type: object
-            properties:
-                diner_id:
-                    type: integer
-                cook_id:
-                    type: integer
-                reservation_id:
-                    type: integer
-                messages:
-                    type: array
-                    items:
-                        type: string
-            example:
-                diner_id: 684161
-                cook_id: 7641
-                reservation_id: 6416
-                messages:
-                    - ''
         payment_request:
             title: Root Type for payment_response
-            description: ''
+            description: ""
             type: object
             properties:
                 receiver:
@@ -410,15 +380,15 @@ components:
                 payment_id: 641613
                 receiver: 463134
                 buyer: 131351
-                comment: ''
-                concept: ''
+                comment: ""
+                concept: ""
                 register: 31313
                 pay_method: CASH
                 pay_status: REVISION
-                other: ''
+                other: ""
         dish_request:
             title: Root Type for dish_response
-            description: ''
+            description: ""
             type: object
             properties:
                 cook_id:
@@ -464,26 +434,26 @@ components:
                     type: string
             example:
                 cook_id: 6113
-                title: ''
-                description: ''
-                style: ''
+                title: ""
+                description: ""
+                style: ""
                 glutten_allergy: false
                 soy_allergy: false
                 milk_allergy: false
                 peanuts_allergy: false
                 shrimp_allergy: false
-                other_allergy: ''
+                other_allergy: ""
                 attachment:
-                    - ''
+                    - ""
                 minimun_diners: 1
                 maximum_diners: 2
                 price: 10000
-                minimum_cancel_time: ''
-                required_tools: ''
-                other: ''
+                minimum_cancel_time: ""
+                required_tools: ""
+                other: ""
         review_request:
             title: Root Type for review_response
-            description: ''
+            description: ""
             type: object
             properties:
                 user_id:
@@ -513,45 +483,19 @@ components:
             example:
                 user_id: 64313
                 reservation_id: 6431
-                food: '1'
-                service: '1'
-                presentation: '1'
-                overall_experience: '1'
-                comment: ''
+                food: "1"
+                service: "1"
+                presentation: "1"
+                overall_experience: "1"
+                comment: ""
                 attachment:
-                    - ''
+                    - ""
                 service_went_fully: true
-                review_text: ''
-                other: ''
-        claim_chat_success:
-            title: Root Type for Claim chat success
-            description: ''
-            type: object
-            properties:
-                sucess:
-                    type: boolean
-                msg:
-                    type: string
-                data:
-                    type: array
-                    items:
-                        $ref: '#/components/schemas/claim_chat_response'
-            example:
-                sucess: true
-                msg: string
-                data:
-                    -
-                        claim_id: 6464
-                        diner_id: 31313
-                        reservation_id: 94313
-                        subject: ''
-                        issue: ''
-                        attachment:
-                            - ''
-                        other: ''
+                review_text: ""
+                other: ""
         admin_success:
             title: Root Type for Admin success
-            description: ''
+            description: ""
             type: object
             properties:
                 sucess:
@@ -561,55 +505,24 @@ components:
                 data:
                     type: array
                     items:
-                        $ref: '#/components/schemas/admin_response'
+                        $ref: "#/components/schemas/admin_response"
             example:
                 sucess: true
                 msg: string
                 data:
-                    -
-                        admin_id: 5464
-                        cookinat-api-key: ''
-                        email: ''
-                        first_name: ''
-                        last_name: ''
-                        phone_number: ''
-                        avatar: ''
-                        created_at: ''
-                        updated_at: ''
-                        other: ''
-        claim_success:
-            title: Root Type for Claim success
-            description: ''
-            type: object
-            properties:
-                sucess:
-                    type: boolean
-                msg:
-                    type: string
-                data:
-                    type: array
-                    items:
-                        $ref: '#/components/schemas/claim_response'
-            example:
-                sucess: true
-                msg: string
-                data:
-                    -
-                        claim_id: 6464
-                        diner_id: 31313
-                        reservation_id: 94313
-                        subject: ''
-                        issue: ''
-                        attachment:
-                            - ''
-                        status: PENDING
-                        claim_chat_id: 6431
-                        created_at: ''
-                        updated_at: ''
-                        other: ''
+                    - admin_id: 5464
+                      cookinat-api-key: ""
+                      email: ""
+                      first_name: ""
+                      last_name: ""
+                      phone_number: ""
+                      avatar: ""
+                      created_at: ""
+                      updated_at: ""
+                      other: ""
         dish_success:
             title: Root Type for Dish success
-            description: ''
+            description: ""
             type: object
             properties:
                 sucess:
@@ -619,39 +532,38 @@ components:
                 data:
                     type: array
                     items:
-                        $ref: '#/components/schemas/dish_response'
+                        $ref: "#/components/schemas/dish_response"
             example:
                 sucess: true
                 msg: string
                 data:
-                    -
-                        dish_id: 646341
-                        cook_id: 6113
-                        title: ''
-                        description: ''
-                        style: ''
-                        glutten_allergy: false
-                        soy_allergy: false
-                        milk_allergy: false
-                        peanuts_allergy: false
-                        shrimp_allergy: false
-                        other_allergy: ''
-                        attachment:
-                            - ''
-                        minimun_diners: 1
-                        maximum_diners: 2
-                        price: 10000
-                        minimum_cancel_time: ''
-                        required_tools: ''
-                        disabled: false
-                        reasons: ''
-                        review: '2'
-                        created_at: ''
-                        updated_at: ''
-                        other: ''
+                    - dish_id: 646341
+                      cook_id: 6113
+                      title: ""
+                      description: ""
+                      style: ""
+                      glutten_allergy: false
+                      soy_allergy: false
+                      milk_allergy: false
+                      peanuts_allergy: false
+                      shrimp_allergy: false
+                      other_allergy: ""
+                      attachment:
+                          - ""
+                      minimun_diners: 1
+                      maximum_diners: 2
+                      price: 10000
+                      minimum_cancel_time: ""
+                      required_tools: ""
+                      disabled: false
+                      reasons: ""
+                      review: "2"
+                      created_at: ""
+                      updated_at: ""
+                      other: ""
         payment_success:
             title: Root Type for Payment success
-            description: ''
+            description: ""
             type: object
             properties:
                 sucess:
@@ -666,19 +578,18 @@ components:
                 sucess: true
                 msg: string
                 data:
-                    -
-                        payment_id: 641613
-                        receiver: 463134
-                        buyer: 131351
-                        comment: ''
-                        concept: ''
-                        register: 31313
-                        pay_method: CASH
-                        pay_status: REVISION
-                        other: ''
+                    - payment_id: 641613
+                      receiver: 463134
+                      buyer: 131351
+                      comment: ""
+                      concept: ""
+                      register: 31313
+                      pay_method: CASH
+                      pay_status: REVISION
+                      other: ""
         reservation_success:
             title: Root Type for Reservation success
-            description: ''
+            description: ""
             type: object
             properties:
                 sucess:
@@ -688,32 +599,31 @@ components:
                 data:
                     type: array
                     items:
-                        $ref: '#/components/schemas/reservation_response'
+                        $ref: "#/components/schemas/reservation_response"
             example:
                 sucess: true
                 msg: string
                 data:
-                    -
-                        reservation_id: 635416
-                        diner_id: 96461
-                        cook_id: 31313
-                        guests:
-                            - ''
-                        dishes:
-                            - 14313
-                        client_order: ''
-                        cook_comment: ''
-                        priority: 3
-                        comment: ''
-                        place: ''
-                        when: ''
-                        status: PROPOSED
-                        staff_id: 6611
-                        created_at: ''
-                        updated_at: ''
+                    - reservation_id: 635416
+                      diner_id: 96461
+                      cook_id: 31313
+                      guests:
+                          - ""
+                      dishes:
+                          - 14313
+                      client_order: ""
+                      cook_comment: ""
+                      priority: 3
+                      comment: ""
+                      place: ""
+                      when: ""
+                      status: PROPOSED
+                      staff_id: 6611
+                      created_at: ""
+                      updated_at: ""
         review_success:
             title: Root Type for Review success
-            description: ''
+            description: ""
             type: object
             properties:
                 sucess:
@@ -723,31 +633,30 @@ components:
                 data:
                     type: array
                     items:
-                        $ref: '#/components/schemas/review_response'
+                        $ref: "#/components/schemas/review_response"
             example:
                 sucess: true
                 msg: string
                 data:
-                    -
-                        review_id: 6431
-                        user_id: 64313
-                        reservation_id: 6431
-                        food: '1'
-                        service: '1'
-                        presentation: '1'
-                        overall_experience: '1'
-                        comment: ''
-                        attachment: ''
-                        service_went_fully: true
-                        review_text: ''
-                        disabled: false
-                        reasons: ''
-                        created_at: ''
-                        updated_at: ''
-                        other: ''
+                    - review_id: 6431
+                      user_id: 64313
+                      reservation_id: 6431
+                      food: "1"
+                      service: "1"
+                      presentation: "1"
+                      overall_experience: "1"
+                      comment: ""
+                      attachment: ""
+                      service_went_fully: true
+                      review_text: ""
+                      disabled: false
+                      reasons: ""
+                      created_at: ""
+                      updated_at: ""
+                      other: ""
         staff_success:
             title: Root Type for Staff success
-            description: ''
+            description: ""
             type: object
             properties:
                 sucess:
@@ -757,25 +666,24 @@ components:
                 data:
                     type: array
                     items:
-                        $ref: '#/components/schemas/review_response'
+                        $ref: "#/components/schemas/review_response"
             example:
                 sucess: true
                 msg: string
                 data:
-                    -
-                        staff_id: 61646
-                        email: ''
-                        password: ''
-                        first_name: ''
-                        last_name: ''
-                        phone_number: ''
-                        avatar: ''
-                        created_at: ''
-                        updated_at: ''
-                        other: ''
+                    - staff_id: 61646
+                      email: ""
+                      password: ""
+                      first_name: ""
+                      last_name: ""
+                      phone_number: ""
+                      avatar: ""
+                      created_at: ""
+                      updated_at: ""
+                      other: ""
         user_success:
             title: Root Type for User success
-            description: ''
+            description: ""
             type: object
             properties:
                 sucess:
@@ -785,45 +693,44 @@ components:
                 data:
                     type: array
                     items:
-                        $ref: '#/components/schemas/user_response'
+                        $ref: "#/components/schemas/user_response"
             example:
                 sucess: true
                 msg: string
                 data:
-                    -
-                        user_id: ''
-                        first_name: ''
-                        last_name: ''
-                        email: ''
-                        phone_number: ''
-                        nickname: ''
-                        avatar: ''
-                        is_diner_locked: true
-                        is_cook_locked: true
-                        ssn: ''
-                        certification_photo: ''
-                        instagram: ''
-                        bio: ''
-                        video: ''
-                        monday: ''
-                        tuesday: ''
-                        wednesday: ''
-                        thursday: ''
-                        friday: ''
-                        saturday: ''
-                        sunday: ''
-                        work_holidays: false
-                        push: true
-                        email_notification: true
-                        sms_notification: true
-                        updates_notification: true
-                        promotionals_notification: true
-                        created_at: ''
-                        updated_at: ''
-                        other: ''
+                    - user_id: ""
+                      first_name: ""
+                      last_name: ""
+                      email: ""
+                      phone_number: ""
+                      nickname: ""
+                      avatar: ""
+                      is_diner_locked: true
+                      is_cook_locked: true
+                      ssn: ""
+                      certification_photo: ""
+                      instagram: ""
+                      bio: ""
+                      video: ""
+                      monday: ""
+                      tuesday: ""
+                      wednesday: ""
+                      thursday: ""
+                      friday: ""
+                      saturday: ""
+                      sunday: ""
+                      work_holidays: false
+                      push: true
+                      email_notification: true
+                      sms_notification: true
+                      updates_notification: true
+                      promotionals_notification: true
+                      created_at: ""
+                      updated_at: ""
+                      other: ""
         diner_request:
             title: Root Type for diner_response
-            description: ''
+            description: ""
             required:
                 - password
                 - email
@@ -851,19 +758,19 @@ components:
                 updates_notification:
                     type: boolean
                 promotionals_notification:
-                    description: 'Do you want to receive promotions, deals and offers?'
+                    description: "Do you want to receive promotions, deals and offers?"
                     type: boolean
                 password:
-                    description: ''
+                    description: ""
                     type: string
             example:
-                first_name: ''
-                last_name: ''
-                email: ''
-                password: ''
-                phone_number: ''
-                nickname: ''
-                avatar: ''
+                first_name: ""
+                last_name: ""
+                email: ""
+                password: ""
+                phone_number: ""
+                nickname: ""
+                avatar: ""
                 push: true
                 email_notification: true
                 sms_notification: true
@@ -871,7 +778,7 @@ components:
                 promotionals_notification: true
         diner_success:
             title: Root Type for Diner success
-            description: ''
+            description: ""
             type: object
             properties:
                 success:
@@ -879,33 +786,32 @@ components:
                 msg:
                     type: string
                 data:
-                    description: ''
+                    description: ""
                     type: array
                     items:
-                        $ref: '#/components/schemas/diner_response'
+                        $ref: "#/components/schemas/diner_response"
             example:
                 success: true
                 msg: Operation Succeded
                 data:
-                    -
-                        user_id: 65131
-                        first_name: ''
-                        last_name: ''
-                        email: ''
-                        phone_number: ''
-                        is_diner_locked: false
-                        nickname: ''
-                        avatar: ''
-                        push: true
-                        email_notification: true
-                        sms_notification: true
-                        updates_notification: true
-                        promotionals_notification: true
-                        created_at: ''
-                        updated_at: ''
+                    - user_id: 65131
+                      first_name: ""
+                      last_name: ""
+                      email: ""
+                      phone_number: ""
+                      is_diner_locked: false
+                      nickname: ""
+                      avatar: ""
+                      push: true
+                      email_notification: true
+                      sms_notification: true
+                      updates_notification: true
+                      promotionals_notification: true
+                      created_at: ""
+                      updated_at: ""
         cook_success:
             title: Root Type for Cook success
-            description: ''
+            description: ""
             type: object
             properties:
                 success:
@@ -913,44 +819,43 @@ components:
                 msg:
                     type: string
                 data:
-                    description: ''
+                    description: ""
                     type: array
                     items:
-                        $ref: '#/components/schemas/cook_response'
+                        $ref: "#/components/schemas/cook_response"
             example:
                 success: true
                 msg: Operation Succeded
                 data:
-                    -
-                        user_id: 6131
-                        first_name: ''
-                        last_name: ''
-                        email: ''
-                        phone_number: ''
-                        is_cook_locked: true
-                        certification_photo: ''
-                        instagram: ''
-                        bio: ''
-                        video: ''
-                        monday: ''
-                        tuesday: ''
-                        wednesday: ''
-                        thursday: ''
-                        friday: ''
-                        saturday: ''
-                        sunday: ''
-                        work_holidays: false
-                        nickname: ''
-                        avatar: ''
-                        push: true
-                        email_notification: true
-                        sms_notification: true
-                        updates_notification: true
-                        created_at: ''
-                        updated_at: ''
+                    - user_id: 6131
+                      first_name: ""
+                      last_name: ""
+                      email: ""
+                      phone_number: ""
+                      is_cook_locked: true
+                      certification_photo: ""
+                      instagram: ""
+                      bio: ""
+                      video: ""
+                      monday: ""
+                      tuesday: ""
+                      wednesday: ""
+                      thursday: ""
+                      friday: ""
+                      saturday: ""
+                      sunday: ""
+                      work_holidays: false
+                      nickname: ""
+                      avatar: ""
+                      push: true
+                      email_notification: true
+                      sms_notification: true
+                      updates_notification: true
+                      created_at: ""
+                      updated_at: ""
         login_response:
             title: Root Type for login_response
-            description: ''
+            description: ""
             type: object
             properties:
                 success:
@@ -960,22 +865,21 @@ components:
                 data:
                     type: array
                     items:
-                        $ref: '#/components/schemas/login_response_data'
+                        $ref: "#/components/schemas/login_response_data"
             example:
                 success: true
                 msg: You have successfully Log In to CookinAt!
                 data:
-                    -
-                        user_id: 64631
-                        first_name: ''
-                        email: ''
-                        avatar: ''
-                        nickname: ''
-                        token: ''
-                        expires: ''
+                    - user_id: 64631
+                      first_name: ""
+                      email: ""
+                      avatar: ""
+                      nickname: ""
+                      token: ""
+                      expires: ""
         server_failed:
             title: Root Type for failed
-            description: ''
+            description: ""
             type: object
             properties:
                 success:
@@ -993,10 +897,10 @@ components:
                 success: false
                 msg: An Internal Server Error found. Please try again or contact Support.
                 error:
-                    - ''
+                    - ""
         client_failed:
             title: Root Type for failed
-            description: ''
+            description: ""
             type: object
             properties:
                 success:
@@ -1004,18 +908,18 @@ components:
                 msg:
                     type: string
                 error:
-                    description: 'If more than an error is found, it will be on his own object.'
+                    description: "If more than an error is found, it will be on his own object."
                     type: array
                     items:
                         type: string
             example:
                 success: false
-                msg: 'Please check the data you''ve sent, and try again.'
+                msg: "Please check the data you've sent, and try again."
                 error:
-                    - ''
+                    - ""
         verification_request:
             title: Root Type for varification_request
-            description: ''
+            description: ""
             type: object
             properties:
                 verificationCode:
@@ -1023,11 +927,11 @@ components:
                 email:
                     type: string
             example:
-                verificationCode: ''
-                email: ''
+                verificationCode: ""
+                email: ""
         ping_response:
             title: Root Type for ping_response
-            description: ''
+            description: ""
             type: object
             properties:
                 success:
@@ -1052,14 +956,13 @@ components:
                 success: true
                 msg: A savage Server is challenge you to a fight!
                 data:
-                    -
-                        name: cookinat-user-backend
-                        description: RESTful API with Authentication and documentation
-                        version: 2.0.1
-                        uptime: 48715.379753035
+                    - name: cookinat-user-backend
+                      description: RESTful API with Authentication and documentation
+                      version: 2.0.1
+                      uptime: 48715.379753035
         upload_request:
             title: Root Type for upload_request
-            description: ''
+            description: ""
             type: object
             properties:
                 image_name:
@@ -1071,7 +974,7 @@ components:
                 user_id: 61313
         cook_request:
             title: Root Type for cook_response
-            description: ''
+            description: ""
             required:
                 - ssn
                 - email
@@ -1106,37 +1009,37 @@ components:
                 monday:
                     description: |-
                         Your Schedule for this day. Remember to take in consideration readability. 
-                        We recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm 
+                        We recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm
                     type: string
                 tuesday:
                     description: |-
                         Your Schedule for this day. Remember to take in consideration readability. 
-                        We recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm 
+                        We recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm
                     type: string
                 wednesday:
                     description: |-
                         Your Schedule for this day. Remember to take in consideration readability. 
-                        We recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm 
+                        We recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm
                     type: string
                 thursday:
                     description: |-
                         Your Schedule for this day. Remember to take in consideration readability. 
-                        We recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm 
+                        We recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm
                     type: string
                 friday:
                     description: |-
                         Your Schedule for this day. Remember to take in consideration readability. 
-                        We recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm 
+                        We recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm
                     type: string
                 saturday:
                     description: |-
                         Your Schedule for this day. Remember to take in consideration readability. 
-                        We recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm 
+                        We recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm
                     type: string
                 sunday:
                     description: |-
                         Your Schedule for this day. Remember to take in consideration readability. 
-                        We recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm 
+                        We recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm
                     type: string
                 work_holidays:
                     description: Are you available on holidays?
@@ -1159,69 +1062,36 @@ components:
                     description: Number of 10 digits to validate cook Social Security Number.
                     type: string
                 password:
-                    description: ''
+                    description: ""
                     type: string
             example:
-                first_name: ''
-                last_name: ''
-                email: ''
-                password: ''
-                phone_number: ''
-                certification_photo: ''
-                instagram: ''
-                ssn: ''
-                bio: ''
-                video: ''
-                monday: ''
-                tuesday: ''
-                wednesday: ''
-                thursday: ''
-                friday: ''
-                saturday: ''
-                sunday: ''
+                first_name: ""
+                last_name: ""
+                email: ""
+                password: ""
+                phone_number: ""
+                certification_photo: ""
+                instagram: ""
+                ssn: ""
+                bio: ""
+                video: ""
+                monday: ""
+                tuesday: ""
+                wednesday: ""
+                thursday: ""
+                friday: ""
+                saturday: ""
+                sunday: ""
                 work_holidays: false
-                nickname: ''
-                avatar: ''
+                nickname: ""
+                avatar: ""
                 push: true
                 email_notification: true
                 sms_notification: true
                 updates_notification: true
-        claim_request:
-            title: Root Type for claim_response
-            description: ''
-            type: object
-            properties:
-                diner_id:
-                    type: integer
-                reservation_id:
-                    type: integer
-                subject:
-                    description: |-
-                        reference to the aspect of the service. Acts like a title describing what 
-                        portion of the service can be improved later. We plan to make it a enum later.
-                    type: string
-                issue:
-                    description: Explain the issue lenghtly here
-                    type: string
-                attachment:
-                    description: URLs of photos that describe the claim graphically.
-                    type: array
-                    items:
-                        type: string
-                other:
-                    type: string
-            example:
-                claim_id: 6464
-                diner_id: 31313
-                reservation_id: 94313
-                subject: ''
-                issue: ''
-                attachment:
-                    - ''
-                other: ''
         login_response_data:
             title: Root Type for login_response_data
-            description: ''
+            description: ""
             type: object
             properties:
                 user_id:
@@ -1243,15 +1113,15 @@ components:
                     type: string
             example:
                 user_id: 64631
-                first_name: ''
-                email: ''
-                avatar: ''
-                nickname: ''
-                token: ''
-                expires: ''
+                first_name: ""
+                email: ""
+                avatar: ""
+                nickname: ""
+                token: ""
+                expires: ""
         upload_response:
             title: Root Type for upload_response
-            description: ''
+            description: ""
             type: object
             properties:
                 success:
@@ -1274,13 +1144,12 @@ components:
                 success: true
                 msg: You have successfully uploaded the image
                 data:
-                    -
-                        image_name: ''
-                        url: ''
-                        image_id: ''
+                    - image_name: ""
+                      url: ""
+                      image_id: ""
         user_response:
             title: Root Type for user_response
-            description: ''
+            description: ""
             required:
                 - email
             type: object
@@ -1357,39 +1226,39 @@ components:
                 other:
                     type: string
             example:
-                user_id: ''
-                first_name: ''
-                last_name: ''
-                email: ''
-                phone_number: ''
-                nickname: ''
-                avatar: ''
+                user_id: ""
+                first_name: ""
+                last_name: ""
+                email: ""
+                phone_number: ""
+                nickname: ""
+                avatar: ""
                 is_diner_locked: true
                 is_cook_locked: true
-                ssn: ''
-                certification_photo: ''
-                instagram: ''
-                bio: ''
-                video: ''
-                monday: ''
-                tuesday: ''
-                wednesday: ''
-                thursday: ''
-                friday: ''
-                saturday: ''
-                sunday: ''
+                ssn: ""
+                certification_photo: ""
+                instagram: ""
+                bio: ""
+                video: ""
+                monday: ""
+                tuesday: ""
+                wednesday: ""
+                thursday: ""
+                friday: ""
+                saturday: ""
+                sunday: ""
                 work_holidays: false
                 push: true
                 email_notification: true
                 sms_notification: true
                 updates_notification: true
                 promotionals_notification: true
-                created_at: ''
-                updated_at: ''
-                other: ''
+                created_at: ""
+                updated_at: ""
+                other: ""
         staff_response:
             title: Root Type for staff
-            description: ''
+            description: ""
             type: object
             properties:
                 staff_id:
@@ -1417,18 +1286,18 @@ components:
                     type: string
             example:
                 staff_id: 61646
-                email: ''
-                password: ''
-                first_name: ''
-                last_name: ''
-                phone_number: ''
-                avatar: ''
-                created_at: ''
-                updated_at: ''
-                other: ''
+                email: ""
+                password: ""
+                first_name: ""
+                last_name: ""
+                phone_number: ""
+                avatar: ""
+                created_at: ""
+                updated_at: ""
+                other: ""
         review_response:
             title: Root Type for review_response
-            description: ''
+            description: ""
             type: object
             properties:
                 review_id:
@@ -1474,23 +1343,23 @@ components:
                 review_id: 6431
                 user_id: 64313
                 reservation_id: 6431
-                food: '1'
-                service: '1'
-                presentation: '1'
-                overall_experience: '1'
-                comment: ''
+                food: "1"
+                service: "1"
+                presentation: "1"
+                overall_experience: "1"
+                comment: ""
                 attachment:
-                    - ''
+                    - ""
                 service_went_fully: true
-                review_text: ''
+                review_text: ""
                 disabled: false
-                reasons: ''
-                created_at: ''
-                updated_at: ''
-                other: ''
+                reasons: ""
+                created_at: ""
+                updated_at: ""
+                other: ""
         reservation_response:
             title: Root Type for reservation_response
-            description: ''
+            description: ""
             type: object
             properties:
                 reservation_id:
@@ -1550,22 +1419,22 @@ components:
                 diner_id: 96461
                 cook_id: 31313
                 guests:
-                    - ''
+                    - ""
                 dishes:
                     - 14313
-                client_order: ''
-                cook_comment: ''
+                client_order: ""
+                cook_comment: ""
                 priority: 3
-                comment: ''
-                place: ''
-                when: ''
+                comment: ""
+                place: ""
+                when: ""
                 status: PROPOSED
                 staff_id: 6611
-                created_at: ''
-                updated_at: ''
+                created_at: ""
+                updated_at: ""
         payment_response:
             title: Root Type for payment_response
-            description: ''
+            description: ""
             type: object
             properties:
                 payment_id:
@@ -1613,15 +1482,15 @@ components:
                 payment_id: 641613
                 receiver: 463134
                 buyer: 131351
-                comment: ''
-                concept: ''
+                comment: ""
+                concept: ""
                 register: 31313
                 pay_method: CASH
                 pay_status: REVISION
-                other: ''
+                other: ""
         dish_response:
             title: Root Type for dish_response
-            description: ''
+            description: ""
             type: object
             properties:
                 dish_id:
@@ -1678,31 +1547,31 @@ components:
             example:
                 dish_id: 646341
                 cook_id: 6113
-                title: ''
-                description: ''
-                style: ''
+                title: ""
+                description: ""
+                style: ""
                 glutten_allergy: false
                 soy_allergy: false
                 milk_allergy: false
                 peanuts_allergy: false
                 shrimp_allergy: false
-                other_allergy: ''
+                other_allergy: ""
                 attachment:
-                    - ''
+                    - ""
                 minimun_diners: 1
                 maximum_diners: 2
                 price: 10000
-                minimum_cancel_time: ''
-                required_tools: ''
+                minimum_cancel_time: ""
+                required_tools: ""
                 disabled: false
-                reasons: ''
-                review: '2'
-                created_at: ''
-                updated_at: ''
-                other: ''
+                reasons: ""
+                review: "2"
+                created_at: ""
+                updated_at: ""
+                other: ""
         diner_response:
             title: Root Type for diner_response
-            description: ''
+            description: ""
             type: object
             properties:
                 user_id:
@@ -1742,23 +1611,23 @@ components:
                     type: string
             example:
                 user_id: 65131
-                first_name: ''
-                last_name: ''
-                email: ''
-                phone_number: ''
+                first_name: ""
+                last_name: ""
+                email: ""
+                phone_number: ""
                 is_diner_locked: true
-                nickname: ''
-                avatar: ''
+                nickname: ""
+                avatar: ""
                 push: true
                 email_notification: true
                 sms_notification: true
                 updates_notification: true
                 promotionals_notification: true
-                created_at: ''
-                updated_at: ''
+                created_at: ""
+                updated_at: ""
         cook_response:
             title: Root Type for cook_response
-            description: ''
+            description: ""
             type: object
             properties:
                 user_id:
@@ -1824,134 +1693,34 @@ components:
                     type: string
             example:
                 user_id: 6131
-                first_name: ''
-                last_name: ''
-                email: ''
-                phone_number: ''
+                first_name: ""
+                last_name: ""
+                email: ""
+                phone_number: ""
                 is_cook_locked: true
-                certification_photo: ''
-                instagram: ''
-                bio: ''
-                video: ''
-                monday: ''
-                tuesday: ''
-                wednesday: ''
-                thursday: ''
-                friday: ''
-                saturday: ''
-                sunday: ''
+                certification_photo: ""
+                instagram: ""
+                bio: ""
+                video: ""
+                monday: ""
+                tuesday: ""
+                wednesday: ""
+                thursday: ""
+                friday: ""
+                saturday: ""
+                sunday: ""
                 work_holidays: false
-                nickname: ''
-                avatar: ''
+                nickname: ""
+                avatar: ""
                 push: true
                 email_notification: true
                 sms_notification: true
                 updates_notification: true
-                created_at: ''
-                updated_at: ''
-        claim_response:
-            title: Root Type for claim_response
-            description: ''
-            type: object
-            properties:
-                claim_id:
-                    format: uuid
-                    type: integer
-                diner_id:
-                    format: uuid
-                    type: integer
-                reservation_id:
-                    format: uuid
-                    type: integer
-                subject:
-                    type: string
-                issue:
-                    type: string
-                attachment:
-                    description: URLs of photos that describe the claim graphically
-                    type: array
-                    items:
-                        type: string
-                status:
-                    description: |-
-                        PENDING recently raised claim not addresed by staff or Admin.
-                        OPEN addresed claim
-                        CLOSED solved claim
-                    enum:
-                        - PENDING
-                        - OPEN
-                        - CLOSED
-                    type: string
-                claim_chat_id:
-                    format: uuid
-                    type: integer
-                created_at:
-                    format: datetime
-                    type: string
-                updated_at:
-                    format: date-time
-                    type: string
-                other:
-                    type: string
-            example:
-                claim_id: 6464
-                diner_id: 31313
-                reservation_id: 94313
-                subject: ''
-                issue: ''
-                attachment:
-                    - ''
-                status: PENDING
-                claim_chat_id: 6431
-                created_at: ''
-                updated_at: ''
-                other: ''
-        claim_chat_response:
-            title: Root Type for claim_chat_response
-            description: ''
-            type: object
-            properties:
-                claim_chat_id:
-                    format: uuid
-                    type: integer
-                diner_id:
-                    format: uuid
-                    type: integer
-                cook_id:
-                    format: uuid
-                    type: integer
-                reservation_id:
-                    format: uuid
-                    type: integer
-                moderator:
-                    format: uuid
-                    description: |-
-                        Staff member asigned to moderate this chat. She/He must watch for proper 
-                        and civilized comunication between cook and diners.
-                    type: integer
-                messages:
-                    type: array
-                    items:
-                        type: string
-                created_at:
-                    format: date-time
-                    type: string
-                updated_at:
-                    format: date-time
-                    type: string
-            example:
-                claim_chat_id: 946313
-                diner_id: 684161
-                cook_id: 7641
-                reservation_id: 6416
-                moderator: 6131
-                messages:
-                    - ''
-                created_at: ''
-                updated_at: ''
+                created_at: ""
+                updated_at: ""
         admin_response:
             title: Root Type for admin
-            description: ''
+            description: ""
             type: object
             properties:
                 email:
@@ -1981,26 +1750,26 @@ components:
                     type: integer
             example:
                 admin_id: 5464
-                email: ''
-                first_name: ''
-                last_name: ''
-                phone_number: ''
-                avatar: ''
-                created_at: ''
-                updated_at: ''
-                other: ''
+                email: ""
+                first_name: ""
+                last_name: ""
+                phone_number: ""
+                avatar: ""
+                created_at: ""
+                updated_at: ""
+                other: ""
         cook_verify_request:
             title: Root Type for cook_verify_request
-            description: ''
+            description: ""
             type: object
             properties:
                 email:
                     type: string
             example:
-                email: ''
+                email: ""
         admin_cook_request:
             title: Root Type for admin_cook_request
-            description: ''
+            description: ""
             required:
                 - email
             type: object
@@ -2054,32 +1823,32 @@ components:
                 updates_notification:
                     type: boolean
             example:
-                first_name: ''
-                last_name: ''
-                email: ''
-                phone_number: ''
+                first_name: ""
+                last_name: ""
+                email: ""
+                phone_number: ""
                 is_cook_locked: true
-                certification_photo: ''
-                instagram: ''
-                bio: ''
-                video: ''
-                monday: ''
-                tuesday: ''
-                wednesday: ''
-                thursday: ''
-                friday: ''
-                saturday: ''
-                sunday: ''
+                certification_photo: ""
+                instagram: ""
+                bio: ""
+                video: ""
+                monday: ""
+                tuesday: ""
+                wednesday: ""
+                thursday: ""
+                friday: ""
+                saturday: ""
+                sunday: ""
                 work_holidays: false
-                nickname: ''
-                avatar: ''
+                nickname: ""
+                avatar: ""
                 push: true
                 email_notification: true
                 sms_notification: true
                 updates_notification: true
         admin_diner_request:
             title: Root Type for admin_diner_request
-            description: ''
+            description: ""
             required:
                 - email
             type: object
@@ -2111,14 +1880,14 @@ components:
                 promotionals_notification:
                     type: boolean
             example:
-                first_name: ''
-                last_name: ''
-                email: ''
-                password: ''
-                phone_number: ''
+                first_name: ""
+                last_name: ""
+                email: ""
+                password: ""
+                phone_number: ""
                 is_diner_locked: false
-                nickname: ''
-                avatar: ''
+                nickname: ""
+                avatar: ""
                 push: true
                 email_notification: true
                 sms_notification: true
@@ -2129,185 +1898,168 @@ components:
             content:
                 application/json:
                     schema:
-                        $ref: '#/components/schemas/admin_success'
-            description: ''
-        claim_chat_success:
-            content:
-                application/json:
-                    schema:
-                        $ref: '#/components/schemas/claim_chat_success'
-            description: ''
-        claim_success:
-            content:
-                application/json:
-                    schema:
-                        $ref: '#/components/schemas/claim_success'
-            description: ''
+                        $ref: "#/components/schemas/admin_success"
+            description: ""
         dish_success:
             content:
                 application/json:
                     schema:
-                        $ref: '#/components/schemas/dish_success'
-            description: ''
+                        $ref: "#/components/schemas/dish_success"
+            description: ""
         payment_success:
             content:
                 application/json:
                     schema:
-                        $ref: '#/components/schemas/payment_success'
-            description: ''
+                        $ref: "#/components/schemas/payment_success"
+            description: ""
         reservation_success:
             content:
                 application/json:
                     schema:
-                        $ref: '#/components/schemas/reservation_success'
-            description: ''
+                        $ref: "#/components/schemas/reservation_success"
+            description: ""
         review_success:
             content:
                 application/json:
                     schema:
-                        $ref: '#/components/schemas/review_success'
-            description: ''
+                        $ref: "#/components/schemas/review_success"
+            description: ""
         staff_success:
             content:
                 application/json:
                     schema:
-                        $ref: '#/components/schemas/staff_success'
-            description: ''
+                        $ref: "#/components/schemas/staff_success"
+            description: ""
         user_success:
             content:
                 application/json:
                     schema:
-                        $ref: '#/components/schemas/user_success'
-            description: ''
+                        $ref: "#/components/schemas/user_success"
+            description: ""
         user_error:
             content:
                 application/json:
                     schema:
-                        $ref: '#/components/schemas/client_failed'
-            description: ''
+                        $ref: "#/components/schemas/client_failed"
+            description: ""
         server_error:
             content:
                 application/json:
                     schema:
-                        $ref: '#/components/schemas/server_failed'
-            description: ''
+                        $ref: "#/components/schemas/server_failed"
+            description: ""
         cook_success:
             content:
                 application/json:
                     schema:
-                        $ref: '#/components/schemas/cook_success'
+                        $ref: "#/components/schemas/cook_success"
                     examples:
                         Successful:
                             value:
                                 success: true
                                 msg: Operation Succeded
                                 data:
-                                    -
-                                        user_id: 6131
-                                        first_name: ''
-                                        last_name: ''
-                                        email: ''
-                                        phone_number: ''
-                                        is_cook_locked: true
-                                        certification_photo: ''
-                                        instagram: ''
-                                        bio: ''
-                                        video: ''
-                                        monday: ''
-                                        tuesday: ''
-                                        wednesday: ''
-                                        thursday: ''
-                                        friday: ''
-                                        saturday: ''
-                                        sunday: ''
-                                        work_holidays: false
-                                        nickname: ''
-                                        avatar: ''
-                                        push: true
-                                        email_notification: true
-                                        sms_notification: true
-                                        updates_notification: true
-                                        created_at: ''
-                                        updated_at: ''
-            description: ''
+                                    - user_id: 6131
+                                      first_name: ""
+                                      last_name: ""
+                                      email: ""
+                                      phone_number: ""
+                                      is_cook_locked: true
+                                      certification_photo: ""
+                                      instagram: ""
+                                      bio: ""
+                                      video: ""
+                                      monday: ""
+                                      tuesday: ""
+                                      wednesday: ""
+                                      thursday: ""
+                                      friday: ""
+                                      saturday: ""
+                                      sunday: ""
+                                      work_holidays: false
+                                      nickname: ""
+                                      avatar: ""
+                                      push: true
+                                      email_notification: true
+                                      sms_notification: true
+                                      updates_notification: true
+                                      created_at: ""
+                                      updated_at: ""
+            description: ""
         diner_success:
             content:
                 application/json:
                     schema:
-                        $ref: '#/components/schemas/cook_success'
+                        $ref: "#/components/schemas/cook_success"
                     examples:
                         Successful:
                             value:
                                 success: true
                                 msg: Operation Succeded
                                 data:
-                                    -
-                                        user_id: 65131
-                                        first_name: ''
-                                        last_name: ''
-                                        email: ''
-                                        phone_number: ''
-                                        is_diner_locked: false
-                                        nickname: ''
-                                        avatar: ''
-                                        push: true
-                                        email_notification: true
-                                        sms_notification: true
-                                        updates_notification: true
-                                        promotionals_notification: true
-                                        created_at: ''
-                                        updated_at: ''
-            description: ''
+                                    - user_id: 65131
+                                      first_name: ""
+                                      last_name: ""
+                                      email: ""
+                                      phone_number: ""
+                                      is_diner_locked: false
+                                      nickname: ""
+                                      avatar: ""
+                                      push: true
+                                      email_notification: true
+                                      sms_notification: true
+                                      updates_notification: true
+                                      promotionals_notification: true
+                                      created_at: ""
+                                      updated_at: ""
+            description: ""
         login_success:
             content:
                 application/json:
                     schema:
-                        $ref: '#/components/schemas/login_response'
+                        $ref: "#/components/schemas/login_response"
                     examples:
                         Successful:
                             value:
                                 success: true
                                 msg: You have successfully Log In to CookinAt!
                                 data:
-                                    -
-                                        user_id: 64631
-                                        first_name: ''
-                                        email: ''
-                                        avatar: ''
-                                        nickname: ''
-                                        token: ''
-                                        expires: ''
-            description: ''
+                                    - user_id: 64631
+                                      first_name: ""
+                                      email: ""
+                                      avatar: ""
+                                      nickname: ""
+                                      token: ""
+                                      expires: ""
+            description: ""
         ping_response:
             content:
                 application/json:
                     schema:
-                        $ref: '#/components/schemas/ping_response'
+                        $ref: "#/components/schemas/ping_response"
                     examples:
                         Successful:
                             value:
                                 success: true
                                 msg: A savage Server is challenge you to a fight!
                                 data:
-                                    -
-                                        name: cookinat-user-backend
-                                        description: RESTful API with Authentication and documentation
-                                        version: 2.0.1
-                                        uptime: 48715.379753035
-            description: ''
+                                    - name: cookinat-user-backend
+                                      description: RESTful API with Authentication and documentation
+                                      version: 2.0.1
+                                      uptime: 48715.379753035
+            description: ""
         upload_response:
             content:
                 application/json:
                     schema:
-                        $ref: '#/components/schemas/upload_response'
+                        $ref: "#/components/schemas/upload_response"
                     examples:
                         Successful:
                             value:
                                 success: true
                                 msg: You have successfully uploaded the image
                                 data:
-                                    -
-                                        image_name: ''
-                                        url: ''
-                                        image_id: ''
-            description: ''
+                                    - image_name: ""
+                                      url: ""
+                                      image_id: ""
+            description: ""

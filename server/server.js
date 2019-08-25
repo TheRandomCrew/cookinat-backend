@@ -8,7 +8,6 @@ const app = express();
 consign()
     .include('./server/util/logger.js')
     .then('./server/config/middlewares.js')
-    .then('./server/config/apollo.js')
     .then('/routes/index.js')
     .then('./server/config/boot.js')
     .into(app);

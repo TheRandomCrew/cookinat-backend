@@ -88,7 +88,6 @@ module.exports = (app) => {
             : `port ${addr.port}`) + ` ${type}`;
 
         // TODO: Add a link to SWAGGER and to GRAPHQL
-        logger.info(`App listening on http://127.0.0.1:8080/api`);
-        logger.info(`App listening on http://127.0.0.1:8080/graphql`);
+        logger.info(`Check API Docs on http://127.0.0.1:8080/cookinat_api_test`);
     }
 };

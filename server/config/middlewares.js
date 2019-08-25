@@ -5,9 +5,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const rateLimit = require("express-rate-limit");
 const compression = require('compression');
-const validator = require('express-validator');
 const errorHandler = require('errorhandler');
-const methodOverride = require('method-override');
 const logger = require('../util/logger');
 
 /** Config for limit requets */
@@ -42,8 +40,8 @@ module.exports = (app) => {
             }
         },
         credentials: true,
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-        allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization', 'X-Access-Token', 'cookinat-api-key', 'cookinat-api-jwt'],
+        methods: ['GET', 'POST'],
+        allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
         preflightContinue: false
     }));
     /** Used to extract info and pass it to wiston*/
@@ -58,10 +56,6 @@ module.exports = (app) => {
     app.use(bodyParser.json({limit: '5mb'}));
     app.use(bodyParser.json({type: 'application/vnd.api+json'}));
     app.use(bodyParser.urlencoded({extended: true}));
-    /** Provider validator methods */
-    app.use(validator());
-    /** Protect routes against abuse */
-    app.use(methodOverride('X-HTTP-Method-Override'));
     /** In production redirect to https */
     app.use((req, res, next) => {
         /** The X-Forwarded-Proto (XFP) header is a de-facto standard header for identifying the protocol (HTTP or HTTPS) that a client used to connect to your proxy */
