@@ -32,17 +32,13 @@ consumerRouter.get('/review/cook/:user_id'       ,getReviewByCook);
 consumerRouter.get('/review/:review_id'          ,getReview);
 
 /**
- * Its endpoint not exist
- * /claim/:user_id
+ * 
+ * Create this end-point
  * /cook/:cook_id
  * /dish/:dish_id
  * /payment/:user_id
  * /review/reservation/:reservation_id
  * /review/reservation/:user_id
- * /review/cook/:cook_id
- * /review/cook/:user_id
- * /review/dish/:dish_id
- * /review/dish/:user_id
  * /review/:user_id
  */
 
