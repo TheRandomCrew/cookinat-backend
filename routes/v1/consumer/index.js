@@ -1,45 +1,28 @@
 const express = require('express');
 let consumerRouter = express.Router();
 
-const getClaim              = require('./getClaim');
-const getClaims             = require('./getClaims');
-const getCooks              = require('./getCooks');
-const getDishes             = require('./getDishes');
-const getPayments           = require('./getPayments');
-const getPaymentById        = require('./getPaymentById');
-const getReservation        = require('./getReservation');
-const getReservations       = require('./getReservations');
-const getReservationByDiner = require('./getReservationByDiner');
-const getReviews             = require('./getReviews');
-const getReview             = require('./getReview');
-const getReviewByCook       = require('./getReviewByCook');
+const getDataSlug = require('./getDataSlug');
 
-consumerRouter.get('/claim/all'                  ,getClaims);/*empty*/
-consumerRouter.get('/claim/:claim_id'            ,getClaim);
+consumerRouter.get('/cook/all'                           ,getDataSlug);
+consumerRouter.get('/cook/:cook_id'                      ,getDataSlug);
 
-consumerRouter.get('/cook/all'                   ,getCooks);
-consumerRouter.get('/dish/all'                   ,getDishes);
+consumerRouter.get('/dish/all'                           ,getDataSlug);
+consumerRouter.get('/dish/:dish_id'                      ,getDataSlug);
+consumerRouter.get('/dish/cook/:cook_id'                 ,getDataSlug);
 
-consumerRouter.get('/payment/all'                ,getPayments);/*empty*/
-consumerRouter.get('/payment/:payment_id'        ,getPaymentById);
+consumerRouter.get('/payment/all'                        ,getDataSlug);
+consumerRouter.get('/payment/:payment_id'                ,getDataSlug);
+consumerRouter.get('/payment/buyer/:buyer_id'            ,getDataSlug);
+consumerRouter.get('/payment/receiver/:user_id'          ,getDataSlug);
 
-consumerRouter.get('/reservation/all'            ,getReservations); /*empty*/
-consumerRouter.get('/reservation/diner/:user_id' ,getReservationByDiner);
-consumerRouter.get('/reservation/:reservation_id',getReservation);
+consumerRouter.get('/reservation/all'                    ,getDataSlug); 
+consumerRouter.get('/reservation/:reservation_id'        ,getDataSlug);
+consumerRouter.get('/reservation/diner/:user_id'         ,getDataSlug);
+consumerRouter.get('/reservation/cook/:cook_id'          ,getDataSlug);
 
-consumerRouter.get('/review/all'                 ,getReviews);/*empty*/
-consumerRouter.get('/review/cook/:user_id'       ,getReviewByCook);
-consumerRouter.get('/review/:review_id'          ,getReview);
-
-/**
- * 
- * Create this end-point
- * /cook/:cook_id
- * /dish/:dish_id
- * /payment/:user_id
- * /review/reservation/:reservation_id
- * /review/reservation/:user_id
- * /review/:user_id
- */
+consumerRouter.get('/review/all'                         ,getDataSlug);
+consumerRouter.get('/review/:review_id'                  ,getDataSlug);
+consumerRouter.get('/review/user/:user_id'               ,getDataSlug);
+consumerRouter.get('/review/reservation/:reservation_id' ,getDataSlug);
 
 module.exports = consumerRouter;
