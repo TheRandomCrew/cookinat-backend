@@ -1,0 +1,3201 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "🤤🍽👨‍🍳 CookinAt v1",
+        "version": "1.1.5",
+        "description": "# 🤤🍽👨‍🍳 CookinAt Consumer API Services\nIs a platform connecting diners with cooks. Upcoming versions may also include similar services such as waiters, catering, cocktails, etc."
+    },
+    "servers": [
+        {
+            "url": "https://www.cookinat.com/api/v1"
+        },
+        {
+            "url": "http://{host}/{prefix}",
+            "description": "",
+            "variables": {
+                "host": {
+                    "default": "localhost:8080"
+                },
+                "prefix": {
+                    "default": "api/v1"
+                }
+            }
+        }
+    ],
+    "paths": {
+        "/ping": {
+            "summary": "Server heartbeat operation",
+            "description": "This operation shows current *status* of server.\n\nIf `200` then all ok, if `500` a problem is there.\n\n__Dev Oriented Endpoint__",
+            "get": {
+                "servers": [
+                    {
+                        "url": "https://www.cookinat.com",
+                        "description": "Production"
+                    },
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Development"
+                    }
+                ],
+                "tags": [
+                    "System64"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/ping_response"
+                    }
+                },
+                "operationId": "getPing",
+                "summary": "Find if Server is Alive"
+            }
+        },
+        "/consumer/cook/all": {
+            "get": {
+                "servers": [
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Development"
+                    },
+                    {
+                        "url": " https://www.cookinat.com",
+                        "description": "Production"
+                    }
+                ],
+                "tags": [
+                    "Cook"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/cook_success"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/server_error"
+                    }
+                },
+                "operationId": "getConsumerCookAll",
+                "summary": "Read all Cooks",
+                "description": "Return a list with all cook not locked: {userId, firstName, lastName, avatar, innerReview}"
+            }
+        },
+        "/consumer/review/reservation/{reservation_id}": {
+            "get": {
+                "servers": [
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Development"
+                    },
+                    {
+                        "url": " https://www.cookinat.com",
+                        "description": "Production"
+                    }
+                ],
+                "tags": [
+                    "Review"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/review_success"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/user_error"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/server_error"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/server_error"
+                    }
+                },
+                "operationId": "getConsumerReviewReservation",
+                "summary": "Read Reviews by Reservation",
+                "description": "Return an array with all reviewes created by certain cook"
+            },
+            "parameters": [
+                {
+                    "name": "reservation_id",
+                    "schema": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/consumer/dish/all": {
+            "get": {
+                "servers": [
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Development"
+                    },
+                    {
+                        "url": " https://www.cookinat.com",
+                        "description": "Production"
+                    }
+                ],
+                "tags": [
+                    "Dish"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/dish_success"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/server_error"
+                    }
+                },
+                "operationId": "getConsumerDishAll",
+                "summary": "Read All Dishes",
+                "description": "User and Admin must be capable of get all dishes"
+            }
+        },
+        "/consumer/reservation/{reservation_id}": {
+            "get": {
+                "servers": [
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Development"
+                    },
+                    {
+                        "url": " https://www.cookinat.com",
+                        "description": "Production"
+                    }
+                ],
+                "tags": [
+                    "Reservation"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/reservation_success"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/user_error"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/server_error"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/server_error"
+                    }
+                },
+                "operationId": "getConsumerReservation",
+                "summary": "Read Reservation by Id",
+                "description": "Given the reservationId obtain info needed"
+            },
+            "parameters": [
+                {
+                    "name": "reservation_id",
+                    "schema": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/consumer/payment/{payment_id}": {
+            "get": {
+                "servers": [
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Development"
+                    },
+                    {
+                        "url": " https://www.cookinat.com",
+                        "description": "Production"
+                    }
+                ],
+                "tags": [
+                    "Payment"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/payment_success"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/user_error"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/server_error"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/server_error"
+                    }
+                },
+                "operationId": "getConsumerPayment",
+                "summary": "Read Payment by Id",
+                "description": "Given the paymentId obtain info needed"
+            },
+            "parameters": [
+                {
+                    "name": "payment_id",
+                    "schema": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/consumer/cook/{cook_id}": {
+            "get": {
+                "servers": [
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Development"
+                    },
+                    {
+                        "url": " https://www.cookinat.com",
+                        "description": "Production"
+                    }
+                ],
+                "tags": [
+                    "Cook"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/cook_success"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/server_error"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/server_error"
+                    }
+                },
+                "summary": "Find a Cook",
+                "description": "Find a cook from his id"
+            },
+            "parameters": [
+                {
+                    "name": "cook_id",
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/consumer/dish/{dish_id}/": {
+            "get": {
+                "servers": [
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Development"
+                    },
+                    {
+                        "url": " https://www.cookinat.com",
+                        "description": "Production"
+                    }
+                ],
+                "tags": [
+                    "Dish"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/diner_success"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/server_error"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/server_error"
+                    }
+                },
+                "summary": "Find a dish",
+                "description": "Find a dish from his id"
+            },
+            "parameters": [
+                {
+                    "name": "dish_id",
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/consumer/paymant/all": {
+            "get": {
+                "servers": [
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Development"
+                    },
+                    {
+                        "url": " https://www.cookinat.com",
+                        "description": "Production"
+                    }
+                ],
+                "tags": [
+                    "Payment"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/payment_success"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/server_error"
+                    }
+                },
+                "summary": "Read all payments",
+                "description": "Return a list with all payments"
+            }
+        },
+        "/consumer/paymant/buyer/{buyer_id}": {
+            "get": {
+                "servers": [
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Development"
+                    },
+                    {
+                        "url": " https://www.cookinat.com",
+                        "description": "Production"
+                    }
+                ],
+                "tags": [
+                    "Payment"
+                ],
+                "parameters": [
+                    {
+                        "name": "buyer_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/payment_success"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/server_error"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/server_error"
+                    }
+                },
+                "summary": "Find Payments of Buyer",
+                "description": "Return a list with all payments of a Buyer from his id"
+            }
+        },
+        "/consumer/reservation/diner/{user_id}": {
+            "get": {
+                "servers": [
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Development"
+                    },
+                    {
+                        "url": " https://www.cookinat.com",
+                        "description": "Production"
+                    }
+                ],
+                "tags": [
+                    "Reservation"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/reservation_success"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/reservation_success"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/server_error"
+                    }
+                },
+                "summary": "Find Reservation for Diner",
+                "description": "Return a list of reservation for diner\n"
+            }
+        },
+        "/consumer/reservation/cook/{cook_id}/": {
+            "get": {
+                "servers": [
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Development"
+                    },
+                    {
+                        "url": " https://www.cookinat.com",
+                        "description": "Production"
+                    }
+                ],
+                "tags": [
+                    "Reservation"
+                ],
+                "parameters": [
+                    {
+                        "name": "cook_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/reservation_success"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/server_error"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/server_error"
+                    }
+                },
+                "summary": "Find Reservation for Cook",
+                "description": "Return the list of reservations for cook"
+            }
+        },
+        "/consumer/review/all": {
+            "summary": "Read All Reviews",
+            "description": "Return a list with all reviews\n",
+            "get": {
+                "servers": [
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Development"
+                    },
+                    {
+                        "url": " https://www.cookinat.com",
+                        "description": "Production"
+                    }
+                ],
+                "tags": [
+                    "Review"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/review_success"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/server_error"
+                    }
+                },
+                "summary": "Find All Reviews",
+                "description": "Return a list with all reivews"
+            }
+        },
+        "/consumer/review/{review_id}": {
+            "get": {
+                "servers": [
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Development"
+                    },
+                    {
+                        "url": " https://www.cookinat.com",
+                        "description": "Production"
+                    }
+                ],
+                "tags": [
+                    "Review"
+                ],
+                "parameters": [
+                    {
+                        "name": "review_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/review_success"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/server_error"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/server_error"
+                    }
+                },
+                "summary": "Find Review",
+                "description": "Return a review from id\n"
+            }
+        },
+        "/consumer/review/user/{user_id}/": {
+            "get": {
+                "servers": [
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Developer"
+                    },
+                    {
+                        "url": " https://www.cookinat.com",
+                        "description": "\r\nProduction"
+                    }
+                ],
+                "tags": [
+                    "Review"
+                ],
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/review_success"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/server_error"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/server_error"
+                    }
+                },
+                "summary": "Find the reviews by user",
+                "description": "Return a list of reviews from user id"
+            }
+        },
+        "/consumer/review/cook/{cook_id}": {
+            "get": {
+                "servers": [
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Development"
+                    },
+                    {
+                        "url": " https://www.cookinat.com",
+                        "description": "Production"
+                    }
+                ],
+                "tags": [
+                    "Review"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/review_success"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/user_error"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/server_error"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/server_error"
+                    }
+                },
+                "operationId": "getConsumerReviewCook",
+                "summary": "Read Reviews by Cook",
+                "description": "Return a list de reviews from cook id"
+            },
+            "parameters": [
+                {
+                    "name": "cook_id",
+                    "schema": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/consumer/dish/cook/{cook_id}": {
+            "get": {
+                "servers": [
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Development"
+                    },
+                    {
+                        "url": " https://www.cookinat.com",
+                        "description": "Production"
+                    }
+                ],
+                "tags": [
+                    "Dish"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/dish_success"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/server_error"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/server_error"
+                    }
+                },
+                "summary": "Find Dish By Cook",
+                "description": "Return a list of dish from a cook id"
+            },
+            "parameters": [
+                {
+                    "name": "cook_id",
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        },
+        "/consumer/paymant/receiver/{receriver_id}/": {
+            "get": {
+                "servers": [
+                    {
+                        "url": "http://localhost:8080",
+                        "description": "Development"
+                    },
+                    {
+                        "url": " https://www.cookinat.com",
+                        "description": "Production"
+                    }
+                ],
+                "tags": [
+                    "Payment"
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/payment_success"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/server_error"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/server_error"
+                    }
+                },
+                "summary": "Find Payments of Receiver",
+                "description": "Return a list with all payments of a Receiver from his id"
+            },
+            "parameters": [
+                {
+                    "name": "receriver_id",
+                    "in": "path",
+                    "required": true
+                }
+            ]
+        }
+    },
+    "components": {
+        "schemas": {
+            "credentials": {
+                "title": "Root Type for credentials",
+                "description": "",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "email": "",
+                    "password": ""
+                }
+            },
+            "user_request": {
+                "title": "Root Type for user_response",
+                "description": "",
+                "required": [
+                    "email",
+                    "role"
+                ],
+                "type": "object",
+                "properties": {
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    },
+                    "nickname": {
+                        "type": "string"
+                    },
+                    "avatar": {
+                        "type": "string"
+                    },
+                    "ssn": {
+                        "type": "string"
+                    },
+                    "certification_photo": {
+                        "type": "string"
+                    },
+                    "instagram": {
+                        "type": "string"
+                    },
+                    "bio": {
+                        "type": "string"
+                    },
+                    "video": {
+                        "type": "string"
+                    },
+                    "monday": {
+                        "type": "string"
+                    },
+                    "tuesday": {
+                        "type": "string"
+                    },
+                    "wednesday": {
+                        "type": "string"
+                    },
+                    "thursday": {
+                        "type": "string"
+                    },
+                    "friday": {
+                        "type": "string"
+                    },
+                    "saturday": {
+                        "type": "string"
+                    },
+                    "sunday": {
+                        "type": "string"
+                    },
+                    "work_holidays": {
+                        "type": "boolean"
+                    },
+                    "push": {
+                        "type": "boolean"
+                    },
+                    "email_notification": {
+                        "type": "boolean"
+                    },
+                    "sms_notification": {
+                        "type": "boolean"
+                    },
+                    "updates_notification": {
+                        "type": "boolean"
+                    },
+                    "promotionals_notification": {
+                        "type": "boolean"
+                    },
+                    "other": {
+                        "type": "string"
+                    },
+                    "role": {
+                        "enum": [
+                            "COOK",
+                            "DINER",
+                            "CONSUMER"
+                        ],
+                        "type": "string"
+                    },
+                    "password": {
+                        "description": "",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "role": "DINER",
+                    "first_name": "",
+                    "last_name": "",
+                    "email": "",
+                    "password": "",
+                    "phone_number": "",
+                    "nickname": "",
+                    "avatar": "",
+                    "ssn": "",
+                    "certification_photo": "",
+                    "instagram": "",
+                    "bio": "",
+                    "video": "",
+                    "monday": "",
+                    "tuesday": "",
+                    "wednesday": "",
+                    "thursday": "",
+                    "friday": "",
+                    "saturday": "",
+                    "sunday": "",
+                    "work_holidays": false,
+                    "push": true,
+                    "email_notification": true,
+                    "sms_notification": true,
+                    "updates_notification": true,
+                    "promotionals_notification": true,
+                    "other": ""
+                }
+            },
+            "reservation_request": {
+                "title": "Root Type for reservation_response",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "diner_id": {
+                        "type": "integer"
+                    },
+                    "cook_id": {
+                        "type": "integer"
+                    },
+                    "guests": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "dishes": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        }
+                    },
+                    "client_order": {
+                        "type": "string"
+                    },
+                    "cook_comment": {
+                        "type": "string"
+                    },
+                    "priority": {
+                        "type": "integer"
+                    },
+                    "comment": {
+                        "type": "string"
+                    },
+                    "place": {
+                        "type": "string"
+                    },
+                    "when": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "enum": [
+                            "PROPOSED",
+                            "APPROVED",
+                            "DECLINED",
+                            "ONGOING",
+                            "CANCELLED",
+                            "PENDING",
+                            "COOK",
+                            "READY",
+                            "MODIFIED",
+                            "CLOSED"
+                        ],
+                        "type": "string"
+                    },
+                    "staff_id": {
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "diner_id": 96461,
+                    "cook_id": 31313,
+                    "guests": [
+                        ""
+                    ],
+                    "dishes": [
+                        14313
+                    ],
+                    "client_order": "",
+                    "cook_comment": "",
+                    "priority": 3,
+                    "comment": "",
+                    "place": "",
+                    "when": "",
+                    "status": "PROPOSED",
+                    "staff_id": 6611
+                }
+            },
+            "payment_request": {
+                "title": "Root Type for payment_response",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "receiver": {
+                        "type": "integer"
+                    },
+                    "buyer": {
+                        "type": "integer"
+                    },
+                    "comment": {
+                        "type": "string"
+                    },
+                    "concept": {
+                        "type": "string"
+                    },
+                    "register": {
+                        "type": "integer"
+                    },
+                    "pay_method": {
+                        "enum": [
+                            "CASH",
+                            "CARD",
+                            "BANK",
+                            "APPLE_PAY",
+                            "GOOGLE_PAY",
+                            "OTHER"
+                        ],
+                        "type": "string"
+                    },
+                    "pay_status": {
+                        "enum": [
+                            "ISSUED",
+                            "PROCESSING",
+                            "PROCESSED",
+                            "REVISION",
+                            "CANCELLED"
+                        ],
+                        "type": "string"
+                    },
+                    "other": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "payment_id": 641613,
+                    "receiver": 463134,
+                    "buyer": 131351,
+                    "comment": "",
+                    "concept": "",
+                    "register": 31313,
+                    "pay_method": "CASH",
+                    "pay_status": "REVISION",
+                    "other": ""
+                }
+            },
+            "dish_request": {
+                "title": "Root Type for dish_response",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "cook_id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "style": {
+                        "type": "string"
+                    },
+                    "glutten_allergy": {
+                        "type": "boolean"
+                    },
+                    "soy_allergy": {
+                        "type": "boolean"
+                    },
+                    "milk_allergy": {
+                        "type": "boolean"
+                    },
+                    "peanuts_allergy": {
+                        "type": "boolean"
+                    },
+                    "shrimp_allergy": {
+                        "type": "boolean"
+                    },
+                    "other_allergy": {
+                        "description": "Each allergy separated by commas.",
+                        "type": "string"
+                    },
+                    "attachment": {
+                        "description": "URLs to pfotos that shows the dish greatness and gorgeous look",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "minimun_diners": {
+                        "type": "integer"
+                    },
+                    "maximum_diners": {
+                        "type": "integer"
+                    },
+                    "price": {
+                        "description": "It will be in the form 0000, where the last 2 digits are the cents. \nFor example 1000 is equal to $10.00",
+                        "type": "integer"
+                    },
+                    "minimum_cancel_time": {
+                        "type": "string"
+                    },
+                    "required_tools": {
+                        "type": "string"
+                    },
+                    "other": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "cook_id": 6113,
+                    "title": "",
+                    "description": "",
+                    "style": "",
+                    "glutten_allergy": false,
+                    "soy_allergy": false,
+                    "milk_allergy": false,
+                    "peanuts_allergy": false,
+                    "shrimp_allergy": false,
+                    "other_allergy": "",
+                    "attachment": [
+                        ""
+                    ],
+                    "minimun_diners": 1,
+                    "maximum_diners": 2,
+                    "price": 10000,
+                    "minimum_cancel_time": "",
+                    "required_tools": "",
+                    "other": ""
+                }
+            },
+            "review_request": {
+                "title": "Root Type for review_response",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "integer"
+                    },
+                    "reservation_id": {
+                        "type": "integer"
+                    },
+                    "food": {
+                        "type": "string"
+                    },
+                    "service": {
+                        "type": "string"
+                    },
+                    "presentation": {
+                        "type": "string"
+                    },
+                    "overall_experience": {
+                        "type": "string"
+                    },
+                    "comment": {
+                        "type": "string"
+                    },
+                    "attachment": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "service_went_fully": {
+                        "type": "boolean"
+                    },
+                    "review_text": {
+                        "type": "string"
+                    },
+                    "other": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "user_id": 64313,
+                    "reservation_id": 6431,
+                    "food": "1",
+                    "service": "1",
+                    "presentation": "1",
+                    "overall_experience": "1",
+                    "comment": "",
+                    "attachment": [
+                        ""
+                    ],
+                    "service_went_fully": true,
+                    "review_text": "",
+                    "other": ""
+                }
+            },
+            "admin_success": {
+                "title": "Root Type for Admin success",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "sucess": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/admin_response"
+                        }
+                    }
+                },
+                "example": {
+                    "sucess": true,
+                    "msg": "string",
+                    "data": [
+                        {
+                            "admin_id": 5464,
+                            "cookinat-api-key": "",
+                            "email": "",
+                            "first_name": "",
+                            "last_name": "",
+                            "phone_number": "",
+                            "avatar": "",
+                            "created_at": "",
+                            "updated_at": "",
+                            "other": ""
+                        }
+                    ]
+                }
+            },
+            "dish_success": {
+                "title": "Root Type for Dish success",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "sucess": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/dish_response"
+                        }
+                    }
+                },
+                "example": {
+                    "sucess": true,
+                    "msg": "string",
+                    "data": [
+                        {
+                            "dish_id": 646341,
+                            "cook_id": 6113,
+                            "title": "",
+                            "description": "",
+                            "style": "",
+                            "glutten_allergy": false,
+                            "soy_allergy": false,
+                            "milk_allergy": false,
+                            "peanuts_allergy": false,
+                            "shrimp_allergy": false,
+                            "other_allergy": "",
+                            "attachment": [
+                                ""
+                            ],
+                            "minimun_diners": 1,
+                            "maximum_diners": 2,
+                            "price": 10000,
+                            "minimum_cancel_time": "",
+                            "required_tools": "",
+                            "disabled": false,
+                            "reasons": "",
+                            "review": "2",
+                            "created_at": "",
+                            "updated_at": "",
+                            "other": ""
+                        }
+                    ]
+                }
+            },
+            "payment_success": {
+                "title": "Root Type for Payment success",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "sucess": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "example": {
+                    "sucess": true,
+                    "msg": "string",
+                    "data": [
+                        {
+                            "payment_id": 641613,
+                            "receiver": 463134,
+                            "buyer": 131351,
+                            "comment": "",
+                            "concept": "",
+                            "register": 31313,
+                            "pay_method": "CASH",
+                            "pay_status": "REVISION",
+                            "other": ""
+                        }
+                    ]
+                }
+            },
+            "reservation_success": {
+                "title": "Root Type for Reservation success",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "sucess": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/reservation_response"
+                        }
+                    }
+                },
+                "example": {
+                    "sucess": true,
+                    "msg": "string",
+                    "data": [
+                        {
+                            "reservation_id": 635416,
+                            "diner_id": 96461,
+                            "cook_id": 31313,
+                            "guests": [
+                                ""
+                            ],
+                            "dishes": [
+                                14313
+                            ],
+                            "client_order": "",
+                            "cook_comment": "",
+                            "priority": 3,
+                            "comment": "",
+                            "place": "",
+                            "when": "",
+                            "status": "PROPOSED",
+                            "staff_id": 6611,
+                            "created_at": "",
+                            "updated_at": ""
+                        }
+                    ]
+                }
+            },
+            "review_success": {
+                "title": "Root Type for Review success",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "sucess": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/review_response"
+                        }
+                    }
+                },
+                "example": {
+                    "sucess": true,
+                    "msg": "string",
+                    "data": [
+                        {
+                            "review_id": 6431,
+                            "user_id": 64313,
+                            "reservation_id": 6431,
+                            "food": "1",
+                            "service": "1",
+                            "presentation": "1",
+                            "overall_experience": "1",
+                            "comment": "",
+                            "attachment": "",
+                            "service_went_fully": true,
+                            "review_text": "",
+                            "disabled": false,
+                            "reasons": "",
+                            "created_at": "",
+                            "updated_at": "",
+                            "other": ""
+                        }
+                    ]
+                }
+            },
+            "staff_success": {
+                "title": "Root Type for Staff success",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "sucess": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/review_response"
+                        }
+                    }
+                },
+                "example": {
+                    "sucess": true,
+                    "msg": "string",
+                    "data": [
+                        {
+                            "staff_id": 61646,
+                            "email": "",
+                            "password": "",
+                            "first_name": "",
+                            "last_name": "",
+                            "phone_number": "",
+                            "avatar": "",
+                            "created_at": "",
+                            "updated_at": "",
+                            "other": ""
+                        }
+                    ]
+                }
+            },
+            "user_success": {
+                "title": "Root Type for User success",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "sucess": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/user_response"
+                        }
+                    }
+                },
+                "example": {
+                    "sucess": true,
+                    "msg": "string",
+                    "data": [
+                        {
+                            "user_id": "",
+                            "first_name": "",
+                            "last_name": "",
+                            "email": "",
+                            "phone_number": "",
+                            "nickname": "",
+                            "avatar": "",
+                            "is_diner_locked": true,
+                            "is_cook_locked": true,
+                            "ssn": "",
+                            "certification_photo": "",
+                            "instagram": "",
+                            "bio": "",
+                            "video": "",
+                            "monday": "",
+                            "tuesday": "",
+                            "wednesday": "",
+                            "thursday": "",
+                            "friday": "",
+                            "saturday": "",
+                            "sunday": "",
+                            "work_holidays": false,
+                            "push": true,
+                            "email_notification": true,
+                            "sms_notification": true,
+                            "updates_notification": true,
+                            "promotionals_notification": true,
+                            "created_at": "",
+                            "updated_at": "",
+                            "other": ""
+                        }
+                    ]
+                }
+            },
+            "diner_request": {
+                "title": "Root Type for diner_response",
+                "description": "",
+                "required": [
+                    "password",
+                    "email"
+                ],
+                "type": "object",
+                "properties": {
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    },
+                    "nickname": {
+                        "type": "string"
+                    },
+                    "avatar": {
+                        "description": "URL to the Avatar Image",
+                        "type": "string"
+                    },
+                    "push": {
+                        "type": "boolean"
+                    },
+                    "email_notification": {
+                        "type": "boolean"
+                    },
+                    "sms_notification": {
+                        "type": "boolean"
+                    },
+                    "updates_notification": {
+                        "type": "boolean"
+                    },
+                    "promotionals_notification": {
+                        "description": "Do you want to receive promotions, deals and offers?",
+                        "type": "boolean"
+                    },
+                    "password": {
+                        "description": "",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "first_name": "",
+                    "last_name": "",
+                    "email": "",
+                    "password": "",
+                    "phone_number": "",
+                    "nickname": "",
+                    "avatar": "",
+                    "push": true,
+                    "email_notification": true,
+                    "sms_notification": true,
+                    "updates_notification": true,
+                    "promotionals_notification": true
+                }
+            },
+            "diner_success": {
+                "title": "Root Type for Diner success",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "description": "",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/diner_response"
+                        }
+                    }
+                },
+                "example": {
+                    "success": true,
+                    "msg": "Operation Succeded",
+                    "data": [
+                        {
+                            "user_id": 65131,
+                            "first_name": "",
+                            "last_name": "",
+                            "email": "",
+                            "phone_number": "",
+                            "is_diner_locked": false,
+                            "nickname": "",
+                            "avatar": "",
+                            "push": true,
+                            "email_notification": true,
+                            "sms_notification": true,
+                            "updates_notification": true,
+                            "promotionals_notification": true,
+                            "created_at": "",
+                            "updated_at": ""
+                        }
+                    ]
+                }
+            },
+            "cook_success": {
+                "title": "Root Type for Cook success",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "description": "",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/cook_response"
+                        }
+                    }
+                },
+                "example": {
+                    "success": true,
+                    "msg": "Operation Succeded",
+                    "data": [
+                        {
+                            "user_id": 6131,
+                            "first_name": "",
+                            "last_name": "",
+                            "email": "",
+                            "phone_number": "",
+                            "is_cook_locked": true,
+                            "certification_photo": "",
+                            "instagram": "",
+                            "bio": "",
+                            "video": "",
+                            "monday": "",
+                            "tuesday": "",
+                            "wednesday": "",
+                            "thursday": "",
+                            "friday": "",
+                            "saturday": "",
+                            "sunday": "",
+                            "work_holidays": false,
+                            "nickname": "",
+                            "avatar": "",
+                            "push": true,
+                            "email_notification": true,
+                            "sms_notification": true,
+                            "updates_notification": true,
+                            "created_at": "",
+                            "updated_at": ""
+                        }
+                    ]
+                }
+            },
+            "login_response": {
+                "title": "Root Type for login_response",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/login_response_data"
+                        }
+                    }
+                },
+                "example": {
+                    "success": true,
+                    "msg": "You have successfully Log In to CookinAt!",
+                    "data": [
+                        {
+                            "user_id": 64631,
+                            "first_name": "",
+                            "email": "",
+                            "avatar": "",
+                            "nickname": "",
+                            "token": "",
+                            "expires": ""
+                        }
+                    ]
+                }
+            },
+            "server_failed": {
+                "title": "Root Type for failed",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string"
+                    },
+                    "error": {
+                        "description": "reference to the aspect of the service. Acts like a title describing what portion of the service can be improved later. We plan to make it a enum later.",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "example": {
+                    "success": false,
+                    "msg": "An Internal Server Error found. Please try again or contact Support.",
+                    "error": [
+                        ""
+                    ]
+                }
+            },
+            "client_failed": {
+                "title": "Root Type for failed",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string"
+                    },
+                    "error": {
+                        "description": "If more than an error is found, it will be on his own object.",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "example": {
+                    "success": false,
+                    "msg": "Please check the data you've sent, and try again.",
+                    "error": [
+                        ""
+                    ]
+                }
+            },
+            "verification_request": {
+                "title": "Root Type for varification_request",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "verificationCode": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "verificationCode": "",
+                    "email": ""
+                }
+            },
+            "ping_response": {
+                "title": "Root Type for ping_response",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type": "string"
+                                },
+                                "version": {
+                                    "type": "string"
+                                },
+                                "uptime": {
+                                    "format": "double",
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "success": true,
+                    "msg": "A savage Server is challenge you to a fight!",
+                    "data": [
+                        {
+                            "name": "cookinat-user-backend",
+                            "description": "RESTful API with Authentication and documentation",
+                            "version": "2.0.1",
+                            "uptime": 48715.379753035
+                        }
+                    ]
+                }
+            },
+            "upload_request": {
+                "title": "Root Type for upload_request",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "image_name": {
+                        "type": "string"
+                    },
+                    "user_id": {
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "image_name": "My cat Tommy",
+                    "user_id": 61313
+                }
+            },
+            "cook_request": {
+                "title": "Root Type for cook_response",
+                "description": "",
+                "required": [
+                    "ssn",
+                    "email",
+                    "password",
+                    "certification_photo",
+                    "first_name",
+                    "last_name"
+                ],
+                "type": "object",
+                "properties": {
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    },
+                    "certification_photo": {
+                        "description": "Certification to be verified. Refer to https://www.acfchefs.org/ACF/Certify/ACF/Certify/",
+                        "type": "string"
+                    },
+                    "instagram": {
+                        "description": "URL to your Instagram profile.",
+                        "type": "string"
+                    },
+                    "bio": {
+                        "description": "Bragging and swag section here",
+                        "type": "string"
+                    },
+                    "video": {
+                        "description": "URL to a video in Youtube or Vimeo",
+                        "type": "string"
+                    },
+                    "monday": {
+                        "description": "Your Schedule for this day. Remember to take in consideration readability. \nWe recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm",
+                        "type": "string"
+                    },
+                    "tuesday": {
+                        "description": "Your Schedule for this day. Remember to take in consideration readability. \nWe recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm",
+                        "type": "string"
+                    },
+                    "wednesday": {
+                        "description": "Your Schedule for this day. Remember to take in consideration readability. \nWe recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm",
+                        "type": "string"
+                    },
+                    "thursday": {
+                        "description": "Your Schedule for this day. Remember to take in consideration readability. \nWe recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm",
+                        "type": "string"
+                    },
+                    "friday": {
+                        "description": "Your Schedule for this day. Remember to take in consideration readability. \nWe recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm",
+                        "type": "string"
+                    },
+                    "saturday": {
+                        "description": "Your Schedule for this day. Remember to take in consideration readability. \nWe recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm",
+                        "type": "string"
+                    },
+                    "sunday": {
+                        "description": "Your Schedule for this day. Remember to take in consideration readability. \nWe recomend something like: From 2:00 pm to 6:00 pm and from 8:30 pm 10:00 pm",
+                        "type": "string"
+                    },
+                    "work_holidays": {
+                        "description": "Are you available on holidays?",
+                        "type": "boolean"
+                    },
+                    "nickname": {
+                        "type": "string"
+                    },
+                    "avatar": {
+                        "description": "URL to the Avatar Image",
+                        "type": "string"
+                    },
+                    "push": {
+                        "description": "Would you like to receive Push notifications on your device?",
+                        "type": "boolean"
+                    },
+                    "email_notification": {
+                        "type": "boolean"
+                    },
+                    "sms_notification": {
+                        "type": "boolean"
+                    },
+                    "updates_notification": {
+                        "type": "boolean"
+                    },
+                    "ssn": {
+                        "description": "Number of 10 digits to validate cook Social Security Number.",
+                        "type": "string"
+                    },
+                    "password": {
+                        "description": "",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "first_name": "",
+                    "last_name": "",
+                    "email": "",
+                    "password": "",
+                    "phone_number": "",
+                    "certification_photo": "",
+                    "instagram": "",
+                    "ssn": "",
+                    "bio": "",
+                    "video": "",
+                    "monday": "",
+                    "tuesday": "",
+                    "wednesday": "",
+                    "thursday": "",
+                    "friday": "",
+                    "saturday": "",
+                    "sunday": "",
+                    "work_holidays": false,
+                    "nickname": "",
+                    "avatar": "",
+                    "push": true,
+                    "email_notification": true,
+                    "sms_notification": true,
+                    "updates_notification": true
+                }
+            },
+            "login_response_data": {
+                "title": "Root Type for login_response_data",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "format": "uuid",
+                        "type": "integer"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "format": "email",
+                        "type": "string"
+                    },
+                    "avatar": {
+                        "format": "url",
+                        "type": "string"
+                    },
+                    "nickname": {
+                        "type": "string"
+                    },
+                    "token": {
+                        "type": "string"
+                    },
+                    "expires": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "user_id": 64631,
+                    "first_name": "",
+                    "email": "",
+                    "avatar": "",
+                    "nickname": "",
+                    "token": "",
+                    "expires": ""
+                }
+            },
+            "upload_response": {
+                "title": "Root Type for upload_response",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "msg": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "imageName": {
+                                    "type": "string"
+                                },
+                                "cloudImage": {
+                                    "format": "url",
+                                    "type": "string"
+                                },
+                                "imageId": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "example": {
+                    "success": true,
+                    "msg": "You have successfully uploaded the image",
+                    "data": [
+                        {
+                            "image_name": "",
+                            "url": "",
+                            "image_id": ""
+                        }
+                    ]
+                }
+            },
+            "user_response": {
+                "title": "Root Type for user_response",
+                "description": "",
+                "required": [
+                    "email"
+                ],
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "format": "uuid",
+                        "type": "string"
+                    },
+                    "role_id": {
+                        "format": "uuid",
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "format": "email",
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    },
+                    "nickname": {
+                        "type": "string"
+                    },
+                    "avatar": {
+                        "format": "url",
+                        "type": "string"
+                    },
+                    "is_diner_locked": {
+                        "type": "boolean"
+                    },
+                    "is_cook_locked": {
+                        "type": "boolean"
+                    },
+                    "ssn": {
+                        "type": "string"
+                    },
+                    "certification_photo": {
+                        "format": "url",
+                        "type": "string"
+                    },
+                    "instagram": {
+                        "format": "url",
+                        "type": "string"
+                    },
+                    "bio": {
+                        "type": "string"
+                    },
+                    "video": {
+                        "format": "url",
+                        "type": "string"
+                    },
+                    "monday": {
+                        "type": "string"
+                    },
+                    "tuesday": {
+                        "type": "string"
+                    },
+                    "wednesday": {
+                        "type": "string"
+                    },
+                    "thursday": {
+                        "type": "string"
+                    },
+                    "friday": {
+                        "type": "string"
+                    },
+                    "saturday": {
+                        "type": "string"
+                    },
+                    "sunday": {
+                        "type": "string"
+                    },
+                    "work_holidays": {
+                        "type": "boolean"
+                    },
+                    "push": {
+                        "type": "boolean"
+                    },
+                    "email_notification": {
+                        "type": "boolean"
+                    },
+                    "sms_notification": {
+                        "type": "boolean"
+                    },
+                    "updates_notification": {
+                        "type": "boolean"
+                    },
+                    "promotionals_notification": {
+                        "type": "boolean"
+                    },
+                    "created_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "other": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "user_id": "",
+                    "first_name": "",
+                    "last_name": "",
+                    "email": "",
+                    "phone_number": "",
+                    "nickname": "",
+                    "avatar": "",
+                    "is_diner_locked": true,
+                    "is_cook_locked": true,
+                    "ssn": "",
+                    "certification_photo": "",
+                    "instagram": "",
+                    "bio": "",
+                    "video": "",
+                    "monday": "",
+                    "tuesday": "",
+                    "wednesday": "",
+                    "thursday": "",
+                    "friday": "",
+                    "saturday": "",
+                    "sunday": "",
+                    "work_holidays": false,
+                    "push": true,
+                    "email_notification": true,
+                    "sms_notification": true,
+                    "updates_notification": true,
+                    "promotionals_notification": true,
+                    "created_at": "",
+                    "updated_at": "",
+                    "other": ""
+                }
+            },
+            "staff_response": {
+                "title": "Root Type for staff",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "staff_id": {
+                        "format": "uuid",
+                        "type": "integer"
+                    },
+                    "email": {
+                        "format": "email",
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    },
+                    "avatar": {
+                        "format": "url",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "other": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "staff_id": 61646,
+                    "email": "",
+                    "password": "",
+                    "first_name": "",
+                    "last_name": "",
+                    "phone_number": "",
+                    "avatar": "",
+                    "created_at": "",
+                    "updated_at": "",
+                    "other": ""
+                }
+            },
+            "review_response": {
+                "title": "Root Type for review_response",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "review_id": {
+                        "format": "uuid",
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "format": "uuid",
+                        "type": "integer"
+                    },
+                    "reservation_id": {
+                        "format": "uuid",
+                        "type": "integer"
+                    },
+                    "food": {
+                        "type": "string"
+                    },
+                    "service": {
+                        "type": "string"
+                    },
+                    "presentation": {
+                        "type": "string"
+                    },
+                    "overall_experience": {
+                        "type": "string"
+                    },
+                    "comment": {
+                        "type": "string"
+                    },
+                    "attachment": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "service_went_fully": {
+                        "type": "boolean"
+                    },
+                    "review_text": {
+                        "type": "string"
+                    },
+                    "disabled": {
+                        "type": "boolean"
+                    },
+                    "reasons": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "other": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "review_id": 6431,
+                    "user_id": 64313,
+                    "reservation_id": 6431,
+                    "food": "1",
+                    "service": "1",
+                    "presentation": "1",
+                    "overall_experience": "1",
+                    "comment": "",
+                    "attachment": [
+                        ""
+                    ],
+                    "service_went_fully": true,
+                    "review_text": "",
+                    "disabled": false,
+                    "reasons": "",
+                    "created_at": "",
+                    "updated_at": "",
+                    "other": ""
+                }
+            },
+            "reservation_response": {
+                "title": "Root Type for reservation_response",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "reservation_id": {
+                        "format": "uuid",
+                        "type": "integer"
+                    },
+                    "diner_id": {
+                        "format": "uuid",
+                        "type": "integer"
+                    },
+                    "cook_id": {
+                        "format": "uuid",
+                        "type": "integer"
+                    },
+                    "guests": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "dishes": {
+                        "type": "array",
+                        "items": {
+                            "format": "uuid",
+                            "type": "integer"
+                        }
+                    },
+                    "client_order": {
+                        "type": "string"
+                    },
+                    "cook_comment": {
+                        "type": "string"
+                    },
+                    "priority": {
+                        "type": "integer"
+                    },
+                    "comment": {
+                        "type": "string"
+                    },
+                    "place": {
+                        "type": "string"
+                    },
+                    "when": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "enum": [
+                            "PROPOSED",
+                            "APPROVED",
+                            "DECLINED",
+                            "ONGOING",
+                            "CANCELLED",
+                            "PENDING",
+                            "COOK",
+                            "READY",
+                            "MODIFIED",
+                            "CLOSED"
+                        ],
+                        "type": "string"
+                    },
+                    "staff_id": {
+                        "format": "uuid",
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "reservation_id": 635416,
+                    "diner_id": 96461,
+                    "cook_id": 31313,
+                    "guests": [
+                        ""
+                    ],
+                    "dishes": [
+                        14313
+                    ],
+                    "client_order": "",
+                    "cook_comment": "",
+                    "priority": 3,
+                    "comment": "",
+                    "place": "",
+                    "when": "",
+                    "status": "PROPOSED",
+                    "staff_id": 6611,
+                    "created_at": "",
+                    "updated_at": ""
+                }
+            },
+            "payment_response": {
+                "title": "Root Type for payment_response",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "payment_id": {
+                        "format": "uuid",
+                        "type": "integer"
+                    },
+                    "receiver": {
+                        "format": "uuid",
+                        "type": "integer"
+                    },
+                    "buyer": {
+                        "format": "uuid",
+                        "type": "integer"
+                    },
+                    "comment": {
+                        "type": "string"
+                    },
+                    "concept": {
+                        "type": "string"
+                    },
+                    "register": {
+                        "format": "uuid",
+                        "type": "integer"
+                    },
+                    "pay_method": {
+                        "enum": [
+                            "CASH",
+                            "CARD",
+                            "BANK",
+                            "APPLE_PAY",
+                            "GOOGLE_PAY",
+                            "OTHER"
+                        ],
+                        "type": "string"
+                    },
+                    "pay_status": {
+                        "enum": [
+                            "ISSUED",
+                            "PROCESSING",
+                            "PROCESSED",
+                            "REVISION",
+                            "CANCELLED"
+                        ],
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "other": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "payment_id": 641613,
+                    "receiver": 463134,
+                    "buyer": 131351,
+                    "comment": "",
+                    "concept": "",
+                    "register": 31313,
+                    "pay_method": "CASH",
+                    "pay_status": "REVISION",
+                    "other": ""
+                }
+            },
+            "dish_response": {
+                "title": "Root Type for dish_response",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "dish_id": {
+                        "type": "integer"
+                    },
+                    "cook_id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "style": {
+                        "type": "string"
+                    },
+                    "glutten_allergy": {
+                        "type": "boolean"
+                    },
+                    "soy_allergy": {
+                        "type": "boolean"
+                    },
+                    "milk_allergy": {
+                        "type": "boolean"
+                    },
+                    "peanuts_allergy": {
+                        "type": "boolean"
+                    },
+                    "shrimp_allergy": {
+                        "type": "boolean"
+                    },
+                    "other_allergy": {
+                        "type": "string"
+                    },
+                    "attachment": {
+                        "type": "array",
+                        "items": {
+                            "format": "url",
+                            "type": "string"
+                        }
+                    },
+                    "minimun_diners": {
+                        "type": "integer"
+                    },
+                    "maximum_diners": {
+                        "type": "integer"
+                    },
+                    "price": {
+                        "type": "integer"
+                    },
+                    "minimum_cancel_time": {
+                        "type": "string"
+                    },
+                    "required_tools": {
+                        "type": "string"
+                    },
+                    "disabled": {
+                        "type": "boolean"
+                    },
+                    "reasons": {
+                        "type": "string"
+                    },
+                    "review": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "other": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "dish_id": 646341,
+                    "cook_id": 6113,
+                    "title": "",
+                    "description": "",
+                    "style": "",
+                    "glutten_allergy": false,
+                    "soy_allergy": false,
+                    "milk_allergy": false,
+                    "peanuts_allergy": false,
+                    "shrimp_allergy": false,
+                    "other_allergy": "",
+                    "attachment": [
+                        ""
+                    ],
+                    "minimun_diners": 1,
+                    "maximum_diners": 2,
+                    "price": 10000,
+                    "minimum_cancel_time": "",
+                    "required_tools": "",
+                    "disabled": false,
+                    "reasons": "",
+                    "review": "2",
+                    "created_at": "",
+                    "updated_at": "",
+                    "other": ""
+                }
+            },
+            "diner_response": {
+                "title": "Root Type for diner_response",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "type": "integer"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    },
+                    "is_diner_locked": {
+                        "description": "If it is locked, try to send the verification code in your email. \nIf you didn't recieved it, contact Support.",
+                        "type": "boolean"
+                    },
+                    "nickname": {
+                        "type": "string"
+                    },
+                    "avatar": {
+                        "type": "string"
+                    },
+                    "push": {
+                        "type": "boolean"
+                    },
+                    "email_notification": {
+                        "type": "boolean"
+                    },
+                    "sms_notification": {
+                        "type": "boolean"
+                    },
+                    "updates_notification": {
+                        "type": "boolean"
+                    },
+                    "promotionals_notification": {
+                        "type": "boolean"
+                    },
+                    "created_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "user_id": 65131,
+                    "first_name": "",
+                    "last_name": "",
+                    "email": "",
+                    "phone_number": "",
+                    "is_diner_locked": true,
+                    "nickname": "",
+                    "avatar": "",
+                    "push": true,
+                    "email_notification": true,
+                    "sms_notification": true,
+                    "updates_notification": true,
+                    "promotionals_notification": true,
+                    "created_at": "",
+                    "updated_at": ""
+                }
+            },
+            "cook_response": {
+                "title": "Root Type for cook_response",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "user_id": {
+                        "format": "uuid",
+                        "type": "integer"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "format": "email",
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    },
+                    "is_cook_locked": {
+                        "description": "If is locked you need to call support.",
+                        "type": "boolean"
+                    },
+                    "instagram": {
+                        "format": "url",
+                        "type": "string"
+                    },
+                    "bio": {
+                        "type": "string"
+                    },
+                    "video": {
+                        "format": "url",
+                        "type": "string"
+                    },
+                    "monday": {
+                        "type": "string"
+                    },
+                    "tuesday": {
+                        "type": "string"
+                    },
+                    "wednesday": {
+                        "type": "string"
+                    },
+                    "thursday": {
+                        "type": "string"
+                    },
+                    "friday": {
+                        "type": "string"
+                    },
+                    "saturday": {
+                        "type": "string"
+                    },
+                    "sunday": {
+                        "type": "string"
+                    },
+                    "work_holidays": {
+                        "type": "boolean"
+                    },
+                    "nickname": {
+                        "type": "string"
+                    },
+                    "avatar": {
+                        "format": "url",
+                        "type": "string"
+                    },
+                    "push": {
+                        "type": "boolean"
+                    },
+                    "email_notification": {
+                        "type": "boolean"
+                    },
+                    "sms_notification": {
+                        "type": "boolean"
+                    },
+                    "updates_notification": {
+                        "type": "boolean"
+                    },
+                    "created_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "certification_photo": {
+                        "format": "url",
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "user_id": 6131,
+                    "first_name": "",
+                    "last_name": "",
+                    "email": "",
+                    "phone_number": "",
+                    "is_cook_locked": true,
+                    "certification_photo": "",
+                    "instagram": "",
+                    "bio": "",
+                    "video": "",
+                    "monday": "",
+                    "tuesday": "",
+                    "wednesday": "",
+                    "thursday": "",
+                    "friday": "",
+                    "saturday": "",
+                    "sunday": "",
+                    "work_holidays": false,
+                    "nickname": "",
+                    "avatar": "",
+                    "push": true,
+                    "email_notification": true,
+                    "sms_notification": true,
+                    "updates_notification": true,
+                    "created_at": "",
+                    "updated_at": ""
+                }
+            },
+            "admin_response": {
+                "title": "Root Type for admin",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "format": "email",
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "format": "phone_number",
+                        "type": "string"
+                    },
+                    "avatar": {
+                        "format": "url",
+                        "description": "URL with path to avatar image",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "format": "date-time",
+                        "type": "string"
+                    },
+                    "other": {
+                        "type": "string"
+                    },
+                    "admin_id": {
+                        "format": "uuid",
+                        "type": "integer"
+                    }
+                },
+                "example": {
+                    "admin_id": 5464,
+                    "email": "",
+                    "first_name": "",
+                    "last_name": "",
+                    "phone_number": "",
+                    "avatar": "",
+                    "created_at": "",
+                    "updated_at": "",
+                    "other": ""
+                }
+            },
+            "cook_verify_request": {
+                "title": "Root Type for cook_verify_request",
+                "description": "",
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    }
+                },
+                "example": {
+                    "email": ""
+                }
+            },
+            "admin_cook_request": {
+                "title": "Root Type for admin_cook_request",
+                "description": "",
+                "required": [
+                    "email"
+                ],
+                "type": "object",
+                "properties": {
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    },
+                    "is_cook_locked": {
+                        "type": "boolean"
+                    },
+                    "certification_photo": {
+                        "type": "string"
+                    },
+                    "instagram": {
+                        "type": "string"
+                    },
+                    "bio": {
+                        "type": "string"
+                    },
+                    "video": {
+                        "type": "string"
+                    },
+                    "monday": {
+                        "type": "string"
+                    },
+                    "tuesday": {
+                        "type": "string"
+                    },
+                    "wednesday": {
+                        "type": "string"
+                    },
+                    "thursday": {
+                        "type": "string"
+                    },
+                    "friday": {
+                        "type": "string"
+                    },
+                    "saturday": {
+                        "type": "string"
+                    },
+                    "sunday": {
+                        "type": "string"
+                    },
+                    "work_holidays": {
+                        "type": "boolean"
+                    },
+                    "nickname": {
+                        "type": "string"
+                    },
+                    "avatar": {
+                        "type": "string"
+                    },
+                    "push": {
+                        "type": "boolean"
+                    },
+                    "email_notification": {
+                        "type": "boolean"
+                    },
+                    "sms_notification": {
+                        "type": "boolean"
+                    },
+                    "updates_notification": {
+                        "type": "boolean"
+                    }
+                },
+                "example": {
+                    "first_name": "",
+                    "last_name": "",
+                    "email": "",
+                    "phone_number": "",
+                    "is_cook_locked": true,
+                    "certification_photo": "",
+                    "instagram": "",
+                    "bio": "",
+                    "video": "",
+                    "monday": "",
+                    "tuesday": "",
+                    "wednesday": "",
+                    "thursday": "",
+                    "friday": "",
+                    "saturday": "",
+                    "sunday": "",
+                    "work_holidays": false,
+                    "nickname": "",
+                    "avatar": "",
+                    "push": true,
+                    "email_notification": true,
+                    "sms_notification": true,
+                    "updates_notification": true
+                }
+            },
+            "admin_diner_request": {
+                "title": "Root Type for admin_diner_request",
+                "description": "",
+                "required": [
+                    "email"
+                ],
+                "type": "object",
+                "properties": {
+                    "first_name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    },
+                    "is_diner_locked": {
+                        "type": "boolean"
+                    },
+                    "nickname": {
+                        "type": "string"
+                    },
+                    "avatar": {
+                        "type": "string"
+                    },
+                    "push": {
+                        "type": "boolean"
+                    },
+                    "email_notification": {
+                        "type": "boolean"
+                    },
+                    "sms_notification": {
+                        "type": "boolean"
+                    },
+                    "updates_notification": {
+                        "type": "boolean"
+                    },
+                    "promotionals_notification": {
+                        "type": "boolean"
+                    }
+                },
+                "example": {
+                    "first_name": "",
+                    "last_name": "",
+                    "email": "",
+                    "password": "",
+                    "phone_number": "",
+                    "is_diner_locked": false,
+                    "nickname": "",
+                    "avatar": "",
+                    "push": true,
+                    "email_notification": true,
+                    "sms_notification": true,
+                    "updates_notification": true,
+                    "promotionals_notification": true
+                }
+            }
+        },
+        "responses": {
+            "admin_success": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/admin_success"
+                        }
+                    }
+                },
+                "description": ""
+            },
+            "dish_success": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/dish_success"
+                        }
+                    }
+                },
+                "description": ""
+            },
+            "payment_success": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/payment_success"
+                        }
+                    }
+                },
+                "description": ""
+            },
+            "reservation_success": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/reservation_success"
+                        }
+                    }
+                },
+                "description": ""
+            },
+            "review_success": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/review_success"
+                        }
+                    }
+                },
+                "description": ""
+            },
+            "staff_success": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/staff_success"
+                        }
+                    }
+                },
+                "description": ""
+            },
+            "user_success": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/user_success"
+                        }
+                    }
+                },
+                "description": ""
+            },
+            "user_error": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/client_failed"
+                        }
+                    }
+                },
+                "description": ""
+            },
+            "server_error": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/server_failed"
+                        }
+                    }
+                },
+                "description": ""
+            },
+            "cook_success": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cook_success"
+                        },
+                        "examples": {
+                            "Successful": {
+                                "value": {
+                                    "success": true,
+                                    "msg": "Operation Succeded",
+                                    "data": [
+                                        {
+                                            "user_id": 6131,
+                                            "first_name": "",
+                                            "last_name": "",
+                                            "email": "",
+                                            "phone_number": "",
+                                            "is_cook_locked": true,
+                                            "certification_photo": "",
+                                            "instagram": "",
+                                            "bio": "",
+                                            "video": "",
+                                            "monday": "",
+                                            "tuesday": "",
+                                            "wednesday": "",
+                                            "thursday": "",
+                                            "friday": "",
+                                            "saturday": "",
+                                            "sunday": "",
+                                            "work_holidays": false,
+                                            "nickname": "",
+                                            "avatar": "",
+                                            "push": true,
+                                            "email_notification": true,
+                                            "sms_notification": true,
+                                            "updates_notification": true,
+                                            "created_at": "",
+                                            "updated_at": ""
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": ""
+            },
+            "diner_success": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/cook_success"
+                        },
+                        "examples": {
+                            "Successful": {
+                                "value": {
+                                    "success": true,
+                                    "msg": "Operation Succeded",
+                                    "data": [
+                                        {
+                                            "user_id": 65131,
+                                            "first_name": "",
+                                            "last_name": "",
+                                            "email": "",
+                                            "phone_number": "",
+                                            "is_diner_locked": false,
+                                            "nickname": "",
+                                            "avatar": "",
+                                            "push": true,
+                                            "email_notification": true,
+                                            "sms_notification": true,
+                                            "updates_notification": true,
+                                            "promotionals_notification": true,
+                                            "created_at": "",
+                                            "updated_at": ""
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": ""
+            },
+            "login_success": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/login_response"
+                        },
+                        "examples": {
+                            "Successful": {
+                                "value": {
+                                    "success": true,
+                                    "msg": "You have successfully Log In to CookinAt!",
+                                    "data": [
+                                        {
+                                            "user_id": 64631,
+                                            "first_name": "",
+                                            "email": "",
+                                            "avatar": "",
+                                            "nickname": "",
+                                            "token": "",
+                                            "expires": ""
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": ""
+            },
+            "ping_response": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ping_response"
+                        },
+                        "examples": {
+                            "Successful": {
+                                "value": {
+                                    "success": true,
+                                    "msg": "A savage Server is challenge you to a fight!",
+                                    "data": [
+                                        {
+                                            "name": "cookinat-user-backend",
+                                            "description": "RESTful API with Authentication and documentation",
+                                            "version": "2.0.1",
+                                            "uptime": 48715.379753035
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": ""
+            },
+            "upload_response": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/upload_response"
+                        },
+                        "examples": {
+                            "Successful": {
+                                "value": {
+                                    "success": true,
+                                    "msg": "You have successfully uploaded the image",
+                                    "data": [
+                                        {
+                                            "image_name": "",
+                                            "url": "",
+                                            "image_id": ""
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "description": ""
+            }
+        }
+    }
+}

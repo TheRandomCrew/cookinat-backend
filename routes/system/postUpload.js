@@ -2,7 +2,9 @@ var cloud = require('../../server/lib/Cloudinary/cloudinaryConfig');
 
 module.exports = (req, res) => {
     try {
+        /** Capture file path */
         const cloudImage = req.files.image.path
+        /** Capture data of file */
         const { image_name, user_id } = req.body;
 
         cloud.uploads(cloudImage, {

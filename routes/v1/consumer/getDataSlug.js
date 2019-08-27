@@ -2,28 +2,30 @@ const responseMsgs = require('../util/responseMessages');
 const logger = require('../../../server/util/logger');
 
 module.exports = async(req, res) => {
+    /** Handler uri and param for get data */
     const {varMain, varFind, valMain} = getParam(req)
+    /** Call dinamicaly at the methods model of data base */
     const { all, byParam } = require(`../../../server/database/postgREST/${varMain}`);
-    logger.info(`----- ${JSON.stringify(varMain)} && ${varFind} $$ ${valMain} ---- `)    
 
     try {
-        
         let nameData = [];
+        /** Verify if need all or filtered data */
         valMain === null ?(
             nameData = await all()
             ):(
             nameData = await byParam(`${varFind}`,valMain)
         )
-
+        
+        /** If we not have data, we send the error */
         if (!nameData) {
             throw Error(`There was a problem getting ${nameData} on DB. Please try again or contact support.`)
         }
+        /** If data exist, return status 200 and data found */
         return res.status(200).json({
             ...responseMsgs[200],
             data: [nameData]
         })
     } catch (error) {
-
         return res.status(500).json({
             ...responseMsgs[500],
             errors: [{error: error.message, trace: error.trace}]
@@ -32,38 +34,60 @@ module.exports = async(req, res) => {
 };
 
 function getParam(req){
-    const notArray = req.url.split('/');
+    /** We capture the uri separately por '/' in the array  */
+    const uriArray = req.url.split('/');
+    /** We capture the param if exist */
     const { params } = req;
     
+    /** 
+    * if params exist and params is not empty the uri have a slug
+    *
+    * if our uri have three levels
+    * /lv_1/lv_2/:slug_id
+    * varMain:slug
+    * varFind:lv_2_id
+    * valMain:slug_val
+    * 
+    * if our uri have four levels
+    * /lv_1/lv_2/lv_3/:slug
+    * varMain:lv_2
+    * varFind:lv_3
+    * valMain:slug_val
+    * 
+    * if params no exist then the final level uri is a 'all' or other require
+    * if it is all then valMain:null indicate
+    */
+
     if(params && Object.keys(params).length !== 0 ){
-        logger.error(params)
-        if(notArray.length === 3){
+        if(uriArray.length === 3){
             const dataParams = {
                 varMain: Object.keys(params)[0].split('_')[0],
-                varFind:`${ notArray[notArray.length - 2]}_id`,
+                varFind:`${ uriArray[uriArray.length - 2]}_id`,
                 valMain: params[Object.keys(params)[0]]
             }
             return dataParams
         }
-        else if(notArray.length === 4){
+        else if(uriArray.length === 4){
             const dataParams = {
-                varMain:notArray[notArray.length - 3],
-                varFind:`${notArray[notArray.length - 2]}_id`,
+                varMain:uriArray[uriArray.length - 3],
+                varFind:`${uriArray[uriArray.length - 2]}_id`,
                 valMain:params[Object.keys(params)[0]]
             }
-            if(notArray[notArray.length - 2] === 'buyer') dataParams.varFind = 'buyer';
-            if(notArray[notArray.length - 2] === 'receiver') dataParams.varFind = 'receiver';
+            /** in the tables buyer and receiver not finish in the _id */
+            if(uriArray[uriArray.length - 2] === 'buyer') dataParams.varFind = 'buyer';
+            if(uriArray[uriArray.length - 2] === 'receiver') dataParams.varFind = 'receiver';
             return dataParams
         }
         else{
             logger.error(`-----Error in the process for uri------`)    
         }
     }
-    else if(!(/^\+?(0|[1-9]\d*)$/.test(notArray[notArray.length - 1]))){            
-        if(notArray[notArray.length - 1] === 'all'){
+    /** final uri level not should be a number */
+    else if(!(/^\+?(0|[1-9]\d*)$/.test(uriArray[uriArray.length - 1]))){            
+        if(uriArray[uriArray.length - 1] === 'all'){
             const dataParams = {
-                varMain:notArray[notArray.length - 2] ,
-                varFind:`${notArray[notArray.length - 2] }_id`,
+                varMain:uriArray[uriArray.length - 2] ,
+                varFind:`${uriArray[uriArray.length - 2] }_id`,
                 valMain:null,
             }
             return dataParams;

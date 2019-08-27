@@ -1,4 +1,6 @@
 const cloudinary = require('cloudinary').v2;
+
+/** Data of the Cookienat for Cloudinary */
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -7,6 +9,7 @@ cloudinary.config({
 
 exports.uploads = (file) => {
     return new Promise(resolve => {
+        /** Cloudinary upload function */
         cloudinary.uploader.upload(file, (result) => {
             resolve({
                 url: result.url,

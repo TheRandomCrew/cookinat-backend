@@ -1,8 +1,12 @@
 const express = require('express');
 let consumerRouter = express.Router();
 
+/** Route controller */
 const getDataSlug = require('./getDataSlug');
 
+/** 
+ * /api/v1/consumer/:Routes 
+ */
 consumerRouter.get('/cook/all'                           ,getDataSlug);
 consumerRouter.get('/cook/:cook_id'                      ,getDataSlug);
 

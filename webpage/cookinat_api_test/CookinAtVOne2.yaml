@@ -52,7 +52,7 @@ paths:
             operationId: getConsumerCookAll
             summary: Read all Cooks
             description: "Return a list with all cook not locked: {userId, firstName, lastName, avatar, innerReview}"
-    "/consumer/review/reservation/{reservation_id}":
+    /consumer/review/reservation/{reservation_id}:
         get:
             tags:
                 - Review
