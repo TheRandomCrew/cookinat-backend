@@ -3,8 +3,8 @@ const consign = require('consign');
 const app = express();
 
 /**
-* Module Structure
-*/
+ * Module Structure
+ */
 consign()
     .include('./server/util/logger.js')
     .then('./server/config/middlewares.js')
