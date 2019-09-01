@@ -35,10 +35,12 @@ module.exports = async(req, res) => {
 
 function getParam(req){
     /** We capture the uri separately por '/' in the array  */
-    const uriArray = req.url.split('/');
+    const auxArray = req.url.split('/');
+    /** Clear array */
+    const uriArray = auxArray.filter( e => e !== "");
     /** We capture the param if exist */
     const { params } = req;
-    
+    logger.info(`--${JSON.stringify(params)}--&&--${uriArray}--With--${uriArray.length}--`)
     /** 
     * if params exist and params is not empty the uri have a slug
     *
@@ -65,6 +67,7 @@ function getParam(req){
                 varFind:`${ uriArray[uriArray.length - 2]}_id`,
                 valMain: params[Object.keys(params)[0]]
             }
+            logger.error("---HII---")
             return dataParams
         }
         else if(uriArray.length === 4){

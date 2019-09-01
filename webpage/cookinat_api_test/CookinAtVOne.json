@@ -51,16 +51,6 @@
         },
         "/consumer/cook/all": {
             "get": {
-                "servers": [
-                    {
-                        "url": "http://localhost:8080",
-                        "description": "Development"
-                    },
-                    {
-                        "url": " https://www.cookinat.com",
-                        "description": "Production"
-                    }
-                ],
                 "tags": [
                     "Cook"
                 ],
@@ -79,18 +69,18 @@
         },
         "/consumer/review/reservation/{reservation_id}": {
             "get": {
-                "servers": [
-                    {
-                        "url": "http://localhost:8080",
-                        "description": "Development"
-                    },
-                    {
-                        "url": " https://www.cookinat.com",
-                        "description": "Production"
-                    }
-                ],
                 "tags": [
                     "Review"
+                ],
+                "parameters": [
+                    {
+                        "name": "reservation_id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -124,16 +114,6 @@
         },
         "/consumer/dish/all": {
             "get": {
-                "servers": [
-                    {
-                        "url": "http://localhost:8080",
-                        "description": "Development"
-                    },
-                    {
-                        "url": " https://www.cookinat.com",
-                        "description": "Production"
-                    }
-                ],
                 "tags": [
                     "Dish"
                 ],
@@ -152,18 +132,18 @@
         },
         "/consumer/reservation/{reservation_id}": {
             "get": {
-                "servers": [
-                    {
-                        "url": "http://localhost:8080",
-                        "description": "Development"
-                    },
-                    {
-                        "url": " https://www.cookinat.com",
-                        "description": "Production"
-                    }
-                ],
                 "tags": [
                     "Reservation"
+                ],
+                "parameters": [
+                    {
+                        "name": "reservation_id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -197,18 +177,18 @@
         },
         "/consumer/payment/{payment_id}": {
             "get": {
-                "servers": [
-                    {
-                        "url": "http://localhost:8080",
-                        "description": "Development"
-                    },
-                    {
-                        "url": " https://www.cookinat.com",
-                        "description": "Production"
-                    }
-                ],
                 "tags": [
                     "Payment"
+                ],
+                "parameters": [
+                    {
+                        "name": "payment_id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -242,18 +222,18 @@
         },
         "/consumer/cook/{cook_id}": {
             "get": {
-                "servers": [
-                    {
-                        "url": "http://localhost:8080",
-                        "description": "Development"
-                    },
-                    {
-                        "url": " https://www.cookinat.com",
-                        "description": "Production"
-                    }
-                ],
                 "tags": [
                     "Cook"
+                ],
+                "parameters": [
+                    {
+                        "name": "cook_id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -272,6 +252,10 @@
             "parameters": [
                 {
                     "name": "cook_id",
+                    "schema": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
                     "in": "path",
                     "required": true
                 }
@@ -279,18 +263,18 @@
         },
         "/consumer/dish/{dish_id}/": {
             "get": {
-                "servers": [
-                    {
-                        "url": "http://localhost:8080",
-                        "description": "Development"
-                    },
-                    {
-                        "url": " https://www.cookinat.com",
-                        "description": "Production"
-                    }
-                ],
                 "tags": [
                     "Dish"
+                ],
+                "parameters": [
+                    {
+                        "name": "dish_id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -316,16 +300,6 @@
         },
         "/consumer/paymant/all": {
             "get": {
-                "servers": [
-                    {
-                        "url": "http://localhost:8080",
-                        "description": "Development"
-                    },
-                    {
-                        "url": " https://www.cookinat.com",
-                        "description": "Production"
-                    }
-                ],
                 "tags": [
                     "Payment"
                 ],
@@ -343,22 +317,15 @@
         },
         "/consumer/paymant/buyer/{buyer_id}": {
             "get": {
-                "servers": [
-                    {
-                        "url": "http://localhost:8080",
-                        "description": "Development"
-                    },
-                    {
-                        "url": " https://www.cookinat.com",
-                        "description": "Production"
-                    }
-                ],
                 "tags": [
                     "Payment"
                 ],
                 "parameters": [
                     {
                         "name": "buyer_id",
+                        "schema": {
+                            "type": "integer"
+                        },
                         "in": "path",
                         "required": true
                     }
@@ -376,26 +343,30 @@
                 },
                 "summary": "Find Payments of Buyer",
                 "description": "Return a list with all payments of a Buyer from his id"
-            }
+            },
+            "parameters": [
+                {
+                    "name": "buyer_id",
+                    "schema": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
         },
         "/consumer/reservation/diner/{user_id}": {
             "get": {
-                "servers": [
-                    {
-                        "url": "http://localhost:8080",
-                        "description": "Development"
-                    },
-                    {
-                        "url": " https://www.cookinat.com",
-                        "description": "Production"
-                    }
-                ],
                 "tags": [
                     "Reservation"
                 ],
                 "parameters": [
                     {
                         "name": "user_id",
+                        "schema": {
+                            "type": "integer"
+                        },
                         "in": "path",
                         "required": true
                     }
@@ -413,26 +384,30 @@
                 },
                 "summary": "Find Reservation for Diner",
                 "description": "Return a list of reservation for diner\n"
-            }
+            },
+            "parameters": [
+                {
+                    "name": "user_id",
+                    "schema": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
         },
         "/consumer/reservation/cook/{cook_id}/": {
             "get": {
-                "servers": [
-                    {
-                        "url": "http://localhost:8080",
-                        "description": "Development"
-                    },
-                    {
-                        "url": " https://www.cookinat.com",
-                        "description": "Production"
-                    }
-                ],
                 "tags": [
                     "Reservation"
                 ],
                 "parameters": [
                     {
                         "name": "cook_id",
+                        "schema": {
+                            "type": "integer"
+                        },
                         "in": "path",
                         "required": true
                     }
@@ -450,22 +425,23 @@
                 },
                 "summary": "Find Reservation for Cook",
                 "description": "Return the list of reservations for cook"
-            }
+            },
+            "parameters": [
+                {
+                    "name": "cook_id",
+                    "schema": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
         },
         "/consumer/review/all": {
             "summary": "Read All Reviews",
             "description": "Return a list with all reviews\n",
             "get": {
-                "servers": [
-                    {
-                        "url": "http://localhost:8080",
-                        "description": "Development"
-                    },
-                    {
-                        "url": " https://www.cookinat.com",
-                        "description": "Production"
-                    }
-                ],
                 "tags": [
                     "Review"
                 ],
@@ -483,22 +459,15 @@
         },
         "/consumer/review/{review_id}": {
             "get": {
-                "servers": [
-                    {
-                        "url": "http://localhost:8080",
-                        "description": "Development"
-                    },
-                    {
-                        "url": " https://www.cookinat.com",
-                        "description": "Production"
-                    }
-                ],
                 "tags": [
                     "Review"
                 ],
                 "parameters": [
                     {
                         "name": "review_id",
+                        "schema": {
+                            "type": "integer"
+                        },
                         "in": "path",
                         "required": true
                     }
@@ -516,26 +485,30 @@
                 },
                 "summary": "Find Review",
                 "description": "Return a review from id\n"
-            }
+            },
+            "parameters": [
+                {
+                    "name": "review_id",
+                    "schema": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
         },
         "/consumer/review/user/{user_id}/": {
             "get": {
-                "servers": [
-                    {
-                        "url": "http://localhost:8080",
-                        "description": "Developer"
-                    },
-                    {
-                        "url": " https://www.cookinat.com",
-                        "description": "\r\nProduction"
-                    }
-                ],
                 "tags": [
                     "Review"
                 ],
                 "parameters": [
                     {
                         "name": "user_id",
+                        "schema": {
+                            "type": "integer"
+                        },
                         "in": "path",
                         "required": true
                     }
@@ -553,22 +526,33 @@
                 },
                 "summary": "Find the reviews by user",
                 "description": "Return a list of reviews from user id"
-            }
+            },
+            "parameters": [
+                {
+                    "name": "user_id",
+                    "schema": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
+                    "in": "path",
+                    "required": true
+                }
+            ]
         },
         "/consumer/review/cook/{cook_id}": {
             "get": {
-                "servers": [
-                    {
-                        "url": "http://localhost:8080",
-                        "description": "Development"
-                    },
-                    {
-                        "url": " https://www.cookinat.com",
-                        "description": "Production"
-                    }
-                ],
                 "tags": [
                     "Review"
+                ],
+                "parameters": [
+                    {
+                        "name": "cook_id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -602,18 +586,18 @@
         },
         "/consumer/dish/cook/{cook_id}": {
             "get": {
-                "servers": [
-                    {
-                        "url": "http://localhost:8080",
-                        "description": "Development"
-                    },
-                    {
-                        "url": " https://www.cookinat.com",
-                        "description": "Production"
-                    }
-                ],
                 "tags": [
                     "Dish"
+                ],
+                "parameters": [
+                    {
+                        "name": "cook_id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -632,6 +616,10 @@
             "parameters": [
                 {
                     "name": "cook_id",
+                    "schema": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
                     "in": "path",
                     "required": true
                 }
@@ -639,18 +627,18 @@
         },
         "/consumer/paymant/receiver/{receriver_id}/": {
             "get": {
-                "servers": [
-                    {
-                        "url": "http://localhost:8080",
-                        "description": "Development"
-                    },
-                    {
-                        "url": " https://www.cookinat.com",
-                        "description": "Production"
-                    }
-                ],
                 "tags": [
                     "Payment"
+                ],
+                "parameters": [
+                    {
+                        "name": "receriver_id",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "in": "path",
+                        "required": true
+                    }
                 ],
                 "responses": {
                     "200": {
@@ -669,6 +657,10 @@
             "parameters": [
                 {
                     "name": "receriver_id",
+                    "schema": {
+                        "format": "int32",
+                        "type": "integer"
+                    },
                     "in": "path",
                     "required": true
                 }
