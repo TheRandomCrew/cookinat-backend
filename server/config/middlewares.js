@@ -10,8 +10,9 @@ const logger = require('../util/logger');
 
 /** Config for limit requets */
 const limiter = rateLimit({
-  windowMs: 5 * 60 * 1000, /** 5 min */
-  max: 100 /** limit each IP to 100 requests per windowMs */
+    windowMs: 5 * 60 * 1000,
+    /** 5 min */
+    max: 100 /** limit each IP to 100 requests per windowMs */
 });
 /** Contains the boot mode of the app */
 const isProduction = process.env.NODE_ENV === 'production';
@@ -19,9 +20,9 @@ const isProduction = process.env.NODE_ENV === 'production';
 const allowedOrigins = process.env.APP_URLS.split(',');
 
 module.exports = (app) => {
-/** Enable if you're behind a reverse proxy (Heroku in our case)
-*   see https://expressjs.com/en/guide/behind-proxies.html 
-*/
+    /** Enable if you're behind a reverse proxy (Heroku in our case)
+     *   see https://expressjs.com/en/guide/behind-proxies.html 
+     */
     app.set('trust proxy', 1);
     /** Recommended for safety */
     app.disable('x-powered-by');
@@ -36,7 +37,7 @@ module.exports = (app) => {
                 next(null, true);
             } else {
                 const msg = 'The CORS policy for this site does not allow access from the specified Origin: ';
-                next(new Error(msg,origin));
+                next(new Error(msg, origin));
             }
         },
         credentials: true,
@@ -53,9 +54,9 @@ module.exports = (app) => {
     /** Compress the info */
     app.use(compression());
     /** Config for req.body */
-    app.use(bodyParser.json({limit: '5mb'}));
-    app.use(bodyParser.json({type: 'application/vnd.api+json'}));
-    app.use(bodyParser.urlencoded({extended: true}));
+    app.use(bodyParser.json({ limit: '5mb', type: 'application/vnd.api+json' }));
+    //app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+    app.use(bodyParser.urlencoded({ extended: true }));
     /** In production redirect to https */
     app.use((req, res, next) => {
         /** The X-Forwarded-Proto (XFP) header is a de-facto standard header for identifying the protocol (HTTP or HTTPS) that a client used to connect to your proxy */
@@ -66,9 +67,9 @@ module.exports = (app) => {
         }
     });
     /** In development mode use errorHandler Middleware */
-    if(!isProduction) {
+    if (!isProduction) {
         /** errorHandler provider a improved context of the error for the user and server */
-        app.use(errorHandler({log: errorNotification}));
+        app.use(errorHandler({ log: errorNotification }));
     }
     /** Format error notification and pass the error at logger */
     function errorNotification(err, str, req) {
@@ -76,9 +77,9 @@ module.exports = (app) => {
         logger.error(title, str);
     };
     /** Pass info of the routes at the logger */
-    app.get('*', function (req, _res, next) {
+    app.get('*', function(req, _res, next) {
         if (process.env.NODE_ENV !== 'production') {
-            logger.info(req.url)
+            logger.info(req.url);
         }
         return next();
     });

@@ -1,13 +1,13 @@
 const axios = require('axios');
 const logger = require('../../util/logger');
-
+/** @module server/database/postgREST/dish */
 module.exports = {
     /**
-     * byParam(key,value);
-     * Request to an external service to consult an especific dish
+     * @function byParam
+     * @description Request to an external service to consult an especific dish
      * 
-     * @param {*} key Field to consult
-     * @param {*} value Value of the especified column
+     * @param {String} key Field to consult
+     * @param {String} value Value of the especified field
      * @returns Returns a promise, if the key value matches with a row's field in DB, it will return an object with the dish found
      *          if there are no matches it will return an empty object
      *          if there is an error it will return an error object
@@ -32,8 +32,8 @@ module.exports = {
         }
     },
     /**
-     * all();
-     * Request to an external service to consult all existing dishes
+     * @function all
+     * @description Request to an external service to consult all existing dishes
      * 
      * @returns Returns a promise, if the request is succesful returns an object with all dishes data
      *          if there is an error in the request it will return an error object
@@ -58,10 +58,10 @@ module.exports = {
         }
     },
     /**
-     * update(input);
-     * Request to an external service to update a dish data
+     * @function update
+     * @description Request to an external service to update a dish data...
      * WARNING: DOESN'T WORKS UPDATES ALL EXISTING PAYMENTS WITH THE SAME DATA
-     * @param {*} input object with update dish data
+     * @param {JSON} input object with update dish data
      * @returns Returns a promise, if the request is succesful returns an object with the updated dish data
      *          if there is an error in the request it will return an error object
      */
@@ -127,10 +127,10 @@ module.exports = {
         }
     },
     /**
-     * create(input);
-     * Request to an external service to create a new dish
+     * @function create
+     * @description Request to an external service to create a new dish
      *
-     * @param {*} input object with new dish data
+     * @param {JSON} input object with new dish data
      * @returns Returns a promise, if the request is succesful returns an object with the new dish data
      *          if there is an error in the request it will return an error object
      */

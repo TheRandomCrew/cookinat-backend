@@ -1,12 +1,14 @@
 const axios = require('axios');
 
+/** @module server/database/postgREST/review */
+
 module.exports = {
     /**
-     * byParam(key,value);
-     * Request to an external service to consult an especific review
+     * @function byParam
+     * @description Request to an external service to consult an especific review
      * 
-     * @param {*} key Field to consult
-     * @param {*} value Value of the especified column
+     * @param {String} key Field to consult
+     * @param {String} value Value of the especified field
      * @returns Returns a promise, if the key value matches with a row's field in DB, it will return an object with the review found
      *          if there are no matches it will return an empty object
      *          if there is an error it will return an error object
@@ -29,8 +31,8 @@ module.exports = {
         }
     },
     /**
-     * all();
-     * Request to an external service to consult all existing reviews
+     * @function all
+     * @description Request to an external service to consult all existing reviews
      * 
      * @returns Returns a promise, if the request is succesful returns an object with all reviews data
      *          if there is an error in the request it will return an error object
@@ -53,10 +55,10 @@ module.exports = {
         }
     },
     /**
-     * withQuery(query);
-     * Request to an external service to consult an especific review, sending an URL query
+     * @function withQuery
+     * @description Request to an external service to consult an especific review, sending an URL query...
      * WARNING: NO MATTER WHAT YOU SEND IN THE QUERY, IT RETURNS ALL REVIEW DATA IN DB
-     * @param {*} query URL query
+     * @param {String} query URL query
      * @returns All review data existing in DB
      */
     withQuery: (query) => {
@@ -77,10 +79,10 @@ module.exports = {
         }
     },
     /**
-     * update(input);
-     * Request to an external service to update a review data
+     * @function update
+     * @description Request to an external service to update a review data...
      * WARNING: DOESN'T WORKS UPDATES ALL EXISTING PAYMENTS WITH THE SAME DATA
-     * @param {*} input object with update review data
+     * @param {JSON} input object with update review data
      * @returns Returns a promise, if the request is succesful returns an object with the updated review data
      *          if there is an error in the request it will return an error object
      */
@@ -134,10 +136,10 @@ module.exports = {
         }
     },
     /**
-     * create(input);
-     * Request to an external service to create a new review
+     * @function create
+     * @description Request to an external service to create a new review
      *
-     * @param {*} input object with new review data
+     * @param {JSON} input object with new review data
      * @returns Returns a promise, if the request is succesful returns an object with the new review data
      *          if there is an error in the request it will return an error object
      */

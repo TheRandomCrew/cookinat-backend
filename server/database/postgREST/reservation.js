@@ -1,12 +1,14 @@
 const axios = require('axios');
 
+/** @module server/database/postgREST/reservation */
+
 module.exports = {
     /**
-     * byParam(key,value);
-     * Request to an external service to consult an especific reservation
+     * @function byParam
+     * @description Request to an external service to consult an especific reservation
      * 
-     * @param {*} key Field to consult
-     * @param {*} value Value of the especified column
+     * @param {String} key Field to consult
+     * @param {String} value Value of the especified field
      * @returns Returns a promise, if the key value matches with a row's field in DB, it will return an object with the reservation found
      *          if there are no matches it will return an empty object
      *          if there is an error it will return an error object
@@ -31,8 +33,8 @@ module.exports = {
         }
     },
     /**
-     * all();
-     * Request to an external service to consult all existing reservations
+     * @function all
+     * @description Request to an external service to consult all existing reservations
      * 
      * @returns Returns a promise, if the request is succesful returns an object with all reservations data
      *          if there is an error in the request it will return an error object
@@ -57,10 +59,10 @@ module.exports = {
         }
     },
     /**
-     * update(input);
-     * Request to an external service to update a reservation data
+     * @function update
+     * @description Request to an external service to update a reservation data...
      * WARNING: DOESN'T WORKS UPDATES ALL EXISTING PAYMENTS WITH THE SAME DATA
-     * @param {*} input object with update reservation data
+     * @param {JSON} input object with update reservation data
      * @returns Returns a promise, if the request is succesful returns an object with the updated reservation data
      *          if there is an error in the request it will return an error object
      */
@@ -118,10 +120,10 @@ module.exports = {
         }
     },
     /**
-     * create(input);
-     * Request to an external service to create a new reservation
+     * @function create
+     * @description Request to an external service to create a new reservation
      *
-     * @param {*} input object with new reservation data
+     * @param {JSON} input object with new reservation data
      * @returns Returns a promise, if the request is succesful returns an object with the new reservation data
      *          if there is an error in the request it will return an error object
      */

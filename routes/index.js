@@ -25,7 +25,7 @@ module.exports = (server) => {
 
             }; */
             let ck;
-            ck = await diner.all();
+            //ck = await diner.all();
             //ck = await diner.withQuery('hola');
             //ck = await diner.create(input);
             //ck = await diner.update(input);
@@ -68,7 +68,7 @@ module.exports = (server) => {
             //ck = await diner.findById('36');
             //ck = await diner.remove('email', 'pedro@gmail.com');
             //ck = await diner.byParam('email', 'israellaguan@gmail.com');
-            console.log(ck);
+            //console.log(ck);
             //res.json(JSON.stringify(ck));
 
             res.sendFile('/index.html', { root: path.join(__dirname, '../webpage') });

@@ -10,7 +10,8 @@ const staff = require('./staff');
 const user = require('./user');
 
 /**  
- * Exports all database files to group all functions in just 1 object
+ * @module server/database/postgREST/index
+ * @description Exports all database files to group all functions in just 1 object
  */
 module.exports = {
     claim,

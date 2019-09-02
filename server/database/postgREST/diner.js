@@ -1,12 +1,16 @@
 const axios = require('axios');
 
+/** 
+ *  @module server/database/postgREST/diner
+ */
+
 module.exports = {
     /**
-     * byParam(key,value);
-     * Request to an external service to consult an especific diner
+     * @function byParam
+     * @description Request to an external service to consult an especific diner
      * 
-     * @param {*} key Field to consult
-     * @param {*} value Value of the especified column
+     * @param {String} key Field to consult
+     * @param {String} value Value of the especified field
      * @returns Returns a promise, if the key value matches with a row's field in DB, it will return an object with the diner found
      *          if there are no matches it will return an empty object
      *          if there is an error it will return an error object
@@ -31,8 +35,8 @@ module.exports = {
         }
     },
     /**
-     * all();
-     * Request to an external service to consult all existing diners
+     * @function all
+     * @description Request to an external service to consult all existing diners
      * 
      * @returns Returns a promise, if the request is succesful returns an object with all diners data
      *          if there is an error in the request it will return an error object
@@ -57,10 +61,10 @@ module.exports = {
         }
     },
     /**
-     * update(input);
-     * Request to an external service to update a diner data
+     * @function update
+     * @description Request to an external service to update a diner data...
      * WARNING: DOESN'T WORKS CAN NOT FIND THE DINER TO UPDATE
-     * @param {*} input object with update diner data
+     * @param {JSON} input object with update diner data
      * @returns Returns a promise, if the request is succesful returns an object with the updated diner data
      *          if there is an error in the request it will return an error object
      */
@@ -108,10 +112,10 @@ module.exports = {
         }
     },
     /**
-     * create(input);
-     * Request to an external service to create a new diner
+     * @function create
+     * @description Request to an external service to create a new diner
      *
-     * @param {*} input object with new diner data
+     * @param {JSON} input object with new diner data
      * @returns Returns a promise, if the request is succesful returns an object with the new diner data
      *          if there is an error in the request it will return an error object
      */

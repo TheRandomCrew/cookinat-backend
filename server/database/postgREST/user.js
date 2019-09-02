@@ -1,12 +1,14 @@
 const axios = require('axios');
 
+/** @module server/database/postgREST/user */
+
 module.exports = {
     /**
-     * byParam(key,value);
-     * Request to an external service to consult an especific user
+     * @function byParam
+     * @description Request to an external service to consult an especific user
      * 
-     * @param {*} key Field to consult
-     * @param {*} value Value of the especified field
+     * @param {String} key Field to consult
+     * @param {String} value Value of the especified field
      * @returns Returns a promise, if the key value matches with a row's field in DB, it will return an object with the user found
      *          if there are no matches it will return an empty object
      *          if there is an error it will return an error object
@@ -31,10 +33,10 @@ module.exports = {
         }
     },
     /**
-     * findById(value);
-     * Request to an external service to consult an especific user based on the user_id field
+     * @function findById
+     * @description Request to an external service to consult an especific user based on the user_id field
      * 
-     * @param {*} value Value of the id
+     * @param {String} value Value of the id
      * @returns Returns a promise, if the value matches with an id in DB, it will return an object with the user found
      *          if there are no matches it will return an empty object
      *          if there is an error it will return an error object
@@ -59,10 +61,10 @@ module.exports = {
         }
     },
     /**
-     * findByEmail(value);
-     * Request to an external service to consult an especific user based on the email field
+     * @function findByEmail
+     * @description Request to an external service to consult an especific user based on the email field
      * 
-     * @param {*} value Value of the email
+     * @param {String} value Value of the email
      * @returns Returns a promise, if the value matches with an email in DB, it will return an object with the user found
      *          if there are no matches it will return an empty object
      *          if there is an error it will return an error object
@@ -87,12 +89,12 @@ module.exports = {
         }
     },
     /**
-     * update(key,value,input);
-     * Request to an external service to update an especific user 
+     * @function update
+     * @description Request to an external service to update an especific user... 
      * NOTE: IF THERE ARE NO MATCHES WITH THE KEY VALUE UN DB IT WILL RETURN AN ERROR
-     * @param {*} key Field to consult
-     * @param {*} value Value of the especified field
-     * @param {*} input Update data
+     * @param {String} key Field to consult
+     * @param {String} value Value of the especified field
+     * @param {JSON} input Update data
      * @returns Returns a promise, if the request is succesful returns an object with the updated user data
      *          if there is an error in the request it will return an error object
      */
@@ -186,10 +188,10 @@ module.exports = {
         }
     },
     /**
-     * create(input);
-     * Request to an external service to create a new user
+     * @function create
+     * @description Request to an external service to create a new user
      *
-     * @param {*} input object with new user data
+     * @param {JSON} input object with new user data
      * @returns Returns a promise, if the request is succesful returns an object with the new user data
      *          if there is an error in the request it will return an error object
      */
@@ -283,11 +285,11 @@ module.exports = {
         }
     },
     /**
-     * remove(key,value);
-     * Request to an external service to delete an especified user
+     * @function remove
+     * @description Request to an external service to delete an especified user
      *
-     * @param {*} key Field to consult
-     * @param {*} value Value of the especified field
+     * @param {String} key Field to consult
+     * @param {String} value Value of the especified field
      * @returns Returns a promise, if the request is succesful returns an object with the deleted user data
      *          if there are no matches in DB it returns an empty array
      *          if there is an error in the request it will return an error object
@@ -318,8 +320,8 @@ module.exports = {
         }
     },
     /**
-     * all();
-     * Request to an external service to consult all existing users
+     * @function all
+     * @description Request to an external service to consult all existing users
      * 
      * @returns Returns a promise, if the request is succesful returns an object with all users data
      *          if there is an error in the request it will return an error object
