@@ -5,10 +5,10 @@ const axios = require('axios');
 module.exports = {
     /**
      * @function byParam
-     * @description Request to an external service to consult an especific user
+     * @description Request to an external service to consult an specific user
      * 
      * @param {String} key Field to consult
-     * @param {String} value Value of the especified field
+     * @param {String} value Value of the specified field
      * @returns Returns a promise, if the key value matches with a row's field in DB, it will return an object with the user found
      *          if there are no matches it will return an empty object
      *          if there is an error it will return an error object
@@ -34,7 +34,7 @@ module.exports = {
     },
     /**
      * @function findById
-     * @description Request to an external service to consult an especific user based on the user_id field
+     * @description Request to an external service to consult an specific user based on the user_id field
      * 
      * @param {String} value Value of the id
      * @returns Returns a promise, if the value matches with an id in DB, it will return an object with the user found
@@ -62,7 +62,7 @@ module.exports = {
     },
     /**
      * @function findByEmail
-     * @description Request to an external service to consult an especific user based on the email field
+     * @description Request to an external service to consult an specific user based on the email field
      * 
      * @param {String} value Value of the email
      * @returns Returns a promise, if the value matches with an email in DB, it will return an object with the user found
@@ -90,10 +90,10 @@ module.exports = {
     },
     /**
      * @function update
-     * @description Request to an external service to update an especific user... 
+     * @description Request to an external service to update an specific user... 
      * NOTE: IF THERE ARE NO MATCHES WITH THE KEY VALUE UN DB IT WILL RETURN AN ERROR
      * @param {String} key Field to consult
-     * @param {String} value Value of the especified field
+     * @param {String} value Value of the specified field
      * @param {JSON} input Update data
      * @returns Returns a promise, if the request is succesful returns an object with the updated user data
      *          if there is an error in the request it will return an error object
@@ -286,10 +286,10 @@ module.exports = {
     },
     /**
      * @function remove
-     * @description Request to an external service to delete an especified user
+     * @description Request to an external service to delete an specified user
      *
      * @param {String} key Field to consult
-     * @param {String} value Value of the especified field
+     * @param {String} value Value of the specified field
      * @returns Returns a promise, if the request is succesful returns an object with the deleted user data
      *          if there are no matches in DB it returns an empty array
      *          if there is an error in the request it will return an error object

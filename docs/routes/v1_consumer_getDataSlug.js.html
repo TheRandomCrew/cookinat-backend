@@ -1,25 +1,61 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="utf-8">
-    <title>JSDoc: Source: v1/consumer/getDataSlug.js</title>
+    <title>JSDoc: v1/consumer/getDataSlug.js</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link href="https://fonts.googleapis.com/css?family=Muli:100,400,700|Oswald:300|Inconsolata,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/app.min.css">
 </head>
 
 <body>
-
-<div id="main">
-
-    <h1 class="page-title">Source: v1/consumer/getDataSlug.js</h1>
-
-    
+    <div id="stickyNavbarOverlay"></div>
+    <div class="top-navbar">
+        <div class="container">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    
+                    
+                        <h1 class="navbar-item">Documentation</h1>
+                    
+                    <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+                
+            </nav>
+        </div>
+    </div>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3" id="sidebarNav">
+                <div class="sidebar">
+                    <nav>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-routes_index.html">routes/index</a></li><li><a href="module-routes_system_index.html">routes/system/index</a></li><li><a href="module-routes_v1_consumer_getDataSlug.html">routes/v1/consumer/getDataSlug</a></li><li><a href="module-routes_v1_consumer_index.html">routes/v1/consumer/index</a></li><li><a href="module-routes_v1_util_responseMessages.html">routes/v1/util/responseMessages</a></li></ul></div>
+                    </nav>
+                </div>
+            </div>
+            <div class="column is-9-desktop">
+                <div class="content" id="main-content-wrapper">
+                    <header class="page-title">
+                        <p>Source</p>
+                        <h1>v1/consumer/getDataSlug.js</h1>
+                    </header>
+                    
+                    
 
 
 
@@ -29,21 +65,23 @@
             <pre class="prettyprint source linenums"><code>const responseMsgs = require('../util/responseMessages');
 const logger = require('../../../server/util/logger');
 
+/** @module routes/v1/consumer/getDataSlug */
+
 module.exports = async(req, res) => {
     /** Handler uri and param for get data */
-    const {varMain, varFind, valMain} = getParam(req)
-    /** Call dinamicaly at the methods model of data base */
+    const { varMain, varFind, valMain } = getParam(req)
+        /** Call dinamicaly at the methods model of data base */
     const { all, byParam } = require(`../../../server/database/postgREST/${varMain}`);
 
     try {
         let nameData = [];
         /** Verify if need all or filtered data */
-        valMain === null ?(
+        valMain === null ? (
             nameData = await all()
-            ):(
-            nameData = await byParam(`${varFind}`,valMain)
+        ) : (
+            nameData = await byParam(`${varFind}`, valMain)
         )
-        
+
         /** If we not have data, we send the error */
         if (!nameData) {
             throw Error(`There was a problem getting ${nameData} on DB. Please try again or contact support.`)
@@ -56,75 +94,72 @@ module.exports = async(req, res) => {
     } catch (error) {
         return res.status(500).json({
             ...responseMsgs[500],
-            errors: [{error: error.message, trace: error.trace}]
+            errors: [{ error: error.message, trace: error.trace }]
         });
     }
 };
 
-function getParam(req){
+function getParam(req) {
     /** We capture the uri separately por '/' in the array  */
     const auxArray = req.url.split('/');
     /** Clear array */
-    const uriArray = auxArray.filter( e => e !== "");
+    const uriArray = auxArray.filter(e => e !== "");
     /** We capture the param if exist */
     const { params } = req;
     logger.info(`--${JSON.stringify(params)}--&amp;&amp;--${uriArray}--With--${uriArray.length}--`)
-    /** 
-    * if params exist and params is not empty the uri have a slug
-    *
-    * if our uri have three levels
-    * /lv_1/lv_2/:slug_id
-    * varMain:slug
-    * varFind:lv_2_id
-    * valMain:slug_val
-    * 
-    * if our uri have four levels
-    * /lv_1/lv_2/lv_3/:slug
-    * varMain:lv_2
-    * varFind:lv_3
-    * valMain:slug_val
-    * 
-    * if params no exist then the final level uri is a 'all' or other require
-    * if it is all then valMain:null indicate
-    */
+        /** 
+         * if params exist and params is not empty the uri have a slug
+         *
+         * if our uri have three levels
+         * /lv_1/lv_2/:slug_id
+         * varMain:slug
+         * varFind:lv_2_id
+         * valMain:slug_val
+         * 
+         * if our uri have four levels
+         * /lv_1/lv_2/lv_3/:slug
+         * varMain:lv_2
+         * varFind:lv_3
+         * valMain:slug_val
+         * 
+         * if params no exist then the final level uri is a 'all' or other require
+         * if it is all then valMain:null indicate
+         */
 
-    if(params &amp;&amp; Object.keys(params).length !== 0 ){
-        if(uriArray.length === 3){
+    if (params &amp;&amp; Object.keys(params).length !== 0) {
+        if (uriArray.length === 3) {
             const dataParams = {
                 varMain: Object.keys(params)[0].split('_')[0],
-                varFind:`${ uriArray[uriArray.length - 2]}_id`,
+                varFind: `${ uriArray[uriArray.length - 2]}_id`,
                 valMain: params[Object.keys(params)[0]]
             }
             logger.error("---HII---")
             return dataParams
-        }
-        else if(uriArray.length === 4){
+        } else if (uriArray.length === 4) {
             const dataParams = {
-                varMain:uriArray[uriArray.length - 3],
-                varFind:`${uriArray[uriArray.length - 2]}_id`,
-                valMain:params[Object.keys(params)[0]]
-            }
-            /** in the tables buyer and receiver not finish in the _id */
-            if(uriArray[uriArray.length - 2] === 'buyer') dataParams.varFind = 'buyer';
-            if(uriArray[uriArray.length - 2] === 'receiver') dataParams.varFind = 'receiver';
+                    varMain: uriArray[uriArray.length - 3],
+                    varFind: `${uriArray[uriArray.length - 2]}_id`,
+                    valMain: params[Object.keys(params)[0]]
+                }
+                /** in the tables buyer and receiver not finish in the _id */
+            if (uriArray[uriArray.length - 2] === 'buyer') dataParams.varFind = 'buyer';
+            if (uriArray[uriArray.length - 2] === 'receiver') dataParams.varFind = 'receiver';
             return dataParams
-        }
-        else{
-            logger.error(`-----Error in the process for uri------`)    
+        } else {
+            logger.error(`-----Error in the process for uri------`)
         }
     }
     /** final uri level not should be a number */
-    else if(!(/^\+?(0|[1-9]\d*)$/.test(uriArray[uriArray.length - 1]))){            
-        if(uriArray[uriArray.length - 1] === 'all'){
+    else if (!(/^\+?(0|[1-9]\d*)$/.test(uriArray[uriArray.length - 1]))) {
+        if (uriArray[uriArray.length - 1] === 'all') {
             const dataParams = {
-                varMain:uriArray[uriArray.length - 2] ,
-                varFind:`${uriArray[uriArray.length - 2] }_id`,
-                valMain:null,
+                varMain: uriArray[uriArray.length - 2],
+                varFind: `${uriArray[uriArray.length - 2] }_id`,
+                valMain: null,
             }
             return dataParams;
         }
-    }
-    else{
+    } else {
         logger.error(`-----Error in the process for uri------`)
     }
 
@@ -135,19 +170,23 @@ function getParam(req){
 
 
 
-</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#getDataSlug">getDataSlug</a></li><li><a href="global.html#uptime">uptime</a></li></ul>
-</nav>
-
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sun Sep 01 2019 16:15:24 GMT-0400 (GMT-04:00)
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Tue Sep 03 2019 21:48:37 GMT-0400 (GMT-04:00)</p>
+        <p class="sidebar-created-by">
+            <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+            <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>
+        </p>
+    </div>
 </footer>
 
 <script> prettyPrint(); </script>
+<script src="scripts/app.min.js"></script>
 <script src="scripts/linenumber.js"> </script>
 </body>
 </html>

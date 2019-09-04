@@ -4,10 +4,10 @@ const logger = require('../../util/logger');
 module.exports = {
     /**
      * @function byParam
-     * @description Request to an external service to consult an especific dish
+     * @description Request to an external service to consult an specific dish
      * 
      * @param {String} key Field to consult
-     * @param {String} value Value of the especified field
+     * @param {String} value Value of the specified field
      * @returns Returns a promise, if the key value matches with a row's field in DB, it will return an object with the dish found
      *          if there are no matches it will return an empty object
      *          if there is an error it will return an error object

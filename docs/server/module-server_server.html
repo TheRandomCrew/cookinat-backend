@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: server/database/postgREST/index</title>
+    <title>JSDoc: server/server</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -50,7 +50,7 @@
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
                         <p>Module</p>
-                        <h1>server/database/postgREST/index</h1>
+                        <h1>server/server</h1>
                     </header>
                     
                     
@@ -72,7 +72,7 @@
     <div class="container-overview">
     
         
-            <div class="description">Exports all database files to group all functions in just 1 object</div>
+            <div class="description">Initialize certain files to create and configure the server, through the consign() function             it calls the files specifying the order to be executed, and finally sending the express server object             with the .into() function</div>
         
 
         
@@ -123,9 +123,9 @@
 
     
         <p class="tag-source">
-            <a href="database_postgREST_index.js.html" class="button">View Source</a>
+            <a href="server.js.html" class="button">View Source</a>
             <span>
-                <a href="database_postgREST_index.js.html">database/postgREST/index.js</a>, <a href="database_postgREST_index.js.html#line12">line 12</a>
+                <a href="server.js.html">server.js</a>, <a href="server.js.html#line12">line 12</a>
             </span>
         </p>
     
@@ -149,6 +149,11 @@
 
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>consign()         .include('./server/util/logger.js')          .then('./server/config/middlewares.js')         .then('/routes/index.js')         .then('./server/config/boot.js')         .into(app);             </code></pre>
 
 
 

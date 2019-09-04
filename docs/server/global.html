@@ -42,7 +42,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-server_database_postgREST_cook.html">server/database/postgREST/cook</a></li><li><a href="module-server_database_postgREST_diner.html">server/database/postgREST/diner</a></li><li><a href="module-server_database_postgREST_dish.html">server/database/postgREST/dish</a></li><li><a href="module-server_database_postgREST_index.html">server/database/postgREST/index</a></li><li><a href="module-server_database_postgREST_payment.html">server/database/postgREST/payment</a></li><li><a href="module-server_database_postgREST_reservation.html">server/database/postgREST/reservation</a></li><li><a href="module-server_database_postgREST_review.html">server/database/postgREST/review</a></li><li><a href="module-server_database_postgREST_staff.html">server/database/postgREST/staff</a></li><li><a href="module-server_database_postgREST_user.html">server/database/postgREST/user</a></li></ul><h3>Global</h3><ul><li><a href="global.html#allowedOrigins">allowedOrigins</a></li><li><a href="global.html#isProduction">isProduction</a></li><li><a href="global.html#limiter">limiter</a></li><li><a href="global.html#logFormat">logFormat</a></li><li><a href="global.html#max">max</a></li></ul></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-server_database_postgREST_cook.html">server/database/postgREST/cook</a></li><li><a href="module-server_database_postgREST_diner.html">server/database/postgREST/diner</a></li><li><a href="module-server_database_postgREST_dish.html">server/database/postgREST/dish</a></li><li><a href="module-server_database_postgREST_index.html">server/database/postgREST/index</a></li><li><a href="module-server_database_postgREST_payment.html">server/database/postgREST/payment</a></li><li><a href="module-server_database_postgREST_reservation.html">server/database/postgREST/reservation</a></li><li><a href="module-server_database_postgREST_review.html">server/database/postgREST/review</a></li><li><a href="module-server_database_postgREST_staff.html">server/database/postgREST/staff</a></li><li><a href="module-server_database_postgREST_user.html">server/database/postgREST/user</a></li><li><a href="module-server_server.html">server/server</a></li><li><a href="module-server_util_logger.html">server/util/logger</a></li></ul><h3>Global</h3><ul><li><a href="global.html#allowedOrigins">allowedOrigins</a></li><li><a href="global.html#errorNotification">errorNotification</a></li><li><a href="global.html#isProduction">isProduction</a></li><li><a href="global.html#limiter">limiter</a></li><li><a href="global.html#max">max</a></li></ul></div>
                     </nav>
                 </div>
             </div>
@@ -148,7 +148,7 @@
 
 
 <div class="description">
-    Contains the uris allowed for do requets
+    Contains an array with the allowed origins to receive requests
 </div>
 
 
@@ -190,7 +190,7 @@
         <p class="tag-source">
             <a href="config_middlewares.js.html" class="button">View Source</a>
             <span>
-                <a href="config_middlewares.js.html">config/middlewares.js</a>, <a href="config_middlewares.js.html#line20">line 20</a>
+                <a href="config_middlewares.js.html">config/middlewares.js</a>, <a href="config_middlewares.js.html#line28">line 28</a>
             </span>
         </p>
     
@@ -219,7 +219,7 @@
 
 
 <div class="description">
-    Contains the boot mode of the app
+    If the application environment is "production" the value is true             otherwise it's false
 </div>
 
 
@@ -261,7 +261,7 @@
         <p class="tag-source">
             <a href="config_middlewares.js.html" class="button">View Source</a>
             <span>
-                <a href="config_middlewares.js.html">config/middlewares.js</a>, <a href="config_middlewares.js.html#line18">line 18</a>
+                <a href="config_middlewares.js.html">config/middlewares.js</a>, <a href="config_middlewares.js.html#line21">line 21</a>
             </span>
         </p>
     
@@ -290,7 +290,7 @@
 
 
 <div class="description">
-    Config for limit requets
+    Contains a function that returns a RateLimit object
 </div>
 
 
@@ -332,78 +332,7 @@
         <p class="tag-source">
             <a href="config_middlewares.js.html" class="button">View Source</a>
             <span>
-                <a href="config_middlewares.js.html">config/middlewares.js</a>, <a href="config_middlewares.js.html#line12">line 12</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-</div>
-            
-                <div class="member">
-
-<h4 class="name" id="logFormat">
-    
-        
-            <span class='tag'>constant</span>
-        
-    
-    <span class="code-name">
-        logFormat
-    </span>
-</h4>
-
-
-
-
-<div class="description">
-    Give format to the info of the logger
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="util_logger.js.html" class="button">View Source</a>
-            <span>
-                <a href="util_logger.js.html">util/logger.js</a>, <a href="util_logger.js.html#line13">line 13</a>
+                <a href="config_middlewares.js.html">config/middlewares.js</a>, <a href="config_middlewares.js.html#line11">line 11</a>
             </span>
         </p>
     
@@ -470,7 +399,7 @@
         <p class="tag-source">
             <a href="config_middlewares.js.html" class="button">View Source</a>
             <span>
-                <a href="config_middlewares.js.html">config/middlewares.js</a>, <a href="config_middlewares.js.html#line15">line 15</a>
+                <a href="config_middlewares.js.html">config/middlewares.js</a>, <a href="config_middlewares.js.html#line18">line 18</a>
             </span>
         </p>
     
@@ -486,6 +415,181 @@
         </div>
     
 
+    
+        <div class='vertical-section'>
+            <h3 class="title"><span>Methods</span></h3>
+            <div class="members">
+            
+                <div class="member">
+
+    
+    <h4 class="name" id="errorNotification">
+        
+        <span class="code-name">
+            errorNotification<span class="signature">(str, req)</span><span class="type-signature"></span>
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        Function used by errorHandler, writes the error at logger
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>str</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">String</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Error message</td>
+</tr>
+
+
+    
+
+        
+<tr class="deep-level-0">
+  
+      <td class="name"><code>req</code></td>
+  
+
+  <td class="type">
+  
+      
+<span class="param-type">Object</span>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last">Request where the error occurred</td>
+</tr>
+
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="config_middlewares.js.html" class="button">View Source</a>
+            <span>
+                <a href="config_middlewares.js.html">config/middlewares.js</a>, <a href="config_middlewares.js.html#line91">line 91</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+            
+            </div>
+        </div>
     
 
     
@@ -505,7 +609,7 @@
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 02 2019 16:40:34 GMT-0400 (GMT-04:00)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 02 2019 23:30:14 GMT-0400 (GMT-04:00)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>

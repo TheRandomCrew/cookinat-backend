@@ -6,9 +6,9 @@ const logger = require('../../util/logger')
 module.exports = {
     /** 
      * @function byParam
-     * @description Request to an external service to consult an especific cook
+     * @description Request to an external service to consult an specific cook
      * @param {String} key Field to consult
-     * @param {String} value Value of the especified field
+     * @param {String} value Value of the specified field
      * @returns Returns a promise, if the key value matches with a row's field in DB, it will return an object with the cook found
      *          if there are no matches it will return an empty object
      *          if there is an error it will return an error object
@@ -120,7 +120,7 @@ module.exports = {
     },
     /**
      * @function create
-     * @descriptionRequest to an external service to create a new cook
+     * @description Request to an external service to create a new cook
      *
      * @param {JSON} input object with new cook data
      * @returns Returns a promise, if the request is succesful returns an object with the new cook data

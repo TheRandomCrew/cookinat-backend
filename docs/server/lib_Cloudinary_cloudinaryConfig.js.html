@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     
     <meta charset="utf-8">
-    <title>JSDoc: server/database/postgREST/index</title>
+    <title>JSDoc: lib/Cloudinary/cloudinaryConfig.js</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -49,135 +51,47 @@
             <div class="column is-9-desktop">
                 <div class="content" id="main-content-wrapper">
                     <header class="page-title">
-                        <p>Module</p>
-                        <h1>server/database/postgREST/index</h1>
+                        <p>Source</p>
+                        <h1>lib/Cloudinary/cloudinaryConfig.js</h1>
                     </header>
                     
                     
 
 
 
-
-<section>
-
-<header>
     
-        
-            
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const cloudinary = require('cloudinary').v2;
 
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Exports all database files to group all functions in just 1 object</div>
-        
+/** @module server/lib/Cloudinary/cloudinaryConfig */
 
-        
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="database_postgREST_index.js.html" class="button">View Source</a>
-            <span>
-                <a href="database_postgREST_index.js.html">database/postgREST/index.js</a>, <a href="database_postgREST_index.js.html#line12">line 12</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+/* Cloudinary Cookinat's Data */
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
+/**
+ * @function
+ * @description Uploads a file in Cookinat's cloud at Cloudinary
+ *
+ * @param {Object} file
+ * @returns Returns an object containing the URL of the uploaded file and the id
+ */
+exports.uploads = (file) => {
+    return new Promise(resolve => {
+        /* Cloudinary upload function */
+        cloudinary.uploader.upload(file, (result) => {
+            resolve({
+                url: result.url,
+                id: result.public_id
+            })
+        }, { resource_type: "auto" })
+    })
+}</code></pre>
+        </article>
+    </section>
 
 
 

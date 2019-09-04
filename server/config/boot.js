@@ -1,44 +1,77 @@
 'use strict';
 // const fs = require('fs');
-//const http = require('http');
-//const https = require('https');
+const http = require('http');
+const https = require('https');
 const logger = require('../util/logger');
 
-module.exports = (app) => {
-    /**
-     * Create HTTP server.
-     */
+/** @module server/config/boot */
 
-    const httpPort = normalizePort(process.env.PORT_HTTP || 8080);
-    try {
-        if (!httpPort) {
-            throw new Error('Error: El puerto HTTP, no es un numero o es menor que cero');
-        }
-        app.listen(httpPort)
-            .on('error', onError)
-            .on('listening', onListening);
-    } catch (e) {
-        console.log(e.message);
-    }
+
+/**
+ * @function
+ * @description Creates HTTP or HTTPs server, and start to listen for requests
+ * @param {Object} app
+ */
+module.exports = (app) => {
 
     //ACA SE DEBERIA VALIDAR ES SI EXISTE ALGUN CERTIFICADO
     if (process.env.NODE_ENV === 'production') {
+
         /**
-         * Create HTTPS server.
+         * @constant httpsPort 
+         * @type {Number}
+         * @description Contains the port number to listen in the HTTPS context
+         */
+        const httpsPort = normalizePort(process.env.PORT_HTTPS || 8081);
+
+        /** 
+         * @constant options
+         * @type {JSON}
+         * @description Contains options to create HTTPS server
          */
 
-        const httpsPort = normalizePort(process.env.PORT_HTTPS || 8081);
         const options = {
             // cert: fs.readFileSync('cert/cert.pem'),
             // key: fs.readFileSync('cert/key.pem')
         };
-        app.listen(httpsPort)
+
+        //SI EL PUERTO HTTPs ES MENOR QUE CERO O NO ES UN NUMERO EL SERVIDOR NO SE CREARA
+        if (!httpsPort) {
+            throw new Error('Error: El puerto HTTP, no es un numero o es menor que cero');
+        }
+        https.createServer(options, app)
+            .listen(httpsPort)
             .on('error', onError)
             .on('listening', onListening);
+    } else {
+
+        /**
+         * @constant httpPort 
+         * @type {Number}
+         * @description Contains the port number to listen in the HTTP context
+         */
+
+        const httpPort = normalizePort(process.env.PORT_HTTP || 8080);
+        try {
+            //SI EL PUERTO HTTP ES MENOR QUE CERO O NO ES UN NUMERO EL SERVIDOR NO SE CREARA
+            if (!httpPort) {
+                throw new Error('Error: El puerto HTTP, no es un numero o es menor que cero');
+            }
+            http.createServer(app)
+                .listen(httpPort)
+                .on('error', onError)
+                .on('listening', onListening);
+        } catch (e) {
+            console.log(e.message);
+        }
     }
 
     /**
-     * Normalize a port into a number, string, or false.
+     * @function normalizePort
+     * @description Validates if the port value if valid to proceed and create the server
+     *
+     * @param {Number | String} val Port number
+     * @returns If the value is valid returns the port number, otherwise returns false
      */
     function normalizePort(val) {
         const port = parseInt(val, 10);
@@ -57,8 +90,12 @@ module.exports = (app) => {
     }
 
     /**
-     * Event listener for HTTP server "error" event.
+     * @function onError
+     * @description Event listener for HTTP server "error" event, and log it into the Error log file
+     *
+     * @param {Object} error Error object
      */
+
     function onError(error) {
         if (error.syscall !== 'listen') {
             throw error;
@@ -86,7 +123,8 @@ module.exports = (app) => {
     }
 
     /**
-     * Event listener for HTTP server "listening" event.
+     * @function onListening
+     * @description Event listener for HTTP server "listening" event, and log it into the Server log file
      */
     function onListening() {
         const addr = this.address();

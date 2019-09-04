@@ -5,10 +5,10 @@ const axios = require('axios');
 module.exports = {
     /**
      * @function byParam(key,value);
-     * @description Request to an external service to consult an especific staff
+     * @description Request to an external service to consult an specific staff
      * 
      * @param {String} key Field to consult
-     * @param {String} value Value of the especified field
+     * @param {String} value Value of the specified field
      * @returns Returns a promise, if the key value matches with a row's field in DB, it will return an object with the staff found
      *          if there are no matches it will return an empty object
      *          if there is an error it will return an error object
@@ -34,7 +34,7 @@ module.exports = {
     },
     /**
      * @function findByEmail
-     * @description Request to an external service to consult an especific staff based on the email field
+     * @description Request to an external service to consult an specific staff based on the email field
      * 
      * @param {String} value Value of the email
      * @returns Returns a promise, if the value matches with an email in DB, it will return an object with the staff found
@@ -62,10 +62,10 @@ module.exports = {
     },
     /**
      * @function update
-     * @description Request to an external service to update an especific staff... 
+     * @description Request to an external service to update an specific staff... 
      * NOTE: IF THERE ARE NO MATCHES WITH THE KEY VALUE UN DB IT WILL RETURN AN ERROR
      * @param {String} key Field
-     * @param {String} value Value of the especified field
+     * @param {String} value Value of the specified field
      * @param {JSON} input Object with the update staff data
      * @returns Returns a promise, if the request is succesful returns an object with the updated staff data
      *          if there is an error in the request it will return an error object

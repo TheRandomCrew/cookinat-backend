@@ -5,10 +5,10 @@ const axios = require('axios');
 module.exports = {
     /**
      * @function byParam
-     * @description Request to an external service to consult an especific reservation
+     * @description Request to an external service to consult an specific reservation
      * 
      * @param {String} key Field to consult
-     * @param {String} value Value of the especified field
+     * @param {String} value Value of the specified field
      * @returns Returns a promise, if the key value matches with a row's field in DB, it will return an object with the reservation found
      *          if there are no matches it will return an empty object
      *          if there is an error it will return an error object

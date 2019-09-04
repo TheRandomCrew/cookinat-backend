@@ -44,7 +44,7 @@
             <div class="column is-3" id="sidebarNav">
                 <div class="sidebar">
                     <nav>
-                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-server_database_postgREST_cook.html">server/database/postgREST/cook</a></li><li><a href="module-server_database_postgREST_diner.html">server/database/postgREST/diner</a></li><li><a href="module-server_database_postgREST_dish.html">server/database/postgREST/dish</a></li><li><a href="module-server_database_postgREST_index.html">server/database/postgREST/index</a></li><li><a href="module-server_database_postgREST_payment.html">server/database/postgREST/payment</a></li><li><a href="module-server_database_postgREST_reservation.html">server/database/postgREST/reservation</a></li><li><a href="module-server_database_postgREST_review.html">server/database/postgREST/review</a></li><li><a href="module-server_database_postgREST_staff.html">server/database/postgREST/staff</a></li><li><a href="module-server_database_postgREST_user.html">server/database/postgREST/user</a></li></ul><h3>Global</h3><ul><li><a href="global.html#allowedOrigins">allowedOrigins</a></li><li><a href="global.html#isProduction">isProduction</a></li><li><a href="global.html#limiter">limiter</a></li><li><a href="global.html#logFormat">logFormat</a></li><li><a href="global.html#max">max</a></li></ul></div>
+                        <h2><a href="index.html">Home</a></h2><div class="category"><h3>Modules</h3><ul><li><a href="module-server_config_boot.html">server/config/boot</a></li><li><a href="module-server_config_middlewares.html">server/config/middlewares</a></li><li><a href="module-server_database_postgREST_cook.html">server/database/postgREST/cook</a></li><li><a href="module-server_database_postgREST_diner.html">server/database/postgREST/diner</a></li><li><a href="module-server_database_postgREST_dish.html">server/database/postgREST/dish</a></li><li><a href="module-server_database_postgREST_index.html">server/database/postgREST/index</a></li><li><a href="module-server_database_postgREST_payment.html">server/database/postgREST/payment</a></li><li><a href="module-server_database_postgREST_reservation.html">server/database/postgREST/reservation</a></li><li><a href="module-server_database_postgREST_review.html">server/database/postgREST/review</a></li><li><a href="module-server_database_postgREST_staff.html">server/database/postgREST/staff</a></li><li><a href="module-server_database_postgREST_user.html">server/database/postgREST/user</a></li><li><a href="module-server_lib_Cloudinary_cloudinaryConfig.html">server/lib/Cloudinary/cloudinaryConfig</a></li><li><a href="module-server_server.html">server/server</a></li><li><a href="module-server_util_logger.html">server/util/logger</a></li></ul></div>
                     </nav>
                 </div>
             </div>
@@ -62,41 +62,54 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const {createLogger, format, transports} = require('winston');
+            <pre class="prettyprint source linenums"><code>const { createLogger, format, transports } = require('winston');
 const fs = require('fs');
 
 const level = process.env.LOG_LEVEL || 'debug';
 const logDir = 'logs';
 
-/** create file log */
-if (!fs.existsSync(logDir)){
+/** 
+ * @module server/util/logger
+ */
+
+if (!fs.existsSync(logDir)) {
     fs.mkdirSync(logDir);
 }
 
-/** Give format to the info of the logger */
+/** 
+ * @constant logFormat
+ * @type {Format}
+ * @description Sets up format to be sent to the logger object
+ */
+
 const logFormat = format.combine(
-    /** Information in the capital letters */
-    format(info => {
-        info.level = info.level.toUpperCase();
-        return info;
-    })(),
-    /** Show with colors for level */
-    format.colorize({all: true}),
-    /** Define format for data */
-    format.timestamp({
-        format: 'YYYY-MM-DD HH:mm:ss.SSS'
-    }),
-    /** Add tabs for show the info */
-    format.align(),
-    /** Interpolation splat for %d %s-style messages */
-    format.splat(),
-    /** Format for show info */
-    format.printf((info) => {
-        const {timestamp, label, level, group, message, ...args} = info;
-        return `${timestamp}${label ? ` [${label}] ` : ' '}[${level}]:${group ? ` [${group}] ` : ' '}${message} ${Object.keys(args).length ? JSON.stringify(args, null, 2) : ''}`;
+        /** Information in the capital letters */
+        format(info => {
+            info.level = info.level.toUpperCase();
+            return info;
+        })(),
+        /** Show with colors for level */
+        format.colorize({ all: true }),
+        /** Define format for data */
+        format.timestamp({
+            format: 'YYYY-MM-DD HH:mm:ss.SSS'
+        }),
+        /** Add tabs for show the info */
+        format.align(),
+        /** Interpolation splat for %d %s-style messages */
+        format.splat(),
+        /** Format for show info */
+        format.printf((info) => {
+                const { timestamp, label, level, group, message, ...args } = info;
+                return `${timestamp}${label ? ` [${label}] ` : ' '}[${level}]:${group ? ` [${group}] ` : ' '}${message} ${Object.keys(args).length ? JSON.stringify(args, null, 2) : ''}`;
     })
 )
 
+/** 
+ * @constant logger 
+ * @type {winston.Logger}
+ * @description Contains the methods to log the server activity like petitions, errors, etc
+ */
 const logger = createLogger({
     level: level,
     format: logFormat,
@@ -130,9 +143,14 @@ const logger = createLogger({
     exitOnError: true
 });
 
-/** Configure stream */
 logger.stream = {
-    write: (message, encoding) => {
+/**
+ * @function write
+ * @description Writes on a file depending of the status code it contains
+ *
+ * @param {String} message Message to write
+ */
+write: (message) => {
         if (message.indexOf('status: 5') >= 0) {
             logger.error(message.trim());
         } else if (message.indexOf('status: 4') >= 0) {
@@ -143,8 +161,7 @@ logger.stream = {
     }
 };
 
-module.exports = logger;
-</code></pre>
+module.exports = logger;</code></pre>
         </article>
     </section>
 
@@ -158,7 +175,7 @@ module.exports = logger;
 
 <footer class="footer">
     <div class="content has-text-centered">
-        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Mon Sep 02 2019 16:40:34 GMT-0400 (GMT-04:00)</p>
+        <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Tue Sep 03 2019 21:49:12 GMT-0400 (GMT-04:00)</p>
         <p class="sidebar-created-by">
             <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
             <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers</a>
